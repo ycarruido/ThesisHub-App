@@ -1,0 +1,38 @@
+<div class="container-fluid g-0">
+  <app-header (sideNavToggled)="sideNavStatus = $event;"></app-header>
+  <main>
+    <app-sidenav [sideNavStatus]="sideNavStatus" [ngClass]="{'app-sidenav-open': sideNavStatus}">
+    </app-sidenav>
+
+    <div class="display-area p-3" [ngClass]="{'display-area-shrink': sideNavStatus}">
+      <!-- <h3>{{ title }}</h3> -->
+      <router-outlet></router-outlet>
+    </div>
+  </main>
+</div>
+
+
+
+
+
+
+
+
+
+<!-- <div>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand ml-2" href="#">ThesisHub</a>
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a class="nav-link" routerLink="tutorials">Tutorials</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="add">Add</a>
+      </li>
+    </ul>
+  </nav>
+  <div class="container mt-5">
+    <h3>{{ title }}</h3>
+    <router-outlet></router-outlet>
+  </div>
+</div> -->
