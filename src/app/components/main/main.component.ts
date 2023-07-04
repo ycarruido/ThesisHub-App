@@ -3,11 +3,12 @@ import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  selector: 'app-main',
+  templateUrl: './main.component.html',
+  styleUrls: ['./main.component.css']
 })
-export class DashboardComponent implements OnInit {
+export class MainComponent implements OnInit {
+
   constructor(
     private userService: UserService,
     private router: Router
@@ -19,8 +20,9 @@ export class DashboardComponent implements OnInit {
   onClick() {
     this.userService.logout()
       .then(() => {
-        this.router.navigate(['/login']);
+        this.router.navigate(['/register']);
       })
       .catch(error => console.log(error));
   }
+
 }

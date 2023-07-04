@@ -1,0 +1,21 @@
+<div class="register-container">
+    <div style="text-align: center; width: 100%;">
+      <img class="mt-3 mx-auto d-block" src="../../../assets/img/logo.png" alt="Login">
+      <h3 class="mb-4">Registro de usuario</h3>  
+    </div>
+
+    <form [formGroup]="formReg" (ngSubmit)="onSubmit()">
+        <div class="mb-3">
+            <label class="form-label">Email</label>
+            <input type="text" class="form-control" formControlName="email">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Password</label>
+            <input type="password" class="form-control" formControlName="password">
+        </div>
+        <button type="submit" class="btn2">Enviar</button>
+    </form>
+    
+    
+    <!-- <button class="btn btn-outline-primary mt-3 mx-auto d-block" (click)="onClick()">Iniciar sesión con Google</button> -->
+  </div>
