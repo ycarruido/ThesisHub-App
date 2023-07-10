@@ -1,7 +1,7 @@
 import { animate, state,keyframes, style, transition, trigger } from '@angular/animations';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserService } from 'src/app/services/user.service';
+import { LoginService } from 'src/app/services/login.service';
 
 @Component({
   selector: 'app-header',
@@ -33,19 +33,19 @@ userEmail: string | null = null;
 
 highlight: boolean = false;
 
-  constructor(private router:Router, public userService: UserService){
+  constructor(private router:Router, public loginService: LoginService){
 
   }
 
   ngOnInit(): void {
-    // this.userService.getUserData().subscribe(user => {
+    // this.loginService.getUserData().subscribe(user => {
     //   console.log("ddd ",user)
     //   if (user) {
     //     this.userData = user?.email;
     //   }
     // });  
 
-    this.userService.user$.subscribe(user => {
+    this.loginService.user$.subscribe(user => {
       this.userEmail = user ? user.email : null;
     });
   }
@@ -61,7 +61,7 @@ highlight: boolean = false;
   }
 
   logOut() {
-    this.userService.logout()
+    this.loginService.logout()
       .then(() => {
         this.router.navigate(['/login']);
       })

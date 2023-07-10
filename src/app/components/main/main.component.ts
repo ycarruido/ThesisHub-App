@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserService } from 'src/app/services/user.service';
+import { LoginService } from 'src/app/services/login.service';
 
 @Component({
   selector: 'app-main',
@@ -10,7 +10,7 @@ import { UserService } from 'src/app/services/user.service';
 export class MainComponent implements OnInit {
 
   constructor(
-    private userService: UserService,
+    private loginService: LoginService,
     private router: Router
   ) { }
 
@@ -18,7 +18,7 @@ export class MainComponent implements OnInit {
   }
 
   onClick() {
-    this.userService.logout()
+    this.loginService.logout()
       .then(() => {
         this.router.navigate(['/register']);
       })

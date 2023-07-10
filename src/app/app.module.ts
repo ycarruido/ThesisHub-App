@@ -17,6 +17,10 @@ import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
+import { DataTablesModule } from 'angular-datatables';
+
+//Angular Material
+import { ModulosAngularMaterials } from './material.module';
 
 //Authentication
 import { getAuth, provideAuth } from '@angular/fire/auth';
@@ -28,6 +32,7 @@ import { InvoicesComponent } from './components/invoices/invoices.component';
 import { InforComponent } from './components/infor/infor.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { ProjectComponent } from './components/project/project.component';
+import { UserComponent } from './components/user/user.component';
 
 
 @NgModule({
@@ -47,7 +52,8 @@ import { ProjectComponent } from './components/project/project.component';
     InvoicesComponent,
     InforComponent,
     SettingsComponent,
-    ProjectComponent
+    ProjectComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,
@@ -57,6 +63,8 @@ import { ProjectComponent } from './components/project/project.component';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
     BrowserAnimationsModule,
+    DataTablesModule,
+    ModulosAngularMaterials,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
   ],

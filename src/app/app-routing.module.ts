@@ -12,6 +12,7 @@ import { InvoicesComponent } from './components/invoices/invoices.component';
 import { InforComponent } from './components/infor/infor.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { ProjectComponent } from './components/project/project.component';
+import { UserComponent } from './components/user/user.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
@@ -41,6 +42,10 @@ const routes: Routes = [
   },
   { 
     path: 'settings', component: SettingsComponent,
+    ...canActivate(()=> redirectUnauthorizedTo(['/register'])) 
+  },
+  { 
+    path: 'user', component: UserComponent,
     ...canActivate(()=> redirectUnauthorizedTo(['/register'])) 
   },
   { path: 'register', component: RegisterComponent },

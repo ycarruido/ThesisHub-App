@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { UserService } from 'src/app/services/user.service';
+import { LoginService } from 'src/app/services/login.service';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +13,7 @@ export class LoginComponent implements OnInit {
   formLogin: FormGroup;
 
   constructor(
-    private userService: UserService,
+    private loginService: LoginService,
     private router: Router
   ) {
     this.formLogin = new FormGroup({
@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
 
   //con email
   onSubmit() {
-    this.userService.login(this.formLogin.value)
+    this.loginService.login(this.formLogin.value)
       .then(response => {
         console.log(response);
         this.router.navigate(['/dashboard']);
@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
   }
   //con google
   onClick() {
-    this.userService.loginWithGoogle()
+    this.loginService.loginWithGoogle()
       .then(response => {
         console.log(response);
         this.router.navigate(['/dashboard']);

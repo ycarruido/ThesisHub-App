@@ -55,3 +55,12 @@ app-sidenav{
   width: calc(100% - 250px);
   left: 250px;
 }
+
+/* Para las Alertas o notificaciones */
+.alerta{
+  position: fixed;
+
+  max-width: 750px;
+  top: 70px;
+  right: 10px;
+}

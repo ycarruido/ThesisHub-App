@@ -1,0 +1,306 @@
+<!-- Vista de solo lectura  -->
+<div class="register-container" *ngIf="mostrarViewForm">
+  <div class="close-icon">
+    <i class="fas fa-times" (click)="closeview()"></i>
+  </div>
+  <div><h3 style="font-size: 22px; font-weight: bold;">USUARIO</h3></div>
+  <div class="form-group">
+    <label style="font-weight: bold;" for="titulo">Nombre</label>
+    <p class="form-control-static">{{user.name}}</p>
+  </div>
+   <div>
+    <label style="font-weight: bold;" for="bibliografia">Email</label>
+    <p class="form-control-static">{{user.email}}</p>
+  </div>
+   <div class="form-group">
+    <label style="font-weight: bold;" for="carrera">Contraseña</label>
+    <p class="form-control-static">{{user.password}}</p>
+  </div>
+   <div class="form-group">
+    <label style="font-weight: bold;" for="especialidad">Número de Teléfono</label>
+    <p class="form-control-static">{{user.tlf}}</p>
+  </div>
+   <div class="form-group">
+    <label style="font-weight: bold;" for="tema">Número de WhatsApp</label>
+    <p class="form-control-static">{{user.wapp}}</p>
+  </div>
+   <div class="form-group">
+    <label style="font-weight: bold;" for="universidad">País</label>
+    <p class="form-control-static">{{user.country}}</p>
+  </div>
+   <div class="form-group">
+    <label style="font-weight: bold;" for="numero_paginas">Ciudad</label>
+    <p class="form-control-static">{{user.city}}</p>
+  </div>
+   <div class="form-group">
+    <label style="font-weight: bold;" for="entregas">Dirección</label>
+    <p class="form-control-static">{{user.address}}</p>
+  </div>
+   <div class="form-group">
+    <label style="font-weight: bold;" for="descripcion">Tipo de Usuario</label>
+    <p class="form-control-static">{{user.user_type}}</p>
+  </div>
+</div>
+<!-- Vista de solo lectura  -->
+  
+  
+  <!-- Formulario de Usuarios -->
+  <div *ngIf="mostrarForm">
+    <div><h3>{{strtitle}}</h3></div>
+    <div class="register-container">
+      <div>
+        <form #userForm="ngForm">
+          <div class="form-group">
+            <label for="name">Nombre *</label>
+            <input
+              type="text"
+              class="form-control"
+              id="name"
+              required
+              [(ngModel)]="user.name"
+              name="name"
+              #nameField="ngModel"
+            />
+            <div *ngIf="nameField.invalid && (nameField.dirty || nameField.touched)" class="text-danger">
+              El nombre es requerido.
+            </div>
+          </div>
+      
+          <div class="form-group">
+            <label for="email">Email *</label>
+            <input
+              class="form-control"
+              id="email"
+              required
+              [(ngModel)]="user.email"
+              name="email"
+              #email="ngModel"
+              pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}"
+            />
+            <div *ngIf="email.invalid && (email.dirty || email.touched)" class="text-danger">
+              <div *ngIf="email.errors">
+                <small>Se requiere un email válido</small>
+              </div>
+              <!-- <div *ngIf="email.errors[]">
+                <small>Por favor ingrese una dirección de correo válida</small>
+              </div> -->
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="password">Contraseña *</label>
+            <input
+              type="password"
+              class="form-control"
+              id="password"
+              required
+              [(ngModel)]="user.password"
+              name="password"
+            />
+            <div *ngIf="nameField.invalid && (nameField.dirty || nameField.touched)" class="text-danger">
+              Se requiere una Contraseña
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="tlf">Número de Teléfono</label>
+            <input
+              class="form-control"
+              id="tlf"
+              required
+              [(ngModel)]="user.tlf"
+              name="tlf"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="wapp">Número de WhatsApp</label>
+            <input
+              class="form-control"
+              id="wapp"
+              required
+              [(ngModel)]="user.wapp"
+              name="wapp"
+            />
+          </div>
+          <div class="form-group">
+            <label for="country">País</label>
+            <input
+              class="form-control"
+              id="country"
+              [(ngModel)]="user.country"
+              name="country"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="city">Ciudad</label>
+            <input
+              class="form-control"
+              id="city"
+              [(ngModel)]="user.city"
+              name="city"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="address">Dirección</label>
+            <input
+              class="form-control"
+              id="address"
+              [(ngModel)]="user.address"
+              name="address"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="user_type">Tipo de Usuario *</label>
+            <select 
+                class="form-control"
+                id="user_type"
+                required
+                value=selected
+                [(ngModel)]="user.user_type"
+                name="user_type"
+                required
+            >
+                <option selected>
+                    Admin
+                </option>
+                <option selected>
+                    Profesor
+                </option>
+                <option selected>
+                    Cliente
+                </option>
+            </select>
+            <br/>
+            <div *ngIf="nameField.invalid && (nameField.dirty || nameField.touched)" class="text-danger">
+              Se requiere un tipo de usuario
+            </div>
+          </div>
+      
+          <button (click)="saveUser()" type="submit" [disabled]="!userForm.form.valid" class="btn2">Enviar</button>
+        </form>
+      </div>
+    
+      <!-- <div *ngIf="submitted">
+        <h4>¡El usuario se registró con éxito!</h4>
+        <button class="btn2" (click)="newUser()"><i class="fa fa-solid fa-angles-left"></i>Agregar</button>
+      </div>
+      <div *ngIf="edditted">
+        <h4>¡El usuario se modifico con éxito!</h4>
+        <button class="btn2" (click)="moForm()"><i class="fa fa-solid fa-angles-left"></i>Agregar</button>
+      </div> -->
+      <br/><br/>
+    </div>
+  </div>
+  
+
+
+  <!-- Lita - Mat datatable -->
+  <div style="width: 100%; margin-left: 10px; padding-right: 10px; padding-top:5px; padding-bottom: 50px;">
+    <div class="row panel-addh" style="text-align:right;"> 	
+      <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6" style="text-align:left;">
+      
+        <!-- barra para mostrar o ocultar fila -->
+        <div style="margin: 10px;">
+          <div class="row panel-add">
+            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12" (click)="moForm()">
+              <span style="text-decoration: none;color: #dc3545;" *ngIf="!this.mostrarForm" class="btn btn-link"><i class="fa fa-solid fa-circle-plus"></i> Agregar</span>
+              <span style="text-decoration: none;color: #dc3545;" *ngIf="this.mostrarForm" class="btn btn-link"><i class="fa fa-solid fa-circle-minus"></i> </span> 
+            </div>
+          </div>
+        </div>
+      
+      </div>
+      <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6" style="text-align:left;">
+        <div class="form-group" style="padding-top: 3px;">
+          <input
+            matInput (keyup)="applyFilter($event)" 
+            placeholder="Buscar" 
+            #input
+            class="form-control"
+            style="border-color:#dc3545;border-width: 1px;"
+          />
+        </div>
+      </div>
+    </div>
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 table-hover mat-table" matSort class="table">
+      <!-- id Column -->
+			<ng-container matColumnDef="id">
+				<th *matHeaderCellDef mat-sort-header class="mat-header-row" style="text-align: left;">ID </th>
+				<td mat-cell *matCellDef="let element" class="mat-cell">{{element.id}} </td>
+			</ng-container>
+		
+			<!-- name Column -->
+			<ng-container matColumnDef="name">
+				<th *matHeaderCellDef mat-sort-header class="mat-header-row" style="text-align: left;"> NOMBRE </th>
+				<td style="cursor: pointer; text-decoration:underline;" (click)="viewRecod(element)" mat-cell *matCellDef="let element" class="mat-cell"> {{element.name}} </td>
+			</ng-container>
+
+      <!-- email Column -->
+			<ng-container matColumnDef="email">
+				<th *matHeaderCellDef mat-sort-header class="mat-header-row" style="text-align: left;"> EMAIL </th>
+				<td mat-cell *matCellDef="let element" class="mat-cell"> {{element.email}} </td>
+			</ng-container>
+
+      <!-- Name Column -->
+			<ng-container matColumnDef="country">
+				<th *matHeaderCellDef mat-sort-header class="mat-header-row" style="text-align: left;"> PAIS </th>
+				<td mat-cell *matCellDef="let element" class="mat-cell"> {{element.country}} </td>
+			</ng-container>
+
+      <!-- city Column -->
+			<ng-container matColumnDef="city">
+				<th *matHeaderCellDef mat-sort-header class="mat-header-row" style="text-align: left;"> CIUDAD </th>
+				<td mat-cell *matCellDef="let element" class="mat-cell"> {{element.city}} </td>
+			</ng-container>
+
+      <!-- Name Column -->
+			<ng-container matColumnDef="tlf">
+				<th *matHeaderCellDef mat-sort-header class="mat-header-row" style="text-align: left;"> TELEFONO </th>
+				<td mat-cell *matCellDef="let element" class="mat-cell"> {{element.tlf}} </td>
+			</ng-container>
+
+      <!-- wapp Column -->
+			<ng-container matColumnDef="wapp">
+				<th *matHeaderCellDef mat-sort-header class="mat-header-row" style="text-align: left;"> WHATSAPP </th>
+				<td mat-cell *matCellDef="let element" class="mat-cell"> {{element.wapp}} </td>
+			</ng-container>
+
+      <!-- state Column -->
+			<ng-container matColumnDef="state">
+				<th *matHeaderCellDef mat-sort-header class="mat-header-row" style="text-align: left;"> ESTADO </th>
+				<td mat-cell *matCellDef="let element" class="mat-cell"> {{element.state}} </td>
+			</ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+			<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+			
+			<!-- Row shown when there is no matching data. -->
+			<tr class="mat-row" *matNoDataRow>
+				<td class="mat-cell" colspan="9" style="text-align: left;">No hay datos que coincidan con la busqueda</td>
+			</tr>
+	
+			<!-- Symbol Column -->
+			<ng-container matColumnDef="Opc">
+				<th *matHeaderCellDef class="mat-header-row">OPC</th>
+				<td mat-cell *matCellDef="let element index as i">
+					<button class="btn btn-light btn-sm" (click)="editUser(element)" data-toggle="tooltip" data-placement="top" title="Editar elemento">
+            <i class="fa-solid fa-pen" data-toggle="tooltip" data-placement="top" title="Editar elemento"></i>
+          </button>
+					<button class="btn btn-light btn-sm" (click)="removeUsr(element.uid)" style="color: red;"  data-toggle="tooltip" data-placement="top" title="Eliminar elemento">
+					<i class="far fa-trash-alt"  data-toggle="tooltip" data-placement="top" title="Eliminar elemento"></i>
+					</button>
+				</td>
+			</ng-container>
+
+    </table>
+    <mat-paginator #paginator [pageSizeOptions]="[10, 25, 50]" showFirstLastButtons>
+      [intl]="customPaginatorIntl"
+    </mat-paginator>
+  </div>
+
+
+
