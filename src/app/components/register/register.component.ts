@@ -31,7 +31,27 @@ export class RegisterComponent implements OnInit {
         console.log(response);
         this.router.navigate(['/login']);
       })
-      .catch(error => console.log(error));
+      .catch((error: any) => {
+        const errorCode = error.code;
+          let errorMessage = error.message;
+  
+          if (errorCode === 'auth/wrong-password') {
+            this.formReg.setErrors({ wrongPassword: true });
+          } else if (errorCode === 'auth/user-not-found') {
+            this.formReg.setErrors({ userNotFound: true });
+          }else if (errorCode === 'auth/missing-password') {
+            this.formReg.setErrors({ missingPassword: true });
+          }else if (errorCode === 'auth/invalid-email') {
+            this.formReg.setErrors({ invalidEmail: true });
+          }else if (errorCode === 'auth/weak-password') {
+            this.formReg.setErrors({ weakPassword: true });
+          }
+          
+          console.log(errorMessage);
+      });
+
+
+
   }
 
 }

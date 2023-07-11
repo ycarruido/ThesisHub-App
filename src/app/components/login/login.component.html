@@ -7,19 +7,35 @@
   <form [formGroup]="formLogin" (ngSubmit)="onSubmit()" class="login-form">
     <div class="mb-3">
       <label class="form-label">Email</label>
-      <input type="email" class="form-control" formControlName="email">
+      <input required type="email" class="form-control" formControlName="email">
       <span *ngIf="formLogin.get('email')?.hasError('required') && formLogin.get('email')?.touched" class="text-danger errorLabel">
         El <strong>correo</strong> es requerido
       </span>
       <span *ngIf="formLogin.get('email')?.hasError('email') && formLogin.get('email')?.touched" class="text-danger errorLabel">
-          El <strong>correo</strong> es invalido
+        El <strong>correo</strong> es inválido
+      </span>
+      <span *ngIf="formLogin.hasError('invalidEmail')" class="text-danger errorLabel">
+        El <strong>correo</strong> es inválido
+      </span>
+      <span *ngIf="formLogin.hasError('userNotFound')" class="text-danger errorLabel">
+        <strong>Usuario</strong> no encontrado
       </span>
     </div>
     <div class="mb-3">
       <label class="form-label">Contraseña</label>
       <input type="password" class="form-control" formControlName="password">
+      <span *ngIf="formLogin.get('password')?.hasError('required') && formLogin.get('password')?.touched" class="text-danger errorLabel">
+        La <strong>contraseña</strong> es requerida
+      </span>
+      <span *ngIf="formLogin.hasError('wrongPassword')" class="text-danger errorLabel">
+        <strong>Contraseña</strong> incorrecta
+      </span>
+      <span *ngIf="formLogin.hasError('missingPassword')" class="text-danger errorLabel">
+        La <strong>Contraseña</strong> es requerida
+      </span>
     </div>
     <button type="submit" class="btn2">Iniciar sesión</button>
   </form>
   <button class="btn btn-outline-primary mt-3 mx-auto d-block" (click)="onClick()">Iniciar sesión con Google</button>
 </div>
+

@@ -7,6 +7,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { AlertService } from 'src/app/services/alert.service';
+import { LoginService } from 'src/app/services/login.service';
 
 @Component({
   selector: 'app-user',
@@ -19,7 +20,7 @@ export class UserComponent implements OnInit  {
   edditted = false;
   mostrarForm: boolean = false;
   mostrarViewForm: boolean = false;
-
+  currentUserEmail: string | null = null;
   strtitle:string ="Agregar Usuarios";
 
   editing: boolean = false;
@@ -36,7 +37,7 @@ export class UserComponent implements OnInit  {
   @ViewChild(MatPaginator, { static: true }) paginatior !: MatPaginator;
   @ViewChild(MatSort) sort !: MatSort;
 
-  constructor(private userService: UserService, private alertService: AlertService) { }
+  constructor(private loginService: LoginService, private userService: UserService, private alertService: AlertService) { }
 
   //listar
   ngOnInit(): void {
@@ -74,11 +75,20 @@ export class UserComponent implements OnInit  {
   }
 
   async saveUser() {
+    //buscamos el usuario actual
+    this.loginService.user$.subscribe(user => {
+      this.currentUserEmail = user ? user.email : null;
+    });
+
     if (this.editing) {
       try {
+        this.user.LastUpdate =  this.currentDate;
+        this.user.LastUpdateUser =  this.currentUserEmail != null ? this.currentUserEmail : '';
+        
         await this.userService.update(this.user);
         this.edditted = true;
         //llamada a la alerta
+        console.log("Currentuser: ",this.currentUserEmail);
         this.doSomething("update","El usuario se ha modificado correctamente.");
         this.mostrarForm = false;
         // Aquí puedes agregar código para manejar la actualización exitosa, como mostrar un mensaje al usuario
@@ -89,6 +99,8 @@ export class UserComponent implements OnInit  {
       //Crea un nuevo usuario
       //default value
       this.user.registration_date =  this.currentDate;
+      this.user.LastUpdate =  this.currentDate;
+      this.user.LastUpdateUser =  this.currentUserEmail != null ? this.currentUserEmail : '';
       this.user.status =  true;
       this.user.state =  "Activo"; //Activo - Iniactivo - Bloqueado - Suspendido
       this.strtitle = "Agregar Usuarios";

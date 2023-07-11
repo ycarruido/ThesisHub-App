@@ -30,23 +30,21 @@ export class HeaderComponent implements OnInit{
 menuStatus: boolean = false;
 userData: any;
 userEmail: string | null = null;
+userSeudonimo: string | null = null;
 
 highlight: boolean = false;
 
-  constructor(private router:Router, public loginService: LoginService){
+  constructor(private router:Router, public loginService: LoginService){ }
 
-  }
-
-  ngOnInit(): void {
-    // this.loginService.getUserData().subscribe(user => {
-    //   console.log("ddd ",user)
-    //   if (user) {
-    //     this.userData = user?.email;
-    //   }
-    // });  
-
+    ngOnInit(): void {
     this.loginService.user$.subscribe(user => {
       this.userEmail = user ? user.email : null;
+      if (this.userEmail != null){
+        this.userSeudonimo = this.userEmail.substring(0,4);
+      }
+
+      //this.userSeudonimo = this.userEmail != null ? this.userEmail.substring(1, 6) : '';
+
     });
   }
 

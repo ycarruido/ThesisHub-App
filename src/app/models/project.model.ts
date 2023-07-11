@@ -20,6 +20,8 @@ export class ProjectModel {
     Fecha_proxima?: Date;
     factura?: string;
     registration_date?: Date;
+    LastUpdate?: Date;
+	LastUpdateUser?: string;
     status?: boolean;
     state?: string;
 }

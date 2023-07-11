@@ -31,7 +31,7 @@ export class LoginService {
     return signOut(this.auth);
   }
 
-   getCurrentUser(): UserModel | null {
+  getCurrentUser(): UserModel | null {
      const user_string = localStorage.getItem("user");
      if (user_string) {
        const user: UserModel = JSON.parse(user_string);
@@ -39,7 +39,11 @@ export class LoginService {
      } else {
       return null;
      }
-   }
+  }
+
+  getUserObservable(): Observable<User | null> {
+    return this.user$.asObservable();
+  }
  
 
   // getUserData() {

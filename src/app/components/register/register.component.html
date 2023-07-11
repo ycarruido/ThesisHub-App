@@ -8,10 +8,28 @@
         <div class="mb-3">
             <label class="form-label">Email</label>
             <input type="text" class="form-control" formControlName="email">
+            <span *ngIf="formReg.get('email')?.hasError('required') && formReg.get('email')?.touched" class="text-danger errorLabel">
+                El <strong>correo</strong> es requerido
+              </span>
+              <span *ngIf="formReg.get('email')?.hasError('email') && formReg.get('email')?.touched" class="text-danger errorLabel">
+                El <strong>correo</strong> es inválido
+              </span>
+              <span *ngIf="formReg.hasError('invalidEmail')" class="text-danger errorLabel">
+                El <strong>correo</strong> es inválido
+              </span>
         </div>
         <div class="mb-3">
-            <label class="form-label">Password</label>
+            <label class="form-label">Contraseña</label>
             <input type="password" class="form-control" formControlName="password">
+            <span *ngIf="formReg.hasError('wrongPassword')" class="text-danger errorLabel">
+                <strong>Contraseña</strong> incorrecta
+              </span>
+              <span *ngIf="formReg.hasError('missingPassword')" class="text-danger errorLabel">
+                La <strong>Contraseña</strong> es requerida
+              </span>
+              <span *ngIf="formReg.hasError('weakPassword')" class="text-danger errorLabel">
+                La <strong>Contraseña</strong> debe tener al menos 6 caracteres
+              </span>
         </div>
         <button type="submit" class="btn2">Enviar</button>
     </form>

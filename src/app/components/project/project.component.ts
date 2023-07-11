@@ -7,6 +7,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { AlertService } from 'src/app/services/alert.service';
 import { Timestamp } from 'firebase/firestore';
+import { LoginService } from 'src/app/services/login.service';
 
 @Component({
   selector: 'app-project',
@@ -19,6 +20,7 @@ export class ProjectComponent implements OnInit{
   edditted = false;
   mostrarForm: boolean = false;
   mostrarViewForm: boolean = false;
+  currentUserEmail: string | null = null;
   strtitle:string ="AGREGAR PROYECTOS";
 
   //bibliografias
@@ -47,7 +49,7 @@ export class ProjectComponent implements OnInit{
   @ViewChild(MatPaginator, { static: true }) paginatior !: MatPaginator;
   @ViewChild(MatSort) sort !: MatSort;
 
-  constructor(private projectService: ProjectService, private alertService: AlertService) { }
+  constructor(private loginService: LoginService, private projectService: ProjectService, private alertService: AlertService) { }
 
   //listar
   ngOnInit(): void {
@@ -93,8 +95,16 @@ export class ProjectComponent implements OnInit{
   }
 
   async saveProject() {
+    //buscamos el usuario actual
+    this.loginService.user$.subscribe(user => {
+      this.currentUserEmail = user ? user.email : null;
+    });
+
     if (this.editing) {
       try {
+        this.project.LastUpdate =  this.currentDate;
+        this.project.LastUpdateUser =  this.currentUserEmail != null ? this.currentUserEmail : '';
+        
         await this.projectService.update(this.project);
         this.edditted = true;
         //llamada a la alerta
@@ -108,6 +118,8 @@ export class ProjectComponent implements OnInit{
       //Crea un nuevo proyecto
       //default value
       this.project.registration_date =  this.currentDate;
+      this.project.LastUpdate =  this.currentDate;
+      this.project.LastUpdateUser =  this.currentUserEmail != null ? this.currentUserEmail : '';        
       this.project.status =  true;
       this.project.state =  "Activo"; //Activo - Iniactivo - Bloqueado - Suspendido
       this.strtitle = "AGREGAR PROYECTOS";
