@@ -86,7 +86,7 @@ export class ProjectComponent implements OnInit{
     this.project.fecha_inicio = this.timestampConvert(projectUp.fecha_inicio);
     this.project.fecha_entrega = this.timestampConvert(projectUp.fecha_entrega);
     this.project.ultima_entrega = this.timestampConvert(projectUp.ultima_entrega);
-    this.project.Fecha_proxima = this.timestampConvert(projectUp.Fecha_proxima);
+    this.project.fecha_proxima = this.timestampConvert(projectUp.fecha_proxima);
 
     this.mostrarForm=true;
     this.mostrarViewForm=false;
@@ -102,8 +102,8 @@ export class ProjectComponent implements OnInit{
 
     if (this.editing) {
       try {
-        this.project.LastUpdate =  this.currentDate;
-        this.project.LastUpdateUser =  this.currentUserEmail != null ? this.currentUserEmail : '';
+        this.project.lastUpdate =  this.currentDate;
+        this.project.lastUpdateUser =  this.currentUserEmail != null ? this.currentUserEmail : '';
         
         await this.projectService.update(this.project);
         this.edditted = true;
@@ -118,8 +118,8 @@ export class ProjectComponent implements OnInit{
       //Crea un nuevo proyecto
       //default value
       this.project.registration_date =  this.currentDate;
-      this.project.LastUpdate =  this.currentDate;
-      this.project.LastUpdateUser =  this.currentUserEmail != null ? this.currentUserEmail : '';        
+      this.project.lastUpdate =  this.currentDate;
+      this.project.lastUpdateUser =  this.currentUserEmail != null ? this.currentUserEmail : '';        
       this.project.status =  true;
       this.project.state =  "Activo"; //Activo - Iniactivo - Bloqueado - Suspendido
       this.strtitle = "AGREGAR PROYECTOS";

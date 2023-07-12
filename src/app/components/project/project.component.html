@@ -1,10 +1,19 @@
 
 <!-- Vista de solo lectura  -->
 <div class="register-container" *ngIf="mostrarViewForm">
-  <div class="close-icon">
-    <i class="fas fa-times" (click)="closeview()"></i>
+
+  <div class="row">
+    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
+      <div><h3 style="font-size: 22px; font-weight: bold;">DATOS DEL PROYECTO</h3></div>
+    </div>
+    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
+      <div class="close-icon">
+        <i class="fas fa-times" (click)="closeview()"></i>
+      </div>
+    </div>
   </div>
-  <div><h3 style="font-size: 22px; font-weight: bold;">PROYECTO</h3></div>
+
+  <div><h3 style="font-size: 22px; font-weight: bold;"></h3></div>
   <div class="form-group">
     <label style="font-weight: bold;" for="titulo">Titulo *</label>
     <p class="form-control-static">{{project.titulo}}</p>
@@ -67,7 +76,7 @@
   </div>
    <div class="form-group">
     <label style="font-weight: bold;">Fecha proxima entrega</label>
-    <p class="form-control-static">{{ formatDate(timestampConvert(project.Fecha_proxima)) }}</p>
+    <p class="form-control-static">{{ formatDate(timestampConvert(project.fecha_proxima)) }}</p>
   </div>
    <div class="form-group">
     <label style="font-weight: bold;" for="factura">Factura</label>
@@ -80,12 +89,20 @@
 
   <!-- Formulario de Usuarios -->
   <div *ngIf="mostrarForm">
-    <div class="close-icon">
-        <i class="fas fa-times" (click)="closeview()"></i>
-    </div>
 
     <div class="register-container">
-      <div><h3 style="font-size: 22px; font-weight: bold;">{{strtitle}}</h3></div>
+
+      <div class="row">
+        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
+          <div><h3 style="font-size: 22px; font-weight: bold;">{{strtitle}}</h3></div>
+        </div>
+        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
+          <div class="close-icon">
+            <i class="fas fa-times" (click)="closeview()"></i>
+          </div>
+        </div>
+      </div>
+
       <div>
         <form #projectForm="ngForm">
           <div class="form-group">
@@ -295,9 +312,9 @@
                     [matDatepicker]="picker4" 
                     placeholder="Seleccionar fecha"
                     class="form-control"
-                    id="Fecha_proxima"
-                    [(ngModel)]="project.Fecha_proxima"
-                    name="Fecha_proxima"
+                    id="fecha_proxima"
+                    [(ngModel)]="project.fecha_proxima"
+                    name="fecha_proxima"
                 >
                 <mat-hint>dd/mm/yyyy</mat-hint>
                 <mat-datepicker-toggle matIconSuffix [for]="picker4"></mat-datepicker-toggle>

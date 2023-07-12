@@ -1,12 +1,18 @@
 <div class="side-nav-content">
     <ul class="nav-list" [ngClass]="{'nav-list-open': sideNavStatus, 'nav-list-close': !sideNavStatus}">
         
-            <li class="nav-list-item" *ngFor="let item of list">
+            <!-- <li class="nav-list-item" *ngFor="let item of list">
                 <a href="#" [routerLink]="[item.routeLink]">
                     <i class="{{item.icon}}"></i>
                     <span>
                         {{item.name}}
                     </span>
+                </a>
+            </li> -->
+            <li class="nav-list-item" *ngFor="let item of list" [ngClass]="{'selected': item.selected}">
+                <a href="#" [routerLink]="[item.routeLink]" (click)="selectItem(item)">
+                    <i class="{{item.icon}}"></i>
+                    <span>{{item.name}}</span>
                 </a>
             </li>
         

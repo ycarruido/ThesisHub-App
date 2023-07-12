@@ -17,11 +17,11 @@ export class ProjectModel {
     monto_recibido?: number;
     porcentaje_a_realizar?: number;
     ultima_entrega?: Date;
-    Fecha_proxima?: Date;
+    fecha_proxima?: Date;
     factura?: string;
     registration_date?: Date;
-    LastUpdate?: Date;
-	LastUpdateUser?: string;
+    lastUpdate?: Date;
+	lastUpdateUser?: string;
     status?: boolean;
     state?: string;
 }

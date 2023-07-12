@@ -119,10 +119,10 @@
 }
 
 .close-icon {
-  position: absolute;
-  top: 25px;
-  right: 480px;
+  /* top: 25px;
+  right: 480px; */
   cursor: pointer;
+  text-align: right;
 }
 
 .close-icon i {

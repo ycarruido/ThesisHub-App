@@ -8,9 +8,6 @@ import { environment } from '../environments/environment';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AddTutorialComponent } from './components/add-tutorial/add-tutorial.component';
-import { TutorialDetailsComponent } from './components/tutorial-details/tutorial-details.component';
-import { TutorialsListComponent } from './components/tutorials-list/tutorials-list.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { HeaderComponent } from './components/header/header.component';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
@@ -38,9 +35,6 @@ import { UserComponent } from './components/user/user.component';
 @NgModule({
   declarations: [
     AppComponent,
-    AddTutorialComponent,
-    TutorialDetailsComponent,
-    TutorialsListComponent,
     DashboardComponent,
     HeaderComponent,
     SidenavComponent,

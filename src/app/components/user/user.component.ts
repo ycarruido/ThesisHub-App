@@ -82,8 +82,8 @@ export class UserComponent implements OnInit  {
 
     if (this.editing) {
       try {
-        this.user.LastUpdate =  this.currentDate;
-        this.user.LastUpdateUser =  this.currentUserEmail != null ? this.currentUserEmail : '';
+        this.user.lastUpdate =  this.currentDate;
+        this.user.lastUpdateUser =  this.currentUserEmail != null ? this.currentUserEmail : '';
         
         await this.userService.update(this.user);
         this.edditted = true;
@@ -99,8 +99,8 @@ export class UserComponent implements OnInit  {
       //Crea un nuevo usuario
       //default value
       this.user.registration_date =  this.currentDate;
-      this.user.LastUpdate =  this.currentDate;
-      this.user.LastUpdateUser =  this.currentUserEmail != null ? this.currentUserEmail : '';
+      this.user.lastUpdate =  this.currentDate;
+      this.user.lastUpdateUser =  this.currentUserEmail != null ? this.currentUserEmail : '';
       this.user.status =  true;
       this.user.state =  "Activo"; //Activo - Iniactivo - Bloqueado - Suspendido
       this.strtitle = "Agregar Usuarios";

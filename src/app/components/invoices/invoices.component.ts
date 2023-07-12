@@ -1,4 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { InvoiceModel } from 'src/app/models/invoice.model';
+import { InvoiceService } from 'src/app/services/invoice.service';
+import { map } from 'rxjs/operators';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import { AlertService } from 'src/app/services/alert.service';
+import { Timestamp } from 'firebase/firestore';
+import { LoginService } from 'src/app/services/login.service';
 
 @Component({
   selector: 'app-invoices',
@@ -6,5 +15,226 @@ import { Component } from '@angular/core';
   styleUrls: ['./invoices.component.css']
 })
 export class InvoicesComponent {
+  currentDate: Date = new Date;
+  invoice: InvoiceModel = new InvoiceModel();
+  edditted = false;
+  mostrarForm: boolean = false;
+  mostrarViewForm: boolean = false;
+  currentUserEmail: string | null = null;
+  strtitle:string ="AGREGAR FACTURA";
 
+  //bibliografias
+  options: string[] = [
+    'PayPal', 
+    'Payoneer', 
+    'Transferencia $'
+  ];
+
+  editing: boolean = false;
+
+  //listar
+  invoices?: InvoiceModel[];
+  currentInvoice?: InvoiceModel;
+  currentIndex = -1;
+  title = '';
+  
+  //mat datatable
+  dataSource: any;
+  displayedColumns: string[] = ["invoice_id", "numeroFactura", "paymentMethod", "fechaEmision","subtotal", "impuestos", "montoTotal", "nombreProyecto", "status", "Opc"];
+  @ViewChild(MatPaginator, { static: true }) paginatior !: MatPaginator;
+  @ViewChild(MatSort) sort !: MatSort;
+
+  constructor(private loginService: LoginService, private invoiceService: InvoiceService, private alertService: AlertService) { }
+
+  //listar
+  ngOnInit(): void {
+    this.retrieveInvoices();
+
+    //Personaliza el paginador de mat datatable, con textos en espanol
+    this.paginatior._intl.itemsPerPageLabel="Elementos por página";
+    this.paginatior._intl.firstPageLabel="Primera Página"
+    this.paginatior._intl.lastPageLabel="Última Página"
+    this.paginatior._intl.nextPageLabel="Siguiente"
+    this.paginatior._intl.previousPageLabel="Anterior"
+    this.paginatior._intl.getRangeLabel = (page: number, pageSize: number, length: number) => {
+      if (length === 0 || pageSize === 0) {
+        return `0 de ${length}`;
+      }
+  
+      length = Math.max(length, 0);
+      const startIndex = page * pageSize;
+      const endIndex =
+        startIndex < length
+          ? Math.min(startIndex + pageSize, length)
+          : startIndex + pageSize;
+  
+      return `${startIndex + 1} - ${endIndex} de ${length}`;
+    };
+    //Personaliza el paginador de mat datatable, con textos en espanol
+
+  }//end ngOnInit
+
+  editInvoice(invoiceUp: InvoiceModel) {
+    this.editing = true;
+    this.invoice = invoiceUp;
+
+    this.invoice.fechaEmision = this.timestampConvert(invoiceUp.fechaEmision);
+
+    this.mostrarForm=true;
+    this.mostrarViewForm=false;
+    this.strtitle = "MODIFICAR FACTURA"
+    console.log("Element: ",invoiceUp)
+  }
+
+  async saveInvoice() {
+    //buscamos el usuario actual
+    this.loginService.user$.subscribe(user => {
+      this.currentUserEmail = user ? user.email : null;
+    });
+
+    if (this.editing) {
+      try {
+        this.invoice.lastUpdate =  this.currentDate;
+        this.invoice.lastUpdateUser =  this.currentUserEmail != null ? this.currentUserEmail : '';
+        
+        await this.invoiceService.update(this.invoice);
+        this.edditted = true;
+        //llamada a la alerta
+        this.doSomething("update","La factura se ha modificado correctamente.");
+        this.mostrarForm = false;
+        // Aquí puedes agregar código para manejar la actualización exitosa, 
+      } catch (error) {
+        console.error('Error al actualizar el factura:', error);
+      }
+    } else {
+      //Crea un nuevo factura
+      //default value
+      this.invoice.registration_date =  this.currentDate;
+      this.invoice.lastUpdate =  this.currentDate;
+      this.invoice.lastUpdateUser =  this.currentUserEmail != null ? this.currentUserEmail : '';        
+      this.invoice.status =  true;
+      this.strtitle = "AGREGAR FACTURA";
+
+      this.invoiceService.create(this.invoice).then(() => {
+        console.log('¡Se ha enviado con éxito!');
+        this.mostrarForm = false;
+        //llamada a la alerta
+        this.doSomething("create","La factura se ha creado correctamente.");
+      });
+    }//end if (this.editing)
+  }//end saveInvoice
+
+  newInvoice(): void {
+    this.edditted = false;
+    this.invoice = new InvoiceModel();
+    this.editing = false;
+    this.invoice.uid = "";
+    this.strtitle = "AGREGAR FACTURA"
+  }//end newInvoice
+
+  refreshList(): void {
+    this.currentInvoice = undefined;
+    this.currentIndex = -1;
+    this.retrieveInvoices();
+  }//end refreshList
+
+  retrieveInvoices(): void {
+    this.invoiceService.getAll().snapshotChanges().pipe(
+      map(changes =>
+        changes.map(c =>
+          ({ id: c.payload.doc.id, ...c.payload.doc.data() })
+        )
+      )
+    ).subscribe(data => {
+      this.invoices = data;
+      //ELEMENT_DATA FOR MAT DATATABLE
+      this.dataSource = new MatTableDataSource(this.invoices);
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginatior;
+
+    });    
+  }//end retrieveInvoices
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }//end applyFilter
+
+  setActiveInvoice(invoice: InvoiceModel, index: number): void {
+    this.currentInvoice = invoice;
+    this.currentIndex = index;
+  }//end setActiveInvoice
+
+  removeUsr(uid:string){
+    this.invoiceService.delete(uid)
+    this.doSomething("delete","La factura se ha eliminado correctamente.");
+    this.mostrarForm = false;
+  }
+
+  viewRecod(invoiceRe: InvoiceModel){
+    this.invoice = invoiceRe;
+    this.mostrarForm=false;
+    this.mostrarViewForm=true;
+  }
+  closeview(){
+    this.mostrarForm=false;
+    this.mostrarViewForm=false;
+  }
+
+  moForm(){
+    if (this.mostrarForm){
+       this.mostrarForm = false;
+    }else{
+      this.mostrarForm = true;
+    }
+ 
+    this.mostrarViewForm = false;
+
+    this.strtitle = "AGREGAR FACTURA";
+    this.currentIndex = -1;
+    this.editing = false;
+    this.currentInvoice = undefined;
+    this.invoice = new InvoiceModel();
+
+
+  }//end moForm
+
+  validarEmail(email: string): boolean {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
+  }//end validarEmail
+
+    //llamada al Alert
+  doSomething(type:string,message:string){
+      //carga de datos del observable, llamando al servicio alert.service
+      this.alertService.ShowAlert(type, message, 3000);
+  }
+
+  //convierte el objeto  Timestamp  en una fecha:
+  convertirFecha(timestamp: Timestamp): Date {
+    return timestamp.toDate();
+  }
+  
+  //convertir una fecha a un objeto  Timestamp
+  convertirATimestamp(fecha: Date): Timestamp {
+    return Timestamp.fromDate(fecha);
+  }
+
+  //Convierte una fecha de tipo timestamp a Date
+  timestampConvert(fec: any){
+    let dateObject = new Date(fec.seconds*1000);
+    let mes_ = dateObject.getMonth()+1;
+    let ano_ = dateObject.getFullYear();
+    let dia_ = dateObject.getDate();
+    return dateObject;
+  }
+
+  //Devuelve la fecha en formto dd/mm/yyyy
+  formatDate(date: Date): string {
+    const day = date.getDate();
+    const month = date.getMonth() + 1; // Los meses en JavaScript van de 0 a 11
+    const year = date.getFullYear();
+
+    return `${day.toString().padStart(2, '0')}/${month.toString().padStart(2, '0')}/${year}`;
+  }
 }

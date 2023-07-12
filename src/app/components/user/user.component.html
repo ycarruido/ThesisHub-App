@@ -1,9 +1,17 @@
 <!-- Vista de solo lectura  -->
 <div class="register-container" *ngIf="mostrarViewForm">
-  <div class="close-icon">
-    <i class="fas fa-times" (click)="closeview()"></i>
+
+  <div class="row">
+    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
+      <div><h3 style="font-size: 22px; font-weight: bold;">DATOS DE USUARIO</h3></div>
+    </div>
+    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
+      <div class="close-icon">
+        <i class="fas fa-times" (click)="closeview()"></i>
+      </div>
+    </div>
   </div>
-  <div><h3 style="font-size: 22px; font-weight: bold;">USUARIO</h3></div>
+
   <div class="form-group">
     <label style="font-weight: bold;" for="titulo">Nombre</label>
     <p class="form-control-static">{{user.name}}</p>
@@ -46,11 +54,20 @@
   
   <!-- Formulario de Usuarios -->
   <div *ngIf="mostrarForm">
-    <div class="close-icon">
-      <i class="fas fa-times" (click)="closeview()"></i>
-    </div>
-    <div><h3>{{strtitle}}</h3></div>
+    
     <div class="register-container">
+      
+      <div class="row">
+        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
+          <div><h3 style="font-size: 22px; font-weight: bold;">{{strtitle}}</h3></div>
+        </div>
+        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
+          <div class="close-icon">
+            <i class="fas fa-times" (click)="closeview()"></i>
+          </div>
+        </div>
+      </div>
+
       <div>
         <form #userForm="ngForm">
           <div class="form-group">
