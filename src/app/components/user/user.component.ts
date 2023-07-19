@@ -156,12 +156,29 @@ export class UserComponent implements OnInit  {
     this.currentIndex = index;
   }//end setActiveUser
 
-  removeUsr(uid:string){
-    this.userService.delete(uid)
+  async removeUsr(uid:string){
+    //buscamos el usuario actual
+    this.loginService.user$.subscribe(user => {
+      this.currentUserEmail = user ? user.email : null;
+    });
+    this.currentUserEmail =  this.currentUserEmail != null ? this.currentUserEmail : '';
+    await this.userService.delete(uid, this.currentUserEmail.toString(), this.currentDate)
     this.doSomething("delete","El usuario se ha eliminado correctamente.");
     this.mostrarForm = false;
   }
 
+  toggleConfirmDelete(element: any) {
+    if (element.confirmDelete === undefined) {
+      element.confirmDelete = false;
+    } 
+    element.confirmDelete = !element.confirmDelete;
+  }
+  
+  deleteConfirmed(element: any) {
+    // Realiza la eliminación aquí
+    this.removeUsr(element.uid);
+  }
+  
   viewRecod(userUp: UserModel){
     this.user = userUp;
     this.mostrarForm=false;

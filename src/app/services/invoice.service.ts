@@ -17,7 +17,7 @@ export class InvoiceService {
   }
 
   getAll(): AngularFirestoreCollection<InvoiceModel> {
-    return this.db.collection<InvoiceModel>('invoices', ref => ref.orderBy('invoice_id', 'asc'));
+    return this.db.collection<InvoiceModel>('invoices', ref => ref.where('status', '==', "Pendiente").orderBy('invoice_id', 'asc'));
   }
 
   //Consulta
@@ -72,8 +72,8 @@ export class InvoiceService {
     return this.invoicesRef.doc(data.uid).update(data);
   }
 
-  delete(id: string): Promise<void> {
-    return this.invoicesRef.doc(id).delete();
+  delete(id: string, usr:string, fecha: Date): Promise<void> {
+    return this.invoicesRef.doc(id).update({ status: "Eliminada", lastUpdate: fecha, lastUpdateUser: usr });
   }
 
 }

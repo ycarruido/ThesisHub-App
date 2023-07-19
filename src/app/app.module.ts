@@ -30,6 +30,7 @@ import { InforComponent } from './components/infor/infor.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { ProjectComponent } from './components/project/project.component';
 import { UserComponent } from './components/user/user.component';
+import { ChatComponent } from './components/chat/chat.component';
 
 
 @NgModule({
@@ -47,7 +48,8 @@ import { UserComponent } from './components/user/user.component';
     InforComponent,
     SettingsComponent,
     ProjectComponent,
-    UserComponent
+    UserComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,

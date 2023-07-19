@@ -17,7 +17,8 @@ export class ProjectService {
   }
 
   getAll(): AngularFirestoreCollection<ProjectModel> {
-    return this.db.collection<ProjectModel>('projects', ref => ref.orderBy('project_id', 'asc'));
+    //return this.db.collection<ProjectModel>('projects', ref => ref.orderBy('project_id', 'asc'));
+    return this.db.collection<ProjectModel>('projects', ref => ref.where('state', '==', 'Activo').where('status', '==', true).orderBy('project_id', 'asc'));
   }
 
   //Consulta
@@ -72,7 +73,8 @@ export class ProjectService {
     return this.projectsRef.doc(data.uid).update(data);
   }
 
-  delete(id: string): Promise<void> {
-    return this.projectsRef.doc(id).delete();
+  delete(id: string, usr:string, fecha: Date): Promise<void> {
+    //return this.projectsRef.doc(id).delete();
+    return this.projectsRef.doc(id).update({ state: 'Eliminado', status: false, lastUpdate: fecha, lastUpdateUser: usr });
   }
 }

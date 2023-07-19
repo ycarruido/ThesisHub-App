@@ -130,6 +130,19 @@
   color: red;
 }
 
+.facheckCustom{
+  margin-right: 10px;
+}
+.facheckCustom:hover{
+  color: rgb(49, 187, 60);
+}
+.fatimesCustom{
+  color: rgb(254, 100, 100);
+}
+.fatimesCustom:hover{
+  color: red;
+}
+
 
 
 

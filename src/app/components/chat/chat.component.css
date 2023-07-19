@@ -1,0 +1,33 @@
+.card {
+  width: 500px;
+  margin: 20px;
+}
+ .card-header {
+  background-color: #f8f9fa;
+}
+ .card-body {
+  height: 300px;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+}
+ .current-user-message {
+  background-color: #3a79ee;
+  color: #fff;
+  margin: 10px;
+  padding: 5px;
+  border-radius: 5px;
+}
+ .other-user-message {
+  background-color: #f8f9fa;
+  color: #000;
+  margin: 10px;
+  padding: 5px;
+  border-radius: 5px;
+}
+ .card-footer {
+  display: flex;
+}
+ input[type="text"] {
+  flex: 1;
+  margin-right: 10px;
+}

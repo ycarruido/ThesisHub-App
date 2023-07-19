@@ -2,6 +2,9 @@ export class ProjectModel {
 	uid? :string;
     project_id?: string;
     client_id?: string;
+    client_name?: string;
+    tutor_id?: string;
+    tutor_name?: string;
     titulo?: string;
     bibliografia?: string;
     carrera?: string;

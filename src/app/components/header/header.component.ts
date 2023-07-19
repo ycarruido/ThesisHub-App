@@ -31,6 +31,7 @@ menuStatus: boolean = false;
 userData: any;
 userEmail: string | null = null;
 userSeudonimo: string | null = null;
+photoUrl: string | null = null;
 
 highlight: boolean = false;
 
@@ -39,6 +40,8 @@ highlight: boolean = false;
     ngOnInit(): void {
     this.loginService.user$.subscribe(user => {
       this.userEmail = user ? user.email : null;
+      this.photoUrl = user ? user.photoURL : null;
+
       if (this.userEmail != null){
         this.userSeudonimo = this.userEmail.substring(0,4);
       }

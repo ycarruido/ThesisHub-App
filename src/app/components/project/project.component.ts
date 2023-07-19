@@ -6,8 +6,10 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { AlertService } from 'src/app/services/alert.service';
-import { Timestamp } from 'firebase/firestore';
 import { LoginService } from 'src/app/services/login.service';
+import { UserService } from 'src/app/services/user.service';
+import { UserModel } from 'src/app/models/user.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-project',
@@ -22,6 +24,11 @@ export class ProjectComponent implements OnInit{
   mostrarViewForm: boolean = false;
   currentUserEmail: string | null = null;
   strtitle:string ="AGREGAR PROYECTOS";
+  confirmDelete: boolean = false;
+  usersList: UserModel[] = [];
+  usersList2: UserModel[] = [];
+  selectedNameClientOption: string = '';
+  selectedNameTutorOption: string = '';
 
   //bibliografias
   options: string[] = [
@@ -45,11 +52,11 @@ export class ProjectComponent implements OnInit{
   
   //mat datatable
   dataSource: any;
-  displayedColumns: string[] = ["project_id", "titulo", "entregas", "fecha_inicio","fecha_entrega", "presupuesto", "monto_recibido", "porcentaje_a_realizar", "state", "Opc"];
+  displayedColumns: string[] = ["project_id", "titulo", "entregas", "fecha_inicio","fecha_entrega", "presupuesto", "monto_recibido", "porcentaje_a_realizar","chat", "state", "Opc"];
   @ViewChild(MatPaginator, { static: true }) paginatior !: MatPaginator;
   @ViewChild(MatSort) sort !: MatSort;
 
-  constructor(private loginService: LoginService, private projectService: ProjectService, private alertService: AlertService) { }
+  constructor(private router: Router, private loginService: LoginService, private projectService: ProjectService, private alertService: AlertService, private userService: UserService) { }
 
   //listar
   ngOnInit(): void {
@@ -77,21 +84,39 @@ export class ProjectComponent implements OnInit{
     };
     //Personaliza el paginador de mat datatable, con textos en espanol
 
+    //llenamos usersList 
+    this.userService.getperType("Cliente").valueChanges().subscribe((data: UserModel[]) => {
+      this.usersList = data;
+    });
+    this.userService.getperType("Profesor").valueChanges().subscribe((data: UserModel[]) => {
+      this.usersList2 = data;
+    });
+
   }//end ngOnInit
+
+  //si es Date, retorna la misma fecha, si no, si es timestamp de Firestore,
+  // llama a timestampConvert y se convierte en Date
+  comprobarfecha(fecha: any): Date {
+    if (fecha instanceof Date) {
+      return fecha;
+    } else {
+      return this.timestampConvert(fecha);
+    }
+  }
 
   editProject(projectUp: ProjectModel) {
     this.editing = true;
     this.project = projectUp;
-
-    this.project.fecha_inicio = this.timestampConvert(projectUp.fecha_inicio);
-    this.project.fecha_entrega = this.timestampConvert(projectUp.fecha_entrega);
-    this.project.ultima_entrega = this.timestampConvert(projectUp.ultima_entrega);
-    this.project.fecha_proxima = this.timestampConvert(projectUp.fecha_proxima);
+    
+    this.project.fecha_inicio = this.comprobarfecha(projectUp.fecha_inicio);
+    this.project.fecha_entrega = this. comprobarfecha(projectUp.fecha_entrega);
+    this.project.ultima_entrega = this.comprobarfecha(projectUp.ultima_entrega);
+    this.project.fecha_proxima = this.comprobarfecha(projectUp.fecha_proxima);
 
     this.mostrarForm=true;
     this.mostrarViewForm=false;
     this.strtitle = "MODIFICAR PROYECTOS"
-    console.log("Element: ",projectUp)
+    //console.log("Element: ",projectUp)
   }
 
   async saveProject() {
@@ -104,7 +129,9 @@ export class ProjectComponent implements OnInit{
       try {
         this.project.lastUpdate =  this.currentDate;
         this.project.lastUpdateUser =  this.currentUserEmail != null ? this.currentUserEmail : '';
-        
+        this.project.client_name = this.selectedNameClientOption;
+        this.project.tutor_name = this.selectedNameTutorOption;
+
         await this.projectService.update(this.project);
         this.edditted = true;
         //llamada a la alerta
@@ -122,7 +149,9 @@ export class ProjectComponent implements OnInit{
       this.project.lastUpdateUser =  this.currentUserEmail != null ? this.currentUserEmail : '';        
       this.project.status =  true;
       this.project.state =  "Activo"; //Activo - Iniactivo - Bloqueado - Suspendido
-      this.strtitle = "AGREGAR PROYECTOS";
+      this.strtitle = "AGREGAR PROYECTOS";   
+      this.project.client_name = this.selectedNameClientOption;  
+      this.project.tutor_name = this.selectedNameTutorOption;
 
       this.projectService.create(this.project).then(() => {
         console.log('¡Se ha enviado con éxito!');
@@ -132,6 +161,14 @@ export class ProjectComponent implements OnInit{
       });
     }//end if (this.editing)
   }//end saveProject
+
+
+  onChangeClient(event: any) {
+    this.selectedNameClientOption = event.target.options[event.target.options.selectedIndex].text;           
+  }
+  onChangeTutor(event: any) {
+    this.selectedNameTutorOption = event.target.options[event.target.options.selectedIndex].text;           
+  }
 
   newProject(): void {
     this.edditted = false;
@@ -174,10 +211,28 @@ export class ProjectComponent implements OnInit{
     this.currentIndex = index;
   }//end setActiveProject
 
-  removeUsr(uid:string){
-    this.projectService.delete(uid)
+  async removeUsr(uid:string){
+    //buscamos el usuario actual
+    this.loginService.user$.subscribe(user => {
+      this.currentUserEmail = user ? user.email : null;
+    });
+    this.currentUserEmail =  this.currentUserEmail != null ? this.currentUserEmail : '';
+    await this.projectService.delete(uid, this.currentUserEmail.toString(), this.currentDate)
     this.doSomething("delete","El proyecto se ha eliminado correctamente.");
     this.mostrarForm = false;
+  }
+
+
+  toggleConfirmDelete(element: any) {
+    if (element.confirmDelete === undefined) {
+      element.confirmDelete = false;
+    } 
+    element.confirmDelete = !element.confirmDelete;
+  }
+  
+  deleteConfirmed(element: any) {
+    // Realiza la eliminación aquí
+    this.removeUsr(element.uid);
   }
 
   viewRecod(projectRe: ProjectModel){
@@ -219,14 +274,21 @@ export class ProjectComponent implements OnInit{
       this.alertService.ShowAlert(type, message, 3000);
   }
 
-  //convierte el objeto  Timestamp  en una fecha:
-  convertirFecha(timestamp: Timestamp): Date {
-    return timestamp.toDate();
-  }
-  
-  //convertir una fecha a un objeto  Timestamp
-  convertirATimestamp(fecha: Date): Timestamp {
-    return Timestamp.fromDate(fecha);
+  formatFecha(dateObj: any): string {
+    //si es  un objeto de fecha de Firebase Firestore 
+    if (dateObj && typeof dateObj.toDate === 'function') {
+      const date = dateObj.toDate();
+      const day = date.getDate();
+      const month = date.getMonth() + 1;
+      const year = date.getFullYear();
+      return `${day}/${month}/${year}`;
+    }else if (dateObj instanceof Date){ //si es una instancia de la clase "Date"
+      let day = dateObj.getDate();
+      let month = dateObj.getMonth()+1;
+      let year = dateObj.getFullYear();
+      return `${day}/${month}/${year}`;
+    }
+    return ''; // o cualquier otro valor predeterminado que desees retornar en caso de que la conversión no sea posible
   }
 
   //Convierte una fecha de tipo timestamp a Date
@@ -238,12 +300,17 @@ export class ProjectComponent implements OnInit{
     return dateObject;
   }
 
-  //Devuelve la fecha en formto dd/mm/yyyy
-  formatDate(date: Date): string {
-    const day = date.getDate();
-    const month = date.getMonth() + 1; // Los meses en JavaScript van de 0 a 11
-    const year = date.getFullYear();
-
-    return `${day.toString().padStart(2, '0')}/${month.toString().padStart(2, '0')}/${year}`;
+  callChat(element:any){
+    if (element.client_id && element.tutor_id){
+      const params = {
+        uidCurrentUser: element.client_id,
+        uidReceiveUser: element.tutor_id
+      };
+  
+      this.router.navigate(['/chat'], { queryParams: params });
+    } else {
+      console.log("El proyecto no se ha asignado a ningun tutor")
+    }
   }
+
 }

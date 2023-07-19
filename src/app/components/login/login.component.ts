@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
   
       this.loginService.login({ email, password })
         .then((response: UserCredential) => {
-          console.log(response);
+          //console.log(response);
           this.router.navigate(['/dashboard']);
         })
         .catch((error: any) => {
@@ -59,7 +59,7 @@ export class LoginComponent implements OnInit {
   onClick() {
     this.loginService.loginWithGoogle()
       .then((response: UserCredential) => {
-        console.log(response);
+        //console.log(response);
         this.router.navigate(['/dashboard']);
       })
       .catch((error: any) => console.log(error));

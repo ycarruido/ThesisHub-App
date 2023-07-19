@@ -71,19 +71,27 @@ export class InvoicesComponent {
       return `${startIndex + 1} - ${endIndex} de ${length}`;
     };
     //Personaliza el paginador de mat datatable, con textos en espanol
-
   }//end ngOnInit
+
+  //si es Date, retorna la misma fecha, si no, si es timestamp de Firestore,
+  // llama a timestampConvert y se convierte en Date
+  comprobarfecha(fecha: any): Date {
+    if (fecha instanceof Date) {
+      return fecha;
+    } else {
+      return this.timestampConvert(fecha);
+    }
+  }
 
   editInvoice(invoiceUp: InvoiceModel) {
     this.editing = true;
     this.invoice = invoiceUp;
 
-    this.invoice.fechaEmision = this.timestampConvert(invoiceUp.fechaEmision);
+    this.invoice.fechaEmision = this.comprobarfecha(invoiceUp.fechaEmision);
 
     this.mostrarForm=true;
     this.mostrarViewForm=false;
     this.strtitle = "MODIFICAR FACTURA"
-    console.log("Element: ",invoiceUp)
   }
 
   async saveInvoice() {
@@ -112,7 +120,7 @@ export class InvoicesComponent {
       this.invoice.registration_date =  this.currentDate;
       this.invoice.lastUpdate =  this.currentDate;
       this.invoice.lastUpdateUser =  this.currentUserEmail != null ? this.currentUserEmail : '';        
-      this.invoice.status =  true;
+      this.invoice.status =  "Pendiente";
       this.strtitle = "AGREGAR FACTURA";
 
       this.invoiceService.create(this.invoice).then(() => {
@@ -165,10 +173,26 @@ export class InvoicesComponent {
     this.currentIndex = index;
   }//end setActiveInvoice
 
-  removeUsr(uid:string){
-    this.invoiceService.delete(uid)
+  async removeUsr(uid:string){
+    this.loginService.user$.subscribe(user => {
+      this.currentUserEmail = user ? user.email : null;
+    });
+    this.currentUserEmail =  this.currentUserEmail != null ? this.currentUserEmail : '';
+    await this.invoiceService.delete(uid, this.currentUserEmail.toString(), this.currentDate)
     this.doSomething("delete","La factura se ha eliminado correctamente.");
     this.mostrarForm = false;
+  }
+
+  toggleConfirmDelete(element: any) {
+    if (element.confirmDelete === undefined) {
+      element.confirmDelete = false;
+    } 
+    element.confirmDelete = !element.confirmDelete;
+  }
+  
+  deleteConfirmed(element: any) {
+    // Realiza la eliminación aquí
+    this.removeUsr(element.uid);
   }
 
   viewRecod(invoiceRe: InvoiceModel){
@@ -210,14 +234,21 @@ export class InvoicesComponent {
       this.alertService.ShowAlert(type, message, 3000);
   }
 
-  //convierte el objeto  Timestamp  en una fecha:
-  convertirFecha(timestamp: Timestamp): Date {
-    return timestamp.toDate();
-  }
-  
-  //convertir una fecha a un objeto  Timestamp
-  convertirATimestamp(fecha: Date): Timestamp {
-    return Timestamp.fromDate(fecha);
+  formatFecha(dateObj: any): string {
+    //si es  un objeto de fecha de Firebase Firestore 
+    if (dateObj && typeof dateObj.toDate === 'function') {
+      const date = dateObj.toDate();
+      const day = date.getDate();
+      const month = date.getMonth() + 1;
+      const year = date.getFullYear();
+      return `${day}/${month}/${year}`;
+    }else if (dateObj instanceof Date){ //si es una instancia de la clase "Date"
+      let day = dateObj.getDate();
+      let month = dateObj.getMonth()+1;
+      let year = dateObj.getFullYear();
+      return `${day}/${month}/${year}`;
+    }
+    return ''; // o cualquier otro valor predeterminado que desees retornar en caso de que la conversión no sea posible
   }
 
   //Convierte una fecha de tipo timestamp a Date
@@ -227,14 +258,5 @@ export class InvoicesComponent {
     let ano_ = dateObject.getFullYear();
     let dia_ = dateObject.getDate();
     return dateObject;
-  }
-
-  //Devuelve la fecha en formto dd/mm/yyyy
-  formatDate(date: Date): string {
-    const day = date.getDate();
-    const month = date.getMonth() + 1; // Los meses en JavaScript van de 0 a 11
-    const year = date.getFullYear();
-
-    return `${day.toString().padStart(2, '0')}/${month.toString().padStart(2, '0')}/${year}`;
   }
 }

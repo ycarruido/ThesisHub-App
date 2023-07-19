@@ -17,6 +17,9 @@
               <span *ngIf="formReg.hasError('invalidEmail')" class="text-danger errorLabel">
                 El <strong>correo</strong> es inválido
               </span>
+              <span *ngIf="formReg.hasError('emailalreadyinuse')" class="text-danger errorLabel">
+                El <strong>correo</strong> ya esta en uso
+              </span>
         </div>
         <div class="mb-3">
             <label class="form-label">Contraseña</label>
@@ -30,6 +33,26 @@
               <span *ngIf="formReg.hasError('weakPassword')" class="text-danger errorLabel">
                 La <strong>Contraseña</strong> debe tener al menos 6 caracteres
               </span>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Nombre</label>
+          <input type="text" class="form-control" formControlName="name">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Número de teléfono</label>
+            <input type="text" class="form-control" formControlName="phone">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Dirección</label>
+            <input type="text" class="form-control" formControlName="address">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">País</label>
+          <input type="text" class="form-control" formControlName="country">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Ciudad</label>
+          <input type="text" class="form-control" formControlName="city">
         </div>
         <button type="submit" class="btn2">Enviar</button>
     </form>

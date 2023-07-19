@@ -52,11 +52,11 @@
   </div>
    <div class="form-group">
     <label style="font-weight: bold;">Fecha de inicio</label>
-    <p class="form-control-static">{{ formatDate(timestampConvert(project.fecha_inicio)) }}</p>
+    <p class="form-control-static">{{ formatFecha(project.fecha_inicio) }}</p>
   </div>
    <div class="form-group">
     <label style="font-weight: bold;">Fecha de entrega</label>
-    <p class="form-control-static">{{ formatDate(timestampConvert(project.fecha_entrega)) }}</p>
+    <p class="form-control-static">{{ formatFecha(project.fecha_entrega) }}</p>
   </div>
    <div class="form-group">
     <label style="font-weight: bold;" for="presupuesto">Presupuesto</label>
@@ -72,19 +72,20 @@
   </div>
    <div class="form-group">
     <label style="font-weight: bold;">Fecha de ultima entrega</label>
-    <p class="form-control-static">{{ formatDate(timestampConvert(project.ultima_entrega)) }}</p>
+    <p class="form-control-static">{{ formatFecha(project.ultima_entrega) }}</p>
   </div>
    <div class="form-group">
     <label style="font-weight: bold;">Fecha proxima entrega</label>
-    <p class="form-control-static">{{ formatDate(timestampConvert(project.fecha_proxima)) }}</p>
+    <p class="form-control-static">{{ formatFecha(project.fecha_proxima) }}</p>
   </div>
    <div class="form-group">
     <label style="font-weight: bold;" for="factura">Factura</label>
     <p class="form-control-static">{{project.factura}}</p>
   </div>
 </div>
-<!-- Vista de solo lectura  -->
-
+<!-- Vista de solo lectura 
+*** DISPLAY VIEW ***
+-->
 
 
   <!-- Formulario de Usuarios -->
@@ -114,10 +115,11 @@
               required
               [(ngModel)]="project.titulo"
               name="titulo"
+              pattern="^[A-ZÁÉÍÓÚÑ][A-Za-zÁÉÍÓÚáéíóúñÑ0-9\s]*$"
               #nameField="ngModel"
             />
             <div *ngIf="nameField.invalid && (nameField.dirty || nameField.touched)" class="text-danger">
-              El título es requerido.
+              El título es requerido y debe comenzar con mayúscula. 
             </div>
           </div>
 
@@ -133,11 +135,7 @@
                 <option value="" disabled selected>Seleccionar opción</option>
                 <option *ngFor="let items of options" [value]="items">{{ items }}</option>
               </select>
-              <!-- <div *ngIf="project.bibliografia === 'other'">
-                <input class="form-control mt-2" name="customOption" [(ngModel)]="customOption" placeholder="Escribe una opción personalizada">
-              </div> -->
           </div>
-
 
           <div class="form-group">
             <label for="carrera">Carrera *</label>
@@ -149,7 +147,7 @@
               name="carrera"
             />
             <div *ngIf="nameField.invalid && (nameField.dirty || nameField.touched)" class="text-danger">
-              Se requiere una Contraseña
+              Se requiere carrera
             </div>
           </div>
 
@@ -185,6 +183,37 @@
             />
           </div>
 
+          <div>
+            <label for="client_id">Cliente *</label>
+            <select
+              class="form-control" 
+              id="client_id" 
+              required 
+              [(ngModel)]="project.client_id" 
+              name="client_id"
+              #client_id 
+              (change)="onChangeClient($event)"
+              >
+              <option value="" disabled selected>Seleccionar opción</option>
+              <option *ngFor="let user of usersList" [value]="user.uid">{{ user.name }}</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="tutor_id">Profesor Asignado</label>
+            <select
+              class="form-control" 
+              id="tutor_id"  
+              [(ngModel)]="project.tutor_id" 
+              name="tutor_id"
+              #tutor_id 
+              (change)="onChangeTutor($event)"
+              >
+              <option value="" disabled selected>Seleccionar opción</option>
+              <option *ngFor="let user of usersList2" [value]="user.uid">{{ user.name }}</option>
+            </select>
+          </div>
+
           <div class="form-group">
             <label for="numero_paginas">Número de páginas</label>
             <input
@@ -208,13 +237,15 @@
           </div>
 
           <div class="form-group">
-            <label for="descripcion">Descripcion</label>
-            <input
+            <label for="descripcion">Descripción</label>
+            <textarea
+              rows="3"
               class="form-control"
               id="descripcion"
               [(ngModel)]="project.descripcion"
               name="descripcion"
-            />
+            ></textarea>
+            <br/>
           </div>
 
           <div class="form-group">
@@ -251,6 +282,7 @@
                 <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
                 <mat-datepicker #picker2></mat-datepicker>
             </mat-form-field>
+            <br /><br />
           </div>
 
           <div class="form-group">
@@ -284,6 +316,7 @@
               [(ngModel)]="project.porcentaje_a_realizar"
               name="porcentaje_a_realizar"
             />
+            <br />
           </div>
 
           <div class="form-group">
@@ -320,6 +353,7 @@
                 <mat-datepicker-toggle matIconSuffix [for]="picker4"></mat-datepicker-toggle>
                 <mat-datepicker #picker4></mat-datepicker>
             </mat-form-field>
+            <br /><br />
           </div>
 
           <div class="form-group">
@@ -330,6 +364,7 @@
               [(ngModel)]="project.factura"
               name="factura"
             />
+            <br /><br />
           </div>
       
           <button (click)="saveProject()" type="submit" [disabled]="!projectForm.form.valid" class="btn2">Enviar</button>
@@ -393,13 +428,13 @@
             <!-- fecha_inicio Column -->
 			<ng-container matColumnDef="fecha_inicio">
 				<th *matHeaderCellDef mat-sort-header class="mat-header-row" style="text-align: left;"> INICIO </th>
-				<td mat-cell *matCellDef="let element" class="mat-cell"> {{convertirFecha(element.fecha_inicio) | date: 'dd/MM/yyyy'}} </td>
+				<td mat-cell *matCellDef="let element" class="mat-cell"> {{ formatFecha(element.fecha_inicio) }} </td>
 			</ng-container>
 
             <!-- fecha_entrega Column -->
 			<ng-container matColumnDef="fecha_entrega">
 				<th *matHeaderCellDef mat-sort-header class="mat-header-row" style="text-align: left;"> ENTREGA </th>
-				<td mat-cell *matCellDef="let element" class="mat-cell"> {{convertirFecha(element.fecha_entrega) | date: 'dd/MM/yyyy'}} </td>
+				<td mat-cell *matCellDef="let element" class="mat-cell"> {{formatFecha(element.fecha_entrega) }} </td>
 			</ng-container>
 
             <!-- presupuesto Column -->
@@ -420,7 +455,12 @@
 				<td mat-cell *matCellDef="let element" class="mat-cell"> {{element.porcentaje_a_realizar}} </td>
 			</ng-container>
 
-            <!-- state Column -->
+      <ng-container matColumnDef="chat">
+				<th *matHeaderCellDef mat-sort-header class="mat-header-row" style="text-align: left;"> Chat </th>
+				<td mat-cell *matCellDef="let element" class="mat-cell"> <img style="padding-top: 7px; cursor: pointer;" src="assets/img/comentar-alt-puntos.png" (click)="callChat(element)" width="22" height="25" alt="Chat del proyecto" title="Chat del proyecto"> </td>
+			</ng-container>
+
+      <!-- state Column -->
 			<ng-container matColumnDef="state">
 				<th *matHeaderCellDef mat-sort-header class="mat-header-row" style="text-align: left;"> ESTADO </th>
 				<td mat-cell *matCellDef="let element" class="mat-cell"> {{element.state}} </td>
@@ -435,18 +475,25 @@
 			</tr>
 	
 			<!-- Symbol Column -->
-			<ng-container matColumnDef="Opc">
-				<th *matHeaderCellDef class="mat-header-row">OPC</th>
-				<td mat-cell *matCellDef="let element index as i">
-					<button class="btn btn-light btn-sm" (click)="editProject(element)" data-toggle="tooltip" data-placement="top" title="Editar elemento">
-                        <i class="fa-solid fa-pen" data-toggle="tooltip" data-placement="top" title="Editar elemento"></i>
-                    </button>
-					<button class="btn btn-light btn-sm" (click)="removeUsr(element.uid)" style="color: red;"  data-toggle="tooltip" data-placement="top" title="Eliminar elemento">
-					    <i class="far fa-trash-alt"  data-toggle="tooltip" data-placement="top" title="Eliminar elemento"></i>
-					</button>
-				</td>
-			</ng-container>
-
+      <ng-container matColumnDef="Opc">
+        <th *matHeaderCellDef class="mat-header-row">OPC</th>
+        <td mat-cell *matCellDef="let element index as i">
+          <button class="btn btn-light btn-sm" (click)="editProject(element)" data-toggle="tooltip" data-placement="top" title="Editar elemento">
+            <i class="fa-solid fa-pen" data-toggle="tooltip" data-placement="top" title="Editar elemento"></i>
+          </button>
+          <div class="btn-group">
+            <button class="btn btn-light btn-sm" (click)="toggleConfirmDelete(element)" data-toggle="tooltip" data-placement="top" title="Eliminar elemento">
+              <ng-container *ngIf="!element.confirmDelete; else confirmIcon">
+                <i class="far fa-trash-alt" data-toggle="tooltip" style="color: red;" data-placement="top" title="Eliminar elemento"></i>
+              </ng-container>
+            </button>
+            <ng-template #confirmIcon>
+              <i class="fas fa-check facheckCustom" (click)="deleteConfirmed(element)" data-toggle="tooltip" data-placement="top" title="Confirmar eliminación"></i>
+              <i class="fas fa-times fatimesCustom" (click)="element.confirmDelete = false;toggleConfirmDelete(element)" data-toggle="tooltip" data-placement="top" title="Cancelar eliminación"></i>
+            </ng-template>
+          </div>
+        </td>
+      </ng-container>
     </table>
     <mat-paginator #paginator [pageSizeOptions]="[10, 25, 50]" showFirstLastButtons>
       [intl]="customPaginatorIntl"

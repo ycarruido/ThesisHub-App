@@ -19,7 +19,7 @@
     </div>
      <div>
       <label style="font-weight: bold;" for="bibliografia">Fecha de Emisión</label>
-      <p class="form-control-static">{{ formatDate(timestampConvert(invoice.fechaEmision)) }}</p>
+      <p class="form-control-static">{{ formatFecha(invoice.fechaEmision) }}</p>
     </div>
      <div class="form-group">
       <label style="font-weight: bold;" for="carrera">Subtotal</label>
@@ -55,7 +55,7 @@
     </div>
      <div class="form-group">
       <label style="font-weight: bold;">Fecha de Registro</label>
-      <p class="form-control-static">{{ formatDate(timestampConvert(invoice.registration_date)) }}</p>
+      <p class="form-control-static">{{ formatFecha(invoice.registration_date) }}</p>
     </div>
   </div>
   <!-- Vista de solo lectura  -->
@@ -266,7 +266,7 @@
               <!-- fechaEmision Column -->
               <ng-container matColumnDef="fechaEmision">
                   <th *matHeaderCellDef mat-sort-header class="mat-header-row" style="text-align: left;"> FECHA EMISION </th>
-                  <td mat-cell *matCellDef="let element" class="mat-cell"> {{convertirFecha(element.fechaEmision) | date: 'dd/MM/yyyy'}} </td>
+                  <td mat-cell *matCellDef="let element" class="mat-cell"> {{ formatFecha(element.fechaEmision) }} </td>
               </ng-container>
   
   
@@ -310,15 +310,23 @@
       
               <!-- Symbol Column -->
               <ng-container matColumnDef="Opc">
-                  <th *matHeaderCellDef class="mat-header-row">OPC</th>
-                  <td mat-cell *matCellDef="let element index as i">
-                      <button class="btn btn-light btn-sm" (click)="editInvoice(element)" data-toggle="tooltip" data-placement="top" title="Editar elemento">
-                          <i class="fa-solid fa-pen" data-toggle="tooltip" data-placement="top" title="Editar elemento"></i>
-                      </button>
-                      <button class="btn btn-light btn-sm" (click)="removeUsr(element.uid)" style="color: red;"  data-toggle="tooltip" data-placement="top" title="Eliminar elemento">
-                          <i class="far fa-trash-alt"  data-toggle="tooltip" data-placement="top" title="Eliminar elemento"></i>
-                      </button>
-                  </td>
+                <th *matHeaderCellDef class="mat-header-row">OPC</th>
+                <td mat-cell *matCellDef="let element index as i">
+                  <button class="btn btn-light btn-sm" (click)="editInvoice(element)" data-toggle="tooltip" data-placement="top" title="Editar elemento">
+                    <i class="fa-solid fa-pen" data-toggle="tooltip" data-placement="top" title="Editar elemento"></i>
+                  </button>
+                  <div class="btn-group">
+                    <button class="btn btn-light btn-sm" (click)="toggleConfirmDelete(element)" data-toggle="tooltip" data-placement="top" title="Eliminar elemento">
+                      <ng-container *ngIf="!element.confirmDelete; else confirmIcon">
+                        <i class="far fa-trash-alt" data-toggle="tooltip" style="color: red;" data-placement="top" title="Eliminar elemento"></i>
+                      </ng-container>
+                    </button>
+                    <ng-template #confirmIcon>
+                      <i class="fas fa-check facheckCustom" (click)="deleteConfirmed(element)" data-toggle="tooltip" data-placement="top" title="Confirmar eliminación"></i>
+                      <i class="fas fa-times fatimesCustom" (click)="element.confirmDelete = false;toggleConfirmDelete(element)" data-toggle="tooltip" data-placement="top" title="Cancelar eliminación"></i>
+                    </ng-template>
+                  </div>
+                </td>
               </ng-container>
   
       </table>

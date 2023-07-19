@@ -304,18 +304,25 @@
 			</tr>
 	
 			<!-- Symbol Column -->
-			<ng-container matColumnDef="Opc">
-				<th *matHeaderCellDef class="mat-header-row">OPC</th>
-				<td mat-cell *matCellDef="let element index as i">
-					<button class="btn btn-light btn-sm" (click)="editUser(element)" data-toggle="tooltip" data-placement="top" title="Editar elemento">
+      <ng-container matColumnDef="Opc">
+        <th *matHeaderCellDef class="mat-header-row">OPC</th>
+        <td mat-cell *matCellDef="let element index as i">
+          <button class="btn btn-light btn-sm" (click)="editUser(element)" data-toggle="tooltip" data-placement="top" title="Editar elemento">
             <i class="fa-solid fa-pen" data-toggle="tooltip" data-placement="top" title="Editar elemento"></i>
           </button>
-					<button class="btn btn-light btn-sm" (click)="removeUsr(element.uid)" style="color: red;"  data-toggle="tooltip" data-placement="top" title="Eliminar elemento">
-					<i class="far fa-trash-alt"  data-toggle="tooltip" data-placement="top" title="Eliminar elemento"></i>
-					</button>
-				</td>
-			</ng-container>
-
+          <div class="btn-group">
+            <button class="btn btn-light btn-sm" (click)="toggleConfirmDelete(element)" data-toggle="tooltip" data-placement="top" title="Eliminar elemento">
+              <ng-container *ngIf="!element.confirmDelete; else confirmIcon">
+                <i class="far fa-trash-alt" data-toggle="tooltip" style="color: red;" data-placement="top" title="Eliminar elemento"></i>
+              </ng-container>
+            </button>
+            <ng-template #confirmIcon>
+              <i class="fas fa-check facheckCustom" (click)="deleteConfirmed(element)" data-toggle="tooltip" data-placement="top" title="Confirmar eliminación"></i>
+              <i class="fas fa-times fatimesCustom" (click)="element.confirmDelete = false;toggleConfirmDelete(element)" data-toggle="tooltip" data-placement="top" title="Cancelar eliminación"></i>
+            </ng-template>
+          </div>
+        </td>
+      </ng-container>
     </table>
     <mat-paginator #paginator [pageSizeOptions]="[10, 25, 50]" showFirstLastButtons>
       [intl]="customPaginatorIntl"

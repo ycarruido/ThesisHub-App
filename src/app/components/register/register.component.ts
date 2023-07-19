@@ -13,12 +13,17 @@ export class RegisterComponent implements OnInit {
   formReg: FormGroup;
 
   constructor(
-    private userService: LoginService,
+    private loginService: LoginService,
     private router: Router
   ) {
     this.formReg = new FormGroup({
       email: new FormControl(''),
-      password: new FormControl('')
+      password: new FormControl(''),
+      name: new FormControl(''),
+      phone: new FormControl(''),
+      address: new FormControl(''),
+      country: new FormControl(''),
+      city: new FormControl('')
     })
   }
 
@@ -26,9 +31,9 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit() {
-    this.userService.register(this.formReg.value)
+    this.loginService.register(this.formReg.value)
       .then(response => {
-        console.log(response);
+        //console.log(response);
         this.router.navigate(['/login']);
       })
       .catch((error: any) => {
@@ -45,13 +50,12 @@ export class RegisterComponent implements OnInit {
             this.formReg.setErrors({ invalidEmail: true });
           }else if (errorCode === 'auth/weak-password') {
             this.formReg.setErrors({ weakPassword: true });
+          }else if (errorCode === 'auth/email-already-in-use'){
+            this.formReg.setErrors({ emailalreadyinuse: true });
           }
           
           console.log(errorMessage);
       });
-
-
-
   }
 
 }

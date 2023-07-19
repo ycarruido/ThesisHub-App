@@ -11,6 +11,7 @@ import { InforComponent } from './components/infor/infor.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { ProjectComponent } from './components/project/project.component';
 import { UserComponent } from './components/user/user.component';
+import { ChatComponent } from './components/chat/chat.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
@@ -48,6 +49,8 @@ const routes: Routes = [
   },
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'chat', component: ChatComponent },
+  { path: '**', component: DashboardComponent },
 ];
 
 @NgModule({

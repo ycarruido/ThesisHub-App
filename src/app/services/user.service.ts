@@ -17,7 +17,11 @@ export class UserService {
   }
 
   getAll(): AngularFirestoreCollection<UserModel> {
-    return this.db.collection<UserModel>('users', ref => ref.orderBy('id', 'asc'));
+    return this.db.collection<UserModel>('users', ref => ref.where('state', '==', 'Activo').where('status', '==', true).orderBy('id', 'asc'));
+  }
+
+  getperType(userType: any): AngularFirestoreCollection<UserModel> {
+    return this.db.collection<UserModel>('users', ref => ref.where('state', '==', 'Activo').where('status', '==', true).where('user_type', '==', userType).orderBy('id', 'asc'));
   }
 
   //Consulta
@@ -73,8 +77,8 @@ export class UserService {
     return this.usersRef.doc(data.uid).update(data);
   }
 
-  delete(id: string): Promise<void> {
-    return this.usersRef.doc(id).delete();
+  delete(id: string, usr:string, fecha: Date): Promise<void> {
+    return this.usersRef.doc(id).update({ state: 'Eliminado', status: false, lastUpdate: fecha, lastUpdateUser: usr });
   }
 
 }

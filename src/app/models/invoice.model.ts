@@ -16,5 +16,5 @@ export class InvoiceModel {
     lastUpdateUser?: string;
     ruta_doc?: string;
     notas?: string;
-    status? :boolean;
+    status? :string; /* Pendiente, En revisión, Aprobada, Rechazada, Enviada al cliente, Vencida, Cancelada, Eliminada */
 }
