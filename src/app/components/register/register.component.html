@@ -23,16 +23,19 @@
         </div>
         <div class="mb-3">
             <label class="form-label">Contraseña</label>
-            <input type="password" class="form-control" formControlName="password">
-            <span *ngIf="formReg.hasError('wrongPassword')" class="text-danger errorLabel">
-                <strong>Contraseña</strong> incorrecta
-              </span>
-              <span *ngIf="formReg.hasError('missingPassword')" class="text-danger errorLabel">
-                La <strong>Contraseña</strong> es requerida
-              </span>
-              <span *ngIf="formReg.hasError('weakPassword')" class="text-danger errorLabel">
-                La <strong>Contraseña</strong> debe tener al menos 6 caracteres
-              </span>
+            <div class="password-field-container">
+              <input type="{{ showPassword ? 'text' : 'password' }}" class="form-control" formControlName="password" id="passwordInput"> 
+              <i class="toggle-password fas" [ngClass]="{'fa-eye': showPassword, 'fa-eye-slash': !showPassword}" (mouseover)="togglePasswordVisibility()" (mouseout)="togglePasswordVisibility()"></i>
+              <span *ngIf="formReg.hasError('wrongPassword')" class="text-danger errorLabel">
+                  <strong>Contraseña</strong> incorrecta
+                </span>
+                <span *ngIf="formReg.hasError('missingPassword')" class="text-danger errorLabel">
+                  La <strong>Contraseña</strong> es requerida
+                </span>
+                <span *ngIf="formReg.hasError('weakPassword')" class="text-danger errorLabel">
+                  La <strong>Contraseña</strong> debe tener al menos 6 caracteres
+                </span>
+            </div>
         </div>
         <div class="mb-3">
           <label class="form-label">Nombre</label>

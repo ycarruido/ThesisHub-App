@@ -12,6 +12,7 @@ import { SettingsComponent } from './components/settings/settings.component';
 import { ProjectComponent } from './components/project/project.component';
 import { UserComponent } from './components/user/user.component';
 import { ChatComponent } from './components/chat/chat.component';
+import { DocumentUploadComponent } from './components/document-upload/document-upload.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
@@ -50,6 +51,7 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
   { path: 'chat', component: ChatComponent },
+  { path: 'document-upload', component: DocumentUploadComponent },
   { path: '**', component: DashboardComponent },
 ];
 

@@ -23,6 +23,7 @@ export class ProjectComponent implements OnInit{
   mostrarForm: boolean = false;
   mostrarViewForm: boolean = false;
   currentUserEmail: string | null = null;
+  currentUserUid: string | null = null;
   strtitle:string ="AGREGAR PROYECTOS";
   confirmDelete: boolean = false;
   usersList: UserModel[] = [];
@@ -52,7 +53,7 @@ export class ProjectComponent implements OnInit{
   
   //mat datatable
   dataSource: any;
-  displayedColumns: string[] = ["project_id", "titulo", "entregas", "fecha_inicio","fecha_entrega", "presupuesto", "monto_recibido", "porcentaje_a_realizar","chat", "state", "Opc"];
+  displayedColumns: string[] = ["project_id", "titulo", "entregas", "fecha_inicio","fecha_entrega", "presupuesto", "monto_recibido", "porcentaje_a_realizar","chat","up", "state", "Opc"];
   @ViewChild(MatPaginator, { static: true }) paginatior !: MatPaginator;
   @ViewChild(MatSort) sort !: MatSort;
 
@@ -90,6 +91,12 @@ export class ProjectComponent implements OnInit{
     });
     this.userService.getperType("Profesor").valueChanges().subscribe((data: UserModel[]) => {
       this.usersList2 = data;
+    });
+
+    //buscamos el uid del ususario conectado
+    this.loginService.user$.subscribe(user => {
+      this.currentUserUid = user ? user.uid : null;
+      this.currentUserEmail = user ? user.email: null;
     });
 
   }//end ngOnInit
@@ -300,11 +307,44 @@ export class ProjectComponent implements OnInit{
     return dateObject;
   }
 
+  callStorage(element:any){
+    const params = {
+      createBy: this.currentUserUid,
+      createByEmail: this.currentUserEmail,
+      clientId: element.client_id, 
+      clientName: element.client_name,
+      tutorId: element.tutor_id,
+      tutorName: element.tutor_name,
+      id: element.project_id,
+      uidProject: element.uid,
+      title: element.titulo
+    };
+  
+    this.router.navigate(['/document-upload'], { queryParams: params });
+  }
+
   callChat(element:any){
     if (element.client_id && element.tutor_id){
+
+      let auxcurrentUser;
+      let auxreceiveUser;
+
+      if (this.currentUserUid == element.client_id){
+        auxcurrentUser = element.client_id;
+        auxreceiveUser = element.tutor_id;
+      }
+
+      if (this.currentUserUid == element.tutor_id){
+        auxcurrentUser = element.tutor_id;
+        auxreceiveUser = element.client_id;
+      }
+
       const params = {
-        uidCurrentUser: element.client_id,
-        uidReceiveUser: element.tutor_id
+        uidCurrentUser: auxcurrentUser,
+        uidReceiveUser: auxreceiveUser,
+        id: element.project_id,
+        uidProject: element.uid,
+        title: element.titulo
       };
   
       this.router.navigate(['/chat'], { queryParams: params });

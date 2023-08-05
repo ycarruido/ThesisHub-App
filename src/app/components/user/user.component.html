@@ -14,7 +14,7 @@
 
   <div class="form-group">
     <label style="font-weight: bold;" for="titulo">Nombre</label>
-    <p class="form-control-static">{{user.name}}</p>
+    <p class="form-control-static">{{user.name}} {{user.lastname}}</p>
   </div>
    <div>
     <label style="font-weight: bold;" for="bibliografia">Email</label>
@@ -70,6 +70,7 @@
 
       <div>
         <form #userForm="ngForm">
+
           <div class="form-group">
             <label for="name">Nombre *</label>
             <input
@@ -85,7 +86,23 @@
               El nombre es requerido.
             </div>
           </div>
-      
+
+          <div class="form-group">
+            <label for="lastname">Apellido *</label>
+            <input
+              type="text"
+              class="form-control"
+              id="lastname"
+              required
+              [(ngModel)]="user.lastname"
+              name="lastname"
+              #nameField="ngModel"
+            />
+            <div *ngIf="nameField.invalid && (nameField.dirty || nameField.touched)" class="text-danger">
+              El apellido es requerido.
+            </div>
+          </div>
+
           <div class="form-group">
             <label for="email">Email *</label>
             <input
@@ -238,7 +255,7 @@
         <div class="form-group" style="padding-top: 3px;">
           <input
             matInput (keyup)="applyFilter($event)" 
-            placeholder="Buscar" 
+            placeholder="Buscar usuario" 
             #input
             class="form-control"
             style="border-color:#dc3545;border-width: 1px;"
@@ -256,7 +273,7 @@
 			<!-- name Column -->
 			<ng-container matColumnDef="name">
 				<th *matHeaderCellDef mat-sort-header class="mat-header-row" style="text-align: left;"> NOMBRE </th>
-				<td style="cursor: pointer; text-decoration:underline;" (click)="viewRecod(element)" mat-cell *matCellDef="let element" class="mat-cell"> {{element.name}} </td>
+				<td style="cursor: pointer; text-decoration:underline;" (click)="viewRecod(element)" mat-cell *matCellDef="let element" class="mat-cell"> {{element.name}} {{element.lastname}} </td>
 			</ng-container>
 
       <!-- email Column -->

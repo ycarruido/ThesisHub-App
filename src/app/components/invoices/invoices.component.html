@@ -204,6 +204,35 @@
                 name="notas"
               />
             </div>
+            <div class="form-group">
+              <label for="status">Fuente o Canal *</label>
+              <select 
+                  class="form-control"
+                  id="status"
+                  required
+                  value=selected
+                  [(ngModel)]="invoice.status"
+                  name="status"
+                  required
+              >
+                  <option selected>
+                    Pendiente
+                  </option>
+                  <option selected>
+                    Aprobada
+                  </option>
+                  <option selected>
+                    Pagada
+                  </option>
+                  <option selected>
+                    Anulada 
+                  </option>
+              </select>
+              <br/>
+              <div *ngIf="nameField.invalid && (nameField.dirty || nameField.touched)" class="text-danger">
+                Ingrese la fuente o canal a través del cual se obtuvo el lead
+              </div>
+            </div>
         
             <button (click)="saveInvoice()" type="submit" [disabled]="!invoiceForm.form.valid" class="btn2">Enviar</button>
           </form>
@@ -234,7 +263,7 @@
           <div class="form-group" style="padding-top: 3px;">
             <input
               matInput (keyup)="applyFilter($event)" 
-              placeholder="Buscar" 
+              placeholder="Buscar factura" 
               #input
               class="form-control"
               style="border-color:#dc3545;border-width: 1px;"

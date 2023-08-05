@@ -31,6 +31,7 @@ import { SettingsComponent } from './components/settings/settings.component';
 import { ProjectComponent } from './components/project/project.component';
 import { UserComponent } from './components/user/user.component';
 import { ChatComponent } from './components/chat/chat.component';
+import { DocumentUploadComponent } from './components/document-upload/document-upload.component';
 
 
 @NgModule({
@@ -49,7 +50,8 @@ import { ChatComponent } from './components/chat/chat.component';
     SettingsComponent,
     ProjectComponent,
     UserComponent,
-    ChatComponent
+    ChatComponent,
+    DocumentUploadComponent
   ],
   imports: [
     BrowserModule,

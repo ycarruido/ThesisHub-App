@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { LoginService } from 'src/app/services/login.service';
 
 @Component({
@@ -11,6 +12,11 @@ import { LoginService } from 'src/app/services/login.service';
 export class RegisterComponent implements OnInit {
 
   formReg: FormGroup;
+  showPassword: boolean = false;
+
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
 
   constructor(
     private loginService: LoginService,
@@ -34,6 +40,7 @@ export class RegisterComponent implements OnInit {
     this.loginService.register(this.formReg.value)
       .then(response => {
         //console.log(response);
+        this.loginService.logout();
         this.router.navigate(['/login']);
       })
       .catch((error: any) => {

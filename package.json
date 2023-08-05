@@ -27,6 +27,7 @@
     "datatables.net": "^1.11.3",
     "datatables.net-bs5": "^1.11.3",
     "datatables.net-dt": "^1.11.3",
+    "emoji-mart": "^5.5.2",
     "firebase": "^9.22.1",
     "jquery": "^3.6.0",
     "rxjs": "~7.8.0",

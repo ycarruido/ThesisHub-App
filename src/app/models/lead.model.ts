@@ -1,4 +1,4 @@
-export class UserModel {
+export class LeadModel {
 	uid? :string;
 	id?: string;
   	name?: string;
@@ -6,15 +6,15 @@ export class UserModel {
  	email?: string;
 	tlf?: string;
 	wapp?: string;
-	address?: string;
+	university?: string;
 	country?: string;
 	city?: string;
+	sourse?: string;
+	interests?: string;
+	profile_picture?: string;
 	registration_date?: Date;
 	lastUpdate?: Date;
-	lastUpdateUser?: string;
-	user_type?: string;
-  	password?: string;
-	profile_picture?: string;
+	lastUpdateLead?: string;
 	state?: string;
 	status?: boolean;
 }

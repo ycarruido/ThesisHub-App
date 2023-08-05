@@ -1,7 +1,10 @@
 import { animate, state,keyframes, style, transition, trigger } from '@angular/animations';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
+import { UserModel } from 'src/app/models/user.model';
 import { LoginService } from 'src/app/services/login.service';
+import { UserService } from 'src/app/services/user.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -25,32 +28,48 @@ import { LoginService } from 'src/app/services/login.service';
     ])
   ]
 })
-export class HeaderComponent implements OnInit{
-@Output() sideNavToggled = new EventEmitter<boolean>();
-menuStatus: boolean = false;
-userData: any;
-userEmail: string | null = null;
-userSeudonimo: string | null = null;
-photoUrl: string | null = null;
 
-highlight: boolean = false;
+export class HeaderComponent implements OnInit, OnDestroy{
 
-  constructor(private router:Router, public loginService: LoginService){ }
+  private userSubscription: Subscription = new Subscription;
+  @Output() sideNavToggled = new EventEmitter<boolean>();
+  menuStatus: boolean = false;
+  userData: any;
+  userEmail: string | null = null;
+  userSeudonimo: string | null = null;
+  photoUrl: string | null = null;
+  users?: UserModel[];
+
+  highlight: boolean = false;
+
+  constructor(private router:Router, public loginService: LoginService, private usrs: UserService){ }
 
     ngOnInit(): void {
-    this.loginService.user$.subscribe(user => {
-      this.userEmail = user ? user.email : null;
-      this.photoUrl = user ? user.photoURL : null;
-
-      if (this.userEmail != null){
-        this.userSeudonimo = this.userEmail.substring(0,4);
-      }
-
-      //this.userSeudonimo = this.userEmail != null ? this.userEmail.substring(1, 6) : '';
-
-    });
+      
+      this.userSubscription = this.loginService.getUserObservable().subscribe((user) => {
+        if (user) {
+          this.loginService.getUserName(user.uid).subscribe((name) => {
+            if (name) {
+              this.userSeudonimo = ", " + this.capitalizeText(name);
+              // Realiza las acciones que necesites con el nombre del usuario
+            } else {
+              console.log('No se encontró el nombre del usuario');
+            }
+          });
+        } else {
+          this.userEmail = null;
+          this.userSeudonimo = null;
+        }
+      });
+      
   }
 
+  ngOnDestroy(): void {
+    if (this.userSubscription) {
+      this.userSubscription.unsubscribe();
+    }
+  }
+  
   SideNavToggle(){
     this.menuStatus = !this.menuStatus;
     this.sideNavToggled.emit(this.menuStatus);
@@ -62,10 +81,17 @@ highlight: boolean = false;
   }
 
   logOut() {
-    this.loginService.logout()
-      .then(() => {
-        this.router.navigate(['/login']);
-      })
-      .catch(error => console.log(error));
+    this.loginService.logout().then(() => {
+    this.router.navigate(['/login']);
+    }).catch(
+        error => console.log(error)
+    );
   }
+
+  capitalizeText(text: string): string {
+    return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
+  }
+  //capitalizeText toma un texto como argumento y capitaliza la primera letra utilizando  
+  //toUpperCase(). Luego, utiliza  slice(1)  para obtener el resto del texto en minúsculas
+  //utilizando toLowerCase(). 
 }

@@ -38,6 +38,14 @@
     <label style="font-weight: bold;" for="universidad">Universidad</label>
     <p class="form-control-static">{{project.universidad}}</p>
   </div>
+  <div class="form-group">
+    <label style="font-weight: bold;" for="universidad">Cliente</label>
+    <p class="form-control-static">{{project.client_name}}</p>
+  </div>
+  <div class="form-group">
+    <label style="font-weight: bold;" for="universidad">Profesor</label>
+    <p class="form-control-static">{{project.tutor_name}}</p>
+  </div>
    <div class="form-group">
     <label style="font-weight: bold;" for="numero_paginas">Número de páginas</label>
     <p class="form-control-static">{{project.numero_paginas}}</p>
@@ -88,7 +96,7 @@
 -->
 
 
-  <!-- Formulario de Usuarios -->
+  <!-- Formulario de Proyectos -->
   <div *ngIf="mostrarForm">
 
     <div class="register-container">
@@ -195,7 +203,7 @@
               (change)="onChangeClient($event)"
               >
               <option value="" disabled selected>Seleccionar opción</option>
-              <option *ngFor="let user of usersList" [value]="user.uid">{{ user.name }}</option>
+              <option *ngFor="let user of usersList" [value]="user.uid">{{ user.name }} {{user.lastname}}</option>
             </select>
           </div>
 
@@ -210,7 +218,7 @@
               (change)="onChangeTutor($event)"
               >
               <option value="" disabled selected>Seleccionar opción</option>
-              <option *ngFor="let user of usersList2" [value]="user.uid">{{ user.name }}</option>
+              <option *ngFor="let user of usersList2" [value]="user.uid">{{ user.name }} {{user.lastname}}</option>
             </select>
           </div>
 
@@ -396,7 +404,7 @@
         <div class="form-group" style="padding-top: 3px;">
           <input
             matInput (keyup)="applyFilter($event)" 
-            placeholder="Buscar" 
+            placeholder="Buscar proyecto" 
             #input
             class="form-control"
             style="border-color:#dc3545;border-width: 1px;"
@@ -455,9 +463,16 @@
 				<td mat-cell *matCellDef="let element" class="mat-cell"> {{element.porcentaje_a_realizar}} </td>
 			</ng-container>
 
+      <!-- Chat Column -->
       <ng-container matColumnDef="chat">
-				<th *matHeaderCellDef mat-sort-header class="mat-header-row" style="text-align: left;"> Chat </th>
+				<th *matHeaderCellDef mat-sort-header class="mat-header-row" style="text-align: left;"> CHAT </th>
 				<td mat-cell *matCellDef="let element" class="mat-cell"> <img style="padding-top: 7px; cursor: pointer;" src="assets/img/comentar-alt-puntos.png" (click)="callChat(element)" width="22" height="25" alt="Chat del proyecto" title="Chat del proyecto"> </td>
+			</ng-container>
+
+      <!-- Up document Column -->
+      <ng-container matColumnDef="up">
+				<th *matHeaderCellDef mat-sort-header class="mat-header-row" style="text-align: left;"> DOCTS </th>
+				<td mat-cell *matCellDef="let element" class="mat-cell"> <img style="padding-top: 7px; cursor: pointer;" src="assets/img/subir-archivo.png" (click)="callStorage(element)" width="22" height="25" alt="Documentos del proyecto" title="Documentos del proyecto"> </td>
 			</ng-container>
 
       <!-- state Column -->

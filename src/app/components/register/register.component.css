@@ -19,3 +19,23 @@
  .btn2:hover {
   background-color: #343a40; /* Color gris más oscuro al pasar el mouse */
 }
+
+.password-field {
+  position: relative;
+}
+
+.toggle-password {
+  margin-left: 5px;
+  right: 10px;
+  float: left;
+  cursor: pointer;
+}
+
+.password-field-container {
+  display: flex;
+  align-items: center;
+}
+
+.password-field-container input {
+  flex: 1;
+}

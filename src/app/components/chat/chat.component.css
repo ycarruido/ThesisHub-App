@@ -1,33 +1,87 @@
 .card {
-  width: 500px;
-  margin: 20px;
+  margin-top: 5px;
+  margin-left: 5px;
+  max-width: 700px;
+  min-width: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
 }
- .card-header {
-  background-color: #f8f9fa;
+
+.card-header {
+  font-weight:500;
+  background-color: #edf0f2e9;
+  color: #dc3545; 
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  border-bottom-color: #dc3545;
 }
- .card-body {
+
+.card-body {
   height: 300px;
   overflow-y: scroll;
   scroll-behavior: smooth;
+  scrollbar-width: thin; /* Para navegadores basados en WebKit */
+  scrollbar-color: transparent transparent;
 }
- .current-user-message {
-  background-color: #3a79ee;
-  color: #fff;
-  margin: 10px;
-  padding: 5px;
-  border-radius: 5px;
+
+/* Estilos de la barra de desplazamiento para navegadores basados en WebKit */
+.card-body::-webkit-scrollbar {
+  width: 6px;
 }
- .other-user-message {
-  background-color: #f8f9fa;
-  color: #000;
-  margin: 10px;
-  padding: 5px;
-  border-radius: 5px;
+  
+.card-body::-webkit-scrollbar-track {
+  background-color: transparent;
 }
+
+.msmcontent{
+  display: block;
+  text-align: right;
+}
+
+.current-user-message {
+  /* background-color: #f1c6f0;
+  color: #000000; */
+  background-color: #ccf7ff;
+  color: #2b2e2e;
+  font-size: 14px;
+  margin: 3px;
+  padding: 5px 10px 5px 10px;
+  /* border-radius: 10px; */
+
+  border-top-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+
+  text-align: left;
+  display: inline-block;
+}
+
+.other-user-message {
+  background-color: #f8e9fb;
+  color: #2b2e2e;
+  /* background-color: #d8fbd2;
+  color: #000; */
+  font-size: 14px;;
+  margin: 3px;
+  padding: 5px 10px 5px 10px;
+  /* border-radius: 10px; */
+  border-top-right-radius: 15px;
+  border-bottom-left-radius: 15px;
+  text-align: right;
+  display: inline-block;
+}
+
  .card-footer {
   display: flex;
 }
  input[type="text"] {
   flex: 1;
   margin-right: 10px;
+}
+.smstime{
+  font-size: x-small;
+  color: rgb(1, 9, 24);
 }

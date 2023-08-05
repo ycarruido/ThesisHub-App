@@ -1,0 +1,79 @@
+<div class="register-container bg-light rounded">
+    <div class="main-content">
+      <div class="container-fluid">
+        <div class="row pt-1">
+          <div class="col-12 col-md-5">
+            <h3 class="text-left fw-bold">Agregar Documentos</h3>
+            <form (ngSubmit)="uploadDocument()" #uploadForm="ngForm">
+              <div class="form-group">
+                <label for="documentTitle">Título*</label>
+                <input type="text" max="70" id="documentTitle" class="form-control" [(ngModel)]="this.documentTitle" name="documentTitle" required>
+              </div>
+              <div class="form-group">
+                <label for="documentTitle">Páginas*</label>
+                <input type="number" min="1" max="200" id="nroPaginas" class="form-control" [(ngModel)]="this.nroPaginas" name="nroPaginas" required>
+              </div>
+              <div class="form-group">
+                <label for="documentTitle">Porcentaje de Avance*</label>
+                <input type="number" min="0" max="100" id="porcentajeAvance" class="form-control" [(ngModel)]="this.porcentajeAvance" name="porcentajeAvance" required>
+            </div>
+            <div class="form-group">
+                <label for="documentTitle">Tipo de Documento*</label>
+                <select 
+                    class="form-control"
+                    id="user_type"
+                    required
+                    value=selected
+                    [(ngModel)]="this.tipoDocumento"
+                    name="user_type"
+                    required
+                >
+                    <option selected>
+                        Avance de proyecto (Entrega)
+                    </option>
+                    <option selected>
+                        Documentos de referencia (Preliminares, Arranque)
+                    </option>
+                </select>
+                <br />
+            </div>
+
+              <div class="form-group mb-3">
+                <div class="custom-file">
+                  <div class="file-select" id="file" style="margin-right: 10px;">
+                    <input type="file" id="file" class="custom-file-input" (change)="onFileSelected($event)" required>
+                  </div>
+                  <label class="custom-file-label" for="file">{{ selectedFileName || ' ' }}</label>
+                </div>
+              </div>
+              <button type="submit" class="btn2" [disabled]="!uploadForm.valid || !selectedFile">Subir Documento</button>
+  
+              <button *ngIf="uploading" class="btn btn-primary" style="margin-right: 10px;" type="button" disabled>
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                <span class="visually-hidden">Subiendo...</span>
+              </button>
+              <span *ngIf="uploadSuccess">Archivo subido exitosamente!</span>
+            </form>
+          </div>
+
+
+          <div class="col-12 col-md-7">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="text-left fw-bold">Documentos: Proyecto #{{this.id}} - {{this.title}}</h3>
+                </div>
+                <div class="card-body">
+                    <ul style="list-style: none;">
+                        <li *ngFor="let document of documents">
+                            <img style="width: 20px; height: 15px;" src="assets/img/descarga-de-archivos.png"/><a [href]="document.downloadURL" target="_blank" style="text-decoration: none;">{{ document.title }}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+  </div>

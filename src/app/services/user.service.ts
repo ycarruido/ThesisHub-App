@@ -20,6 +20,10 @@ export class UserService {
     return this.db.collection<UserModel>('users', ref => ref.where('state', '==', 'Activo').where('status', '==', true).orderBy('id', 'asc'));
   }
 
+  getusrbyEmail(email: string): AngularFirestoreCollection<UserModel> {
+    return this.db.collection<UserModel>('users', ref => ref.where('state', '==', 'Activo').where('status', '==', true).where('email', '==', email));
+  }
+
   getperType(userType: any): AngularFirestoreCollection<UserModel> {
     return this.db.collection<UserModel>('users', ref => ref.where('state', '==', 'Activo').where('status', '==', true).where('user_type', '==', userType).orderBy('id', 'asc'));
   }

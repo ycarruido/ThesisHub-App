@@ -1,0 +1,92 @@
+.btn2 {
+    background-color: #6c757d; /* Color gris oscuro para el botón */
+    color: #ffffff; /* Color blanco para el texto del botón */
+    border: none;
+    padding: 10px 20px; /* Ajusta el tamaño del botón según tus preferencias */
+    cursor: pointer;
+    transition: background-color 0.3s; /* Transición suave al pasar el mouse */
+    width: 150px;
+    border-radius: 10px;
+}
+
+.btn2:hover {
+    background-color: #343a40; /* Color gris más oscuro al pasar el mouse */
+}
+  
+.btn2:disabled {
+    /* Estilos para el botón desactivado */
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+  
+.custom-file-input {
+    cursor: pointer;
+}
+
+/* .custom-file-input::before {
+    cursor: pointer;
+    content: 'Ningún archivo seleccionado';
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    vertical-align: middle;
+    pointer-events: none;
+} */
+
+/* .custom-file-label::after {
+    content: 'Buscar';
+} */
+
+
+.file-select {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .file-select::before {
+    background-color: #134e9d;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    content: 'Seleccionar'; /* texto por defecto */
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+  }
+  
+  .file-select input[type="file"] {
+    opacity: 0;
+    width: 150px;
+    height: 32px;
+    display: inline-block;
+  }
+  
+  #file::before {
+    content: 'Seleccionar archivo';
+  }
+
+  a {
+    outline: none;
+    text-decoration: none;
+    padding: 2px 1px 0 2px;
+  }
+  
+  a:link {
+    color: #292929;
+  }
+
+  a:focus {
+    color: #3883e4;
+  }
+  
+  a:hover {
+    color: #3883e4;
+  }
+  
+ 

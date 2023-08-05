@@ -17,7 +17,9 @@ export class InvoiceService {
   }
 
   getAll(): AngularFirestoreCollection<InvoiceModel> {
-    return this.db.collection<InvoiceModel>('invoices', ref => ref.where('status', '==', "Pendiente").orderBy('invoice_id', 'asc'));
+    //return this.db.collection<InvoiceModel>('invoices', ref => ref.where('status', '==', "Pendiente").orderBy('invoice_id', 'asc'));
+    return this.db.collection<InvoiceModel>('invoices', ref => ref.where('status', 'in', ['Pendiente', 'Aprobada', 'Pagada', 'Anulada']).orderBy('invoice_id', 'asc'));
+    //return this.db.collection<InvoiceModel>('invoices', ref => ref.where('status', '==', "Pendiente").where('status', '==', "Aprobada").where('status', '==', "Pagada").where('status', '==', "Anulada").orderBy('invoice_id', 'asc'));
   }
 
   //Consulta

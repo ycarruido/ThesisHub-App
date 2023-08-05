@@ -88,7 +88,7 @@ export class UserComponent implements OnInit  {
         await this.userService.update(this.user);
         this.edditted = true;
         //llamada a la alerta
-        console.log("Currentuser: ",this.currentUserEmail);
+        //console.log("Currentuser: ",this.currentUserEmail);
         this.doSomething("update","El usuario se ha modificado correctamente.");
         this.mostrarForm = false;
         // Aquí puedes agregar código para manejar la actualización exitosa, como mostrar un mensaje al usuario
@@ -203,11 +203,11 @@ export class UserComponent implements OnInit  {
     this.currentUser = undefined;
     this.user = new UserModel();
 
-    console.log("moform: ",this.mostrarForm);
-    console.log("strtitle: ",this.strtitle);
-    console.log("currentIndex: ",this.currentIndex);
-    console.log("editing: ",this.editing);
-    console.log("user: ",this.user);
+    // console.log("moform: ",this.mostrarForm);
+    // console.log("strtitle: ",this.strtitle);
+    // console.log("currentIndex: ",this.currentIndex);
+    // console.log("editing: ",this.editing);
+    // console.log("user: ",this.user);
 
   }//end moForm
 

@@ -8,6 +8,6 @@
   transition: background-color 0.4s;
 }
  .grid-item:hover {
-  background-color: #343a40;
-  color: #dc3545;
+  background-color: #d9dbde;
+  color: #62121a;
 }
