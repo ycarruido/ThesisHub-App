@@ -4,7 +4,7 @@
 
     <div class="row">
       <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
-        <div><h3 style="font-size: 22px; font-weight: bold;">DATOS DE LA FACTURA</h3></div>
+        <div><h3 style="font-size: 22px; font-weight: bold;">Datos de la Factura</h3></div>
       </div>
       <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
         <div class="close-icon">
@@ -12,51 +12,76 @@
         </div>
       </div>
     </div>
+    <div class="card">
+      <div class="card-body">
+        <div class="form-group">
+          <div class="mb-3"></div>
+          <label class="label-generic"  for="titulo">Número Factura</label>
+          <p class="form-control-static">{{invoice.numeroFactura}}</p>
+        </div>
+         <div>
+          <div class="mb-3">  
+            <label class="label-generic"  for="bibliografia">Fecha de Emisión</label>
+            <p class="form-control-static">{{ formatFecha(invoice.fechaEmision) }}</p>
+          </div>
+        </div>
+         <div class="form-group">
+          <div class="mb-3">
+            <label class="label-generic"  for="carrera">Subtotal</label>
+            <p class="form-control-static">{{invoice.subtotal}}</p>
+          </div>
+        </div>
+         <div class="form-group">
+          <div class="mb-3">
+            <label class="label-generic"  for="especialidad">Monto Total</label>
+            <p class="form-control-static">{{invoice.montoTotal}}</p>
+          </div>
+        </div>
+         <div class="form-group">
+          <div class="mb-3">
+            <label class="label-generic"  for="tema">Impuesto</label>
+            <p class="form-control-static">{{invoice.impuestos}}</p>
+          </div>
+        </div>
+         <div class="form-group">
+          <div class="mb-3">
+            <label class="label-generic"  for="universidad">Metodo de Pago</label>
+            <p class="form-control-static">{{invoice.paymentMethod}}</p>
+          </div>
+        </div>
+         <div class="form-group">
+          <div class="mb-3">
+            <label class="label-generic"  for="numero_paginas">Código del Proyecto</label>
+            <p class="form-control-static">{{invoice.project_id}}</p>
+          </div>
+        </div>
+         <div class="form-group">
+          <div class="mb-3">
+            <label class="label-generic"  for="entregas">Nombre del Proyecto</label>
+            <p class="form-control-static">{{invoice.nombreProyecto}}</p>
+          </div>
+        </div>
+         <div class="form-group">
+          <div class="mb-3">
+            <label class="label-generic"  for="descripcion">Código del Cliente</label>
+            <p class="form-control-static">{{invoice.client_id}}</p>
+          </div>
+        </div>
+         <div class="form-group">
+          <div class="mb-3">
+            <label class="label-generic" >Nombre del Ciente</label>
+            <p class="form-control-static">{{ invoice.nombreCliente }}</p>
+          </div>
+        </div>
+         <div class="form-group">
+          <div class="mb-3">
+            <label class="label-generic" >Fecha de Registro</label>
+            <p class="form-control-static">{{ formatFecha(invoice.registration_date) }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
     
-    <div class="form-group">
-      <label style="font-weight: bold;" for="titulo">Número Factura</label>
-      <p class="form-control-static">{{invoice.numeroFactura}}</p>
-    </div>
-     <div>
-      <label style="font-weight: bold;" for="bibliografia">Fecha de Emisión</label>
-      <p class="form-control-static">{{ formatFecha(invoice.fechaEmision) }}</p>
-    </div>
-     <div class="form-group">
-      <label style="font-weight: bold;" for="carrera">Subtotal</label>
-      <p class="form-control-static">{{invoice.subtotal}}</p>
-    </div>
-     <div class="form-group">
-      <label style="font-weight: bold;" for="especialidad">Monto Total</label>
-      <p class="form-control-static">{{invoice.montoTotal}}</p>
-    </div>
-     <div class="form-group">
-      <label style="font-weight: bold;" for="tema">Impuesto</label>
-      <p class="form-control-static">{{invoice.impuestos}}</p>
-    </div>
-     <div class="form-group">
-      <label style="font-weight: bold;" for="universidad">Metodo de Pago</label>
-      <p class="form-control-static">{{invoice.paymentMethod}}</p>
-    </div>
-     <div class="form-group">
-      <label style="font-weight: bold;" for="numero_paginas">Código del Proyecto</label>
-      <p class="form-control-static">{{invoice.project_id}}</p>
-    </div>
-     <div class="form-group">
-      <label style="font-weight: bold;" for="entregas">Nombre del Proyecto</label>
-      <p class="form-control-static">{{invoice.nombreProyecto}}</p>
-    </div>
-     <div class="form-group">
-      <label style="font-weight: bold;" for="descripcion">Código del Cliente</label>
-      <p class="form-control-static">{{invoice.client_id}}</p>
-    </div>
-     <div class="form-group">
-      <label style="font-weight: bold;">Nombre del Ciente</label>
-      <p class="form-control-static">{{ invoice.nombreCliente }}</p>
-    </div>
-     <div class="form-group">
-      <label style="font-weight: bold;">Fecha de Registro</label>
-      <p class="form-control-static">{{ formatFecha(invoice.registration_date) }}</p>
-    </div>
   </div>
   <!-- Vista de solo lectura  -->
   
@@ -80,159 +105,185 @@
 
         <div>
           <form #invoiceForm="ngForm">
-            <div class="form-group">
-              <label for="titulo">Número de Factura *</label>
-              <input
-                type="text"
-                class="form-control"
-                id="titulo"
-                required
-                [(ngModel)]="invoice.numeroFactura"
-                name="titulo"
-                #nameField="ngModel"
-              />
-              <div *ngIf="nameField.invalid && (nameField.dirty || nameField.touched)" class="text-danger">
-                El número de factura es requerido.
-              </div>
-            </div>
-  
-            <div>
+            <div class="card">
+              <div class="card-body">
                 <div class="form-group">
-                    <mat-form-field appearance="outline" >
-                        <mat-label>Fecha de Emisión</mat-label>
-                        <input 
-                            matInput 
-                            [matDatepicker]="picker" 
-                            placeholder="Seleccionar fecha"
-                            class="form-control"
-                            id="fechaEmision"
-                            [(ngModel)]="invoice.fechaEmision"
-                            name="fechaEmision"
-                        >
-                        <mat-hint>dd/mm/yyyy</mat-hint>
-                        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-                        <mat-datepicker #picker></mat-datepicker>
-                    </mat-form-field>
+                    <div class="mb-3">
+                      <label class="label-generic" for="titulo">Número de Factura *</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="titulo"
+                        required
+                        [(ngModel)]="invoice.numeroFactura"
+                        name="titulo"
+                        #nameField="ngModel"
+                      />
+                      <div *ngIf="nameField.invalid && (nameField.dirty || nameField.touched)" class="text-danger">
+                        El número de factura es requerido.
+                      </div>
                   </div>
-            </div>
-  
-            <div class="form-group">
-                <label for="subtotal">Subtotal *</label>
-                <input
-                  type="number"
-                  class="form-control"
-                  id="subtotal"
-                  required
-                  [(ngModel)]="invoice.subtotal"
-                  name="subtotal"
-                />
-            </div>
+                </div>
+      
+                <div>
+                    <div class="form-group">
+                      <div class="mb-3">
+                        <label class="label-generic" for="titulo" for="Fecha de Emisión">Fecha de Emisión</label><br/>
+                        <mat-form-field appearance="outline" class="custom-datepicker" >
+                            <input 
+                                matInput 
+                                [matDatepicker]="picker" 
+                                placeholder="Seleccionar fecha"
+                                class="form-control"
+                                id="fechaEmision"
+                                [(ngModel)]="invoice.fechaEmision"
+                                name="fechaEmision"
+                            >
+                            <mat-hint>dd/mm/yyyy</mat-hint>
+                            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                </div>
+      
+                <div class="form-group">
+                  <div class="mb-3">
+                    <label class="label-generic" for="subtotal">Subtotal *</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="subtotal"
+                      required
+                      [(ngModel)]="invoice.subtotal"
+                      name="subtotal"
+                    />
+                  </div>
+                </div>
+    
+                <div class="form-group">
+                  <div class="mb-3">
+                    <label class="label-generic" for="impuestos">Impuesto *</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="impuestos"
+                      required
+                      [(ngModel)]="invoice.impuestos"
+                      name="impuestos"
+                    />
+                  </div>
+                </div>
+    
+                <div class="form-group">
+                  <div class="mb-3">
+                    <label class="label-generic" for="montoTotal">Monto total factura *</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="montoTotal"
+                      required
+                      [(ngModel)]="invoice.montoTotal"
+                      name="montoTotal"
+                    />
+                  </div>
+                </div>
+    
+                <div class="form-group">
+                  <div class="mb-3">
+                    <label class="label-generic" for="paymentMethod">Metodo de Pago *</label>
+                    <select 
+                      class="form-control"
+                      id="paymentMethod"
+                      required
+                      [(ngModel)]="invoice.paymentMethod" 
+                      name="paymentMethod"
+                      >
+                      <option value="" disabled selected>Seleccionar opción</option>
+                      <option *ngFor="let items of options" [value]="items">{{ items }}</option>
+                    </select>
+                  </div>
+                </div>
+    
+                <div class="form-group">
+                  <div class="mb-3">
+                    <label class="label-generic" for="nombreProyecto">Nombre del Proyecto *</label>
+                    <select 
+                      class="form-control"
+                      id="nombreProyecto"
+                      required
+                      [(ngModel)]="invoice.nombreProyecto" 
+                      name="nombreProyecto"
+                      >
+                      <option value="" disabled selected>Seleccionar opción</option>
+                      <option *ngFor="let items of options" [value]="items">{{ items }}</option>
+                    </select>
+                  </div>
+                </div>
+    
+                <div class="form-group">
+                  <div class="mb-3">
+                      <label class="label-generic" for="nombreCliente">Nombre del Cliente</label>
+                      <select 
+                        class="form-control"
+                        id="nombreCliente"
+                        required
+                        [(ngModel)]="invoice.nombreCliente" 
+                        name="nombreCliente"
+                        >
+                        <option value="" disabled selected>Seleccionar opción</option>
+                        <option *ngFor="let items of options" [value]="items">{{ items }}</option>
+                      </select>
+                  </div>
+                </div>
+    
+                <div class="form-group">
+                  <div class="mb-3">
+                    <label class="label-generic" for="notas">Notas Adicionales</label>
+                    <input
+                      class="form-control"
+                      id="notas"
+                      required
+                      [(ngModel)]="invoice.notas"
+                      name="notas"
+                    />
+                  </div>
+                </div>
 
-            <div class="form-group">
-                <label for="impuestos">Impuesto *</label>
-                <input
-                  type="number"
-                  class="form-control"
-                  id="impuestos"
-                  required
-                  [(ngModel)]="invoice.impuestos"
-                  name="impuestos"
-                />
-            </div>
-
-            <div class="form-group">
-                <label for="montoTotal">Monto total factura *</label>
-                <input
-                  type="number"
-                  class="form-control"
-                  id="montoTotal"
-                  required
-                  [(ngModel)]="invoice.montoTotal"
-                  name="montoTotal"
-                />
-            </div>
-
-            <div>
-                <label for="paymentMethod">Metodo de Pago *</label>
-                <select 
-                  class="form-control"
-                  id="paymentMethod"
-                  required
-                  [(ngModel)]="invoice.paymentMethod" 
-                  name="paymentMethod"
-                  >
-                  <option value="" disabled selected>Seleccionar opción</option>
-                  <option *ngFor="let items of options" [value]="items">{{ items }}</option>
-                </select>
-            </div>
-
-            <div>
-                <label for="nombreProyecto">Nombre del Proyecto *</label>
-                <select 
-                  class="form-control"
-                  id="nombreProyecto"
-                  required
-                  [(ngModel)]="invoice.nombreProyecto" 
-                  name="nombreProyecto"
-                  >
-                  <option value="" disabled selected>Seleccionar opción</option>
-                  <option *ngFor="let items of options" [value]="items">{{ items }}</option>
-                </select>
-            </div>
-
-            <div>
-                <label for="nombreCliente">Nombre del Cliente</label>
-                <select 
-                  class="form-control"
-                  id="nombreCliente"
-                  required
-                  [(ngModel)]="invoice.nombreCliente" 
-                  name="nombreCliente"
-                  >
-                  <option value="" disabled selected>Seleccionar opción</option>
-                  <option *ngFor="let items of options" [value]="items">{{ items }}</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-              <label for="notas">Notas Adicionales</label>
-              <input
-                class="form-control"
-                id="notas"
-                required
-                [(ngModel)]="invoice.notas"
-                name="notas"
-              />
-            </div>
-            <div class="form-group">
-              <label for="status">Fuente o Canal *</label>
-              <select 
-                  class="form-control"
-                  id="status"
-                  required
-                  value=selected
-                  [(ngModel)]="invoice.status"
-                  name="status"
-                  required
-              >
-                  <option selected>
-                    Pendiente
-                  </option>
-                  <option selected>
-                    Aprobada
-                  </option>
-                  <option selected>
-                    Pagada
-                  </option>
-                  <option selected>
-                    Anulada 
-                  </option>
-              </select>
-              <br/>
-              <div *ngIf="nameField.invalid && (nameField.dirty || nameField.touched)" class="text-danger">
-                Ingrese la fuente o canal a través del cual se obtuvo el lead
+                <div class="form-group">
+                  <div class="mb-3">
+                    <label class="label-generic" for="status">Fuente o Canal *</label>
+                    <select 
+                        class="form-control"
+                        id="status"
+                        required
+                        value=selected
+                        [(ngModel)]="invoice.status"
+                        name="status"
+                        required
+                    >
+                        <option selected>
+                          Pendiente
+                        </option>
+                        <option selected>
+                          Aprobada
+                        </option>
+                        <option selected>
+                          Pagada
+                        </option>
+                        <option selected>
+                          Anulada 
+                        </option>
+                    </select>
+                    <br/>
+                    <div *ngIf="nameField.invalid && (nameField.dirty || nameField.touched)" class="text-danger">
+                      Ingrese la fuente o canal a través del cual se obtuvo el lead
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
+            
         
             <button (click)="saveInvoice()" type="submit" [disabled]="!invoiceForm.form.valid" class="btn2">Enviar</button>
           </form>

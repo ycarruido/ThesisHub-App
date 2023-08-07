@@ -4,7 +4,7 @@
 
   <div class="row">
     <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
-      <div><h3 style="font-size: 22px; font-weight: bold;">DATOS DEL PROYECTO</h3></div>
+      <div><h3 style="font-size: 22px; font-weight: bold;">Datos del Proyecto</h3></div>
     </div>
     <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
       <div class="close-icon">
@@ -13,82 +13,124 @@
     </div>
   </div>
 
-  <div><h3 style="font-size: 22px; font-weight: bold;"></h3></div>
-  <div class="form-group">
-    <label style="font-weight: bold;" for="titulo">Titulo *</label>
-    <p class="form-control-static">{{project.titulo}}</p>
-  </div>
-   <div>
-    <label style="font-weight: bold;" for="bibliografia">Bibliografía *</label>
-    <p class="form-control-static">{{project.bibliografia}}</p>
-  </div>
-   <div class="form-group">
-    <label style="font-weight: bold;" for="carrera">Carrera *</label>
-    <p class="form-control-static">{{project.carrera}}</p>
-  </div>
-   <div class="form-group">
-    <label style="font-weight: bold;" for="especialidad">Especialidad</label>
-    <p class="form-control-static">{{project.especialidad}}</p>
-  </div>
-   <div class="form-group">
-    <label style="font-weight: bold;" for="tema">Tema</label>
-    <p class="form-control-static">{{project.tema}}</p>
-  </div>
-   <div class="form-group">
-    <label style="font-weight: bold;" for="universidad">Universidad</label>
-    <p class="form-control-static">{{project.universidad}}</p>
-  </div>
-  <div class="form-group">
-    <label style="font-weight: bold;" for="universidad">Cliente</label>
-    <p class="form-control-static">{{project.client_name}}</p>
-  </div>
-  <div class="form-group">
-    <label style="font-weight: bold;" for="universidad">Profesor</label>
-    <p class="form-control-static">{{project.tutor_name}}</p>
-  </div>
-   <div class="form-group">
-    <label style="font-weight: bold;" for="numero_paginas">Número de páginas</label>
-    <p class="form-control-static">{{project.numero_paginas}}</p>
-  </div>
-   <div class="form-group">
-    <label style="font-weight: bold;" for="entregas">Número de entregas</label>
-    <p class="form-control-static">{{project.entregas}}</p>
-  </div>
-   <div class="form-group">
-    <label style="font-weight: bold;" for="descripcion">Descripcion</label>
-    <p class="form-control-static">{{project.descripcion}}</p>
-  </div>
-   <div class="form-group">
-    <label style="font-weight: bold;">Fecha de inicio</label>
-    <p class="form-control-static">{{ formatFecha(project.fecha_inicio) }}</p>
-  </div>
-   <div class="form-group">
-    <label style="font-weight: bold;">Fecha de entrega</label>
-    <p class="form-control-static">{{ formatFecha(project.fecha_entrega) }}</p>
-  </div>
-   <div class="form-group">
-    <label style="font-weight: bold;" for="presupuesto">Presupuesto</label>
-    <p class="form-control-static">{{project.presupuesto}}</p>
-  </div>
-   <div class="form-group">
-    <label style="font-weight: bold;" for="monto_recibido">Monto recibido</label>
-    <p class="form-control-static">{{project.monto_recibido}}</p>
-  </div>
-   <div class="form-group">
-    <label style="font-weight: bold;" for="porcentaje_a_realizar">Porcentaje a realizar</label>
-    <p class="form-control-static">{{project.porcentaje_a_realizar}}</p>
-  </div>
-   <div class="form-group">
-    <label style="font-weight: bold;">Fecha de ultima entrega</label>
-    <p class="form-control-static">{{ formatFecha(project.ultima_entrega) }}</p>
-  </div>
-   <div class="form-group">
-    <label style="font-weight: bold;">Fecha proxima entrega</label>
-    <p class="form-control-static">{{ formatFecha(project.fecha_proxima) }}</p>
-  </div>
-   <div class="form-group">
-    <label style="font-weight: bold;" for="factura">Factura</label>
-    <p class="form-control-static">{{project.factura}}</p>
+  <div class="card">
+    <div class="card-body">
+      <div><h3 style="font-size: 22px; font-weight: bold;"></h3></div>
+      <div class="form-group">
+        <div class="mb-3">
+          <label class="label-generic" for="titulo">Titulo *</label>
+          <p class="form-control-static">{{project.titulo}}</p>
+        </div>
+      </div>
+       <div>
+        <div class="mb-3">
+          <label class="label-generic" for="bibliografia">Bibliografía *</label>
+          <p class="form-control-static">{{project.bibliografia}}</p>
+        </div>
+      </div>
+       <div class="form-group">
+        <div class="mb-3">
+          <label class="label-generic" for="carrera">Carrera *</label>
+          <p class="form-control-static">{{project.carrera}}</p>
+        </div>
+      </div>
+       <div class="form-group">
+        <div class="mb-3">
+          <label class="label-generic" for="especialidad">Especialidad</label>
+          <p class="form-control-static">{{project.especialidad}}</p>
+        </div>
+      </div>
+       <div class="form-group">
+        <div class="mb-3">
+          <label class="label-generic" for="tema">Tema</label>
+          <p class="form-control-static">{{project.tema}}</p>
+        </div>
+      </div>
+       <div class="form-group">
+        <div class="mb-3">
+          <label class="label-generic" for="universidad">Universidad</label>
+          <p class="form-control-static">{{project.universidad}}</p>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="mb-3">
+          <label class="label-generic" for="universidad">Cliente</label>
+          <p class="form-control-static">{{project.client_name}}</p>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="mb-3">
+          <label class="label-generic" for="universidad">Profesor</label>
+          <p class="form-control-static">{{project.tutor_name}}</p>
+        </div>
+      </div>
+       <div class="form-group">
+        <div class="mb-3">
+          <label class="label-generic" for="numero_paginas">Número de páginas</label>
+          <p class="form-control-static">{{project.numero_paginas}}</p>
+        </div>
+      </div>
+       <div class="form-group">
+        <div class="mb-3">
+          <label class="label-generic" for="entregas">Número de entregas</label>
+          <p class="form-control-static">{{project.entregas}}</p>
+        </div>
+      </div>
+       <div class="form-group">
+        <div class="mb-3">
+          <label class="label-generic" for="descripcion">Descripcion</label>
+          <p class="form-control-static">{{project.descripcion}}</p>
+        </div>
+      </div>
+       <div class="form-group">
+        <div class="mb-3">
+          <label class="label-generic">Fecha de inicio</label>
+          <p class="form-control-static">{{ formatFecha(project.fecha_inicio) }}</p>
+        </div>
+      </div>
+       <div class="form-group">
+        <div class="mb-3">
+          <label class="label-generic">Fecha de entrega</label>
+          <p class="form-control-static">{{ formatFecha(project.fecha_entrega) }}</p>
+        </div>
+      </div>
+       <div class="form-group">
+        <div class="mb-3">
+          <label class="label-generic" for="presupuesto">Presupuesto</label>
+          <p class="form-control-static">{{project.presupuesto}}</p>
+        </div>
+      </div>
+       <div class="form-group">
+        <div class="mb-3">
+          <label class="label-generic" for="monto_recibido">Monto recibido</label>
+          <p class="form-control-static">{{project.monto_recibido}}</p>
+        </div>
+      </div>
+       <div class="form-group">
+        <div class="mb-3">
+          <label class="label-generic" for="porcentaje_a_realizar">Porcentaje a realizar</label>
+          <p class="form-control-static">{{project.porcentaje_a_realizar}}</p>
+        </div>
+      </div>
+       <div class="form-group">
+        <div class="mb-3">
+          <label class="label-generic">Fecha de ultima entrega</label>
+          <p class="form-control-static">{{ formatFecha(project.ultima_entrega) }}</p>
+        </div>
+      </div>
+       <div class="form-group">
+        <div class="mb-3">
+          <label class="label-generic">Fecha proxima entrega</label>
+          <p class="form-control-static">{{ formatFecha(project.fecha_proxima) }}</p>
+        </div>
+      </div>
+       <div class="form-group">
+        <div class="mb-3">
+          <label class="label-generic" for="factura">Factura</label>
+          <p class="form-control-static">{{project.factura}}</p>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 <!-- Vista de solo lectura 
@@ -113,268 +155,315 @@
       </div>
 
       <div>
+
+
+
+
+
         <form #projectForm="ngForm">
-          <div class="form-group">
-            <label for="titulo">Titulo *</label>
-            <input
-              type="text"
-              class="form-control"
-              id="titulo"
-              required
-              [(ngModel)]="project.titulo"
-              name="titulo"
-              pattern="^[A-ZÁÉÍÓÚÑ][A-Za-zÁÉÍÓÚáéíóúñÑ0-9\s]*$"
-              #nameField="ngModel"
-            />
-            <div *ngIf="nameField.invalid && (nameField.dirty || nameField.touched)" class="text-danger">
-              El título es requerido y debe comenzar con mayúscula. 
+          <div class="card">
+            <div class="card-body">
+              <div class="form-group">
+                <div class="mb-3">
+                  <label class="label-generic" for="titulo">Titulo *</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="titulo"
+                    required
+                    [(ngModel)]="project.titulo"
+                    name="titulo"
+                    pattern="^[A-ZÁÉÍÓÚÑ][A-Za-zÁÉÍÓÚáéíóúñÑ0-9\s]*$"
+                    #nameField="ngModel"
+                  />
+                  <div *ngIf="nameField.invalid && (nameField.dirty || nameField.touched)" class="text-danger">
+                    El título es requerido y debe comenzar con mayúscula. 
+                  </div>
+                </div>
+              </div>
+    
+              <div class="form-group">
+                <div class="mb-3">
+                  <label class="label-generic" for="bibliografia">Bibliografía *</label>
+                  <select 
+                    class="form-control"
+                    id="bibliografia"
+                    required
+                    [(ngModel)]="project.bibliografia" 
+                    name="selectedOption"
+                    >
+                    <option value="" disabled selected>Seleccionar opción</option>
+                    <option *ngFor="let items of options" [value]="items">{{ items }}</option>
+                  </select>
+                </div>
+              </div>
+    
+              <div class="form-group">
+                <div class="mb-3">
+                  <label class="label-generic" for="carrera">Carrera *</label>
+                  <input
+                    class="form-control"
+                    id="carrera"
+                    required
+                    [(ngModel)]="project.carrera"
+                    name="carrera"
+                  />
+                  <div *ngIf="nameField.invalid && (nameField.dirty || nameField.touched)" class="text-danger">
+                    Se requiere carrera
+                  </div>
+                </div>
+              </div>
+    
+              <div class="form-group">
+                <div class="mb-3">
+                  <label class="label-generic" for="especialidad">Especialidad</label>
+                  <input
+                    class="form-control"
+                    id="especialidad"
+                    required
+                    [(ngModel)]="project.especialidad"
+                    name="especialidad"
+                  />
+                </div>
+              </div>
+    
+              <div class="form-group">
+                <div class="mb-3">
+                  <label class="label-generic" for="tema">Tema</label>
+                  <input
+                    class="form-control"
+                    id="tema"
+                    required
+                    [(ngModel)]="project.tema"
+                    name="tema"
+                  />
+                </div>
+              </div>
+    
+              <div class="form-group">
+                <div class="mb-3">
+                  <label class="label-generic" for="universidad">Universidad</label>
+                  <input
+                    class="form-control"
+                    id="universidad"
+                    [(ngModel)]="project.universidad"
+                    name="universidad"
+                  />
+                </div>
+              </div>
+    
+              <div class="form-group">
+                <div class="mb-3">
+                  <label class="label-generic" for="client_id">Cliente *</label>
+                  <select
+                    class="form-control" 
+                    id="client_id" 
+                    required 
+                    [(ngModel)]="project.client_id" 
+                    name="client_id"
+                    #client_id 
+                    (change)="onChangeClient($event)"
+                    >
+                    <option value="" disabled selected>Seleccionar opción</option>
+                    <option *ngFor="let user of usersList" [value]="user.uid">{{ user.name }} {{user.lastname}}</option>
+                  </select>
+                </div>
+              </div>
+    
+              <div class="form-group">
+                <div class="mb-3">
+                  <label class="label-generic" for="tutor_id">Profesor Asignado</label>
+                  <select
+                    class="form-control" 
+                    id="tutor_id"  
+                    [(ngModel)]="project.tutor_id" 
+                    name="tutor_id"
+                    #tutor_id 
+                    (change)="onChangeTutor($event)"
+                    >
+                    <option value="" disabled selected>Seleccionar opción</option>
+                    <option *ngFor="let user of usersList2" [value]="user.uid">{{ user.name }} {{user.lastname}}</option>
+                  </select>
+                </div>
+              </div>
+    
+              <div class="form-group">
+                <div class="mb-3">
+                  <label class="label-generic" for="numero_paginas">Número de páginas</label>
+                  <input
+                    class="form-control"
+                    type="number"
+                    id="numero_paginas"
+                    [(ngModel)]="project.numero_paginas"
+                    name="numero_paginas"
+                  />
+                </div>
+              </div>
+    
+              <div class="form-group">
+                <div class="mb-3">
+                  <label class="label-generic" for="entregas">Número de entregas</label>
+                  <input
+                    class="form-control"
+                    type="number"
+                    id="entregas"
+                    [(ngModel)]="project.entregas"
+                    name="entregas"
+                  />
+                </div>
+              </div>
+    
+              <div class="form-group">
+                <div class="mb-3">
+                  <label class="label-generic" for="descripcion">Descripción</label>
+                  <textarea
+                    rows="3"
+                    class="form-control"
+                    id="descripcion"
+                    [(ngModel)]="project.descripcion"
+                    name="descripcion"
+                  >
+                  </textarea>
+                </div>
+                <br/>
+              </div>
+    
+              <div class="form-group">
+                <div class="mb-3">
+                  <mat-form-field appearance="outline" >
+                      <mat-label>Fecha de inicio</mat-label>
+                      <input 
+                          matInput 
+                          [matDatepicker]="picker" 
+                          placeholder="Seleccionar fecha"
+                          class="form-control"
+                          id="fecha_inicio"
+                          [(ngModel)]="project.fecha_inicio"
+                          name="fecha_inicio"
+                      >
+                      <mat-hint>dd/mm/yyyy</mat-hint>
+                      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                      <mat-datepicker #picker></mat-datepicker>
+                  </mat-form-field>
+                </div>
+              </div>
+    
+              <div class="form-group">
+                <div class="mb-3">
+                  <mat-form-field appearance="outline" >
+                      <mat-label>Fecha de entrega</mat-label>
+                      <input 
+                          matInput 
+                          [matDatepicker]="picker2" 
+                          placeholder="Seleccionar fecha"
+                          class="form-control"
+                          id="fecha_entrega"
+                          [(ngModel)]="project.fecha_entrega"
+                          name="fecha_entrega"
+                      >
+                      <mat-hint>dd/mm/yyyy</mat-hint>
+                      <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+                      <mat-datepicker #picker2></mat-datepicker>
+                  </mat-form-field>
+                </div>
+                <br /><br />
+              </div>
+    
+              <div class="form-group">
+                <div class="mb-3">
+                  <label class="label-generic" for="presupuesto">Presupuesto</label>
+                  <input
+                    class="form-control"
+                    type="number"
+                    id="presupuesto"
+                    [(ngModel)]="project.presupuesto"
+                    name="presupuesto"
+                  />
+                </div>
+              </div>
+    
+              <div class="form-group">
+                <div class="mb-3">
+                  <label class="label-generic" for="monto_recibido">Monto recibido</label>
+                  <input
+                    class="form-control"
+                    type="number"
+                    id="monto_recibido"
+                    [(ngModel)]="project.monto_recibido"
+                    name="monto_recibido"
+                  />
+                </div>
+              </div>
+    
+              <div class="form-group">
+                <div class="mb-3">
+                  <label class="label-generic" for="porcentaje_a_realizar">Porcentaje a realizar</label>
+                  <input
+                    class="form-control"
+                    type="number"
+                    id="porcentaje_a_realizar"
+                    [(ngModel)]="project.porcentaje_a_realizar"
+                    name="porcentaje_a_realizar"
+                  />
+                </div>
+                <br />
+              </div>
+    
+              <div class="form-group">
+                <div class="mb-3">
+                  <mat-form-field appearance="outline" >
+                      <mat-label>Fecha de ultima entrega</mat-label>
+                      <input 
+                          matInput 
+                          [matDatepicker]="picker3" 
+                          placeholder="Seleccionar fecha"
+                          class="form-control"
+                          id="ultima_entrega"
+                          [(ngModel)]="project.ultima_entrega"
+                          name="ultima_entrega"
+                      >
+                      <mat-hint>dd/mm/yyyy</mat-hint>
+                      <mat-datepicker-toggle matIconSuffix [for]="picker3"></mat-datepicker-toggle>
+                      <mat-datepicker #picker3></mat-datepicker>
+                  </mat-form-field>
+                </div>
+              </div>
+    
+              <div class="form-group">
+                <div class="mb-3">
+                  <mat-form-field appearance="outline" >
+                      <mat-label>Fecha proxima entrega</mat-label>
+                      <input 
+                          matInput 
+                          [matDatepicker]="picker4" 
+                          placeholder="Seleccionar fecha"
+                          class="form-control"
+                          id="fecha_proxima"
+                          [(ngModel)]="project.fecha_proxima"
+                          name="fecha_proxima"
+                      >
+                      <mat-hint>dd/mm/yyyy</mat-hint>
+                      <mat-datepicker-toggle matIconSuffix [for]="picker4"></mat-datepicker-toggle>
+                      <mat-datepicker #picker4></mat-datepicker>
+                  </mat-form-field>
+                </div>
+                <br /><br />
+              </div>
+    
+              <div class="form-group">
+                <div class="mb-3">
+                  <label class="label-generic" for="factura">Factura</label>
+                  <input
+                    class="form-control"
+                    id="factura"
+                    [(ngModel)]="project.factura"
+                    name="factura"
+                  />
+                </div>
+                <br /><br />
+              </div>
             </div>
           </div>
-
-          <div>
-              <label for="bibliografia">Bibliografía *</label>
-              <select 
-                class="form-control"
-                id="bibliografia"
-                required
-                [(ngModel)]="project.bibliografia" 
-                name="selectedOption"
-                >
-                <option value="" disabled selected>Seleccionar opción</option>
-                <option *ngFor="let items of options" [value]="items">{{ items }}</option>
-              </select>
-          </div>
-
-          <div class="form-group">
-            <label for="carrera">Carrera *</label>
-            <input
-              class="form-control"
-              id="carrera"
-              required
-              [(ngModel)]="project.carrera"
-              name="carrera"
-            />
-            <div *ngIf="nameField.invalid && (nameField.dirty || nameField.touched)" class="text-danger">
-              Se requiere carrera
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="especialidad">Especialidad</label>
-            <input
-              class="form-control"
-              id="especialidad"
-              required
-              [(ngModel)]="project.especialidad"
-              name="especialidad"
-            />
-          </div>
-
-          <div class="form-group">
-            <label for="tema">Tema</label>
-            <input
-              class="form-control"
-              id="tema"
-              required
-              [(ngModel)]="project.tema"
-              name="tema"
-            />
-          </div>
-
-          <div class="form-group">
-            <label for="universidad">Universidad</label>
-            <input
-              class="form-control"
-              id="universidad"
-              [(ngModel)]="project.universidad"
-              name="universidad"
-            />
-          </div>
-
-          <div>
-            <label for="client_id">Cliente *</label>
-            <select
-              class="form-control" 
-              id="client_id" 
-              required 
-              [(ngModel)]="project.client_id" 
-              name="client_id"
-              #client_id 
-              (change)="onChangeClient($event)"
-              >
-              <option value="" disabled selected>Seleccionar opción</option>
-              <option *ngFor="let user of usersList" [value]="user.uid">{{ user.name }} {{user.lastname}}</option>
-            </select>
-          </div>
-
-          <div>
-            <label for="tutor_id">Profesor Asignado</label>
-            <select
-              class="form-control" 
-              id="tutor_id"  
-              [(ngModel)]="project.tutor_id" 
-              name="tutor_id"
-              #tutor_id 
-              (change)="onChangeTutor($event)"
-              >
-              <option value="" disabled selected>Seleccionar opción</option>
-              <option *ngFor="let user of usersList2" [value]="user.uid">{{ user.name }} {{user.lastname}}</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label for="numero_paginas">Número de páginas</label>
-            <input
-              class="form-control"
-              type="number"
-              id="numero_paginas"
-              [(ngModel)]="project.numero_paginas"
-              name="numero_paginas"
-            />
-          </div>
-
-          <div class="form-group">
-            <label for="entregas">Número de entregas</label>
-            <input
-              class="form-control"
-              type="number"
-              id="entregas"
-              [(ngModel)]="project.entregas"
-              name="entregas"
-            />
-          </div>
-
-          <div class="form-group">
-            <label for="descripcion">Descripción</label>
-            <textarea
-              rows="3"
-              class="form-control"
-              id="descripcion"
-              [(ngModel)]="project.descripcion"
-              name="descripcion"
-            ></textarea>
-            <br/>
-          </div>
-
-          <div class="form-group">
-            <mat-form-field appearance="outline" >
-                <mat-label>Fecha de inicio</mat-label>
-                <input 
-                    matInput 
-                    [matDatepicker]="picker" 
-                    placeholder="Seleccionar fecha"
-                    class="form-control"
-                    id="fecha_inicio"
-                    [(ngModel)]="project.fecha_inicio"
-                    name="fecha_inicio"
-                >
-                <mat-hint>dd/mm/yyyy</mat-hint>
-                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
-            </mat-form-field>
-          </div>
-
-          <div class="form-group">
-            <mat-form-field appearance="outline" >
-                <mat-label>Fecha de entrega</mat-label>
-                <input 
-                    matInput 
-                    [matDatepicker]="picker2" 
-                    placeholder="Seleccionar fecha"
-                    class="form-control"
-                    id="fecha_entrega"
-                    [(ngModel)]="project.fecha_entrega"
-                    name="fecha_entrega"
-                >
-                <mat-hint>dd/mm/yyyy</mat-hint>
-                <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
-                <mat-datepicker #picker2></mat-datepicker>
-            </mat-form-field>
-            <br /><br />
-          </div>
-
-          <div class="form-group">
-            <label for="presupuesto">Presupuesto</label>
-            <input
-              class="form-control"
-              type="number"
-              id="presupuesto"
-              [(ngModel)]="project.presupuesto"
-              name="presupuesto"
-            />
-          </div>
-
-          <div class="form-group">
-            <label for="monto_recibido">Monto recibido</label>
-            <input
-              class="form-control"
-              type="number"
-              id="monto_recibido"
-              [(ngModel)]="project.monto_recibido"
-              name="monto_recibido"
-            />
-          </div>
-
-          <div class="form-group">
-            <label for="porcentaje_a_realizar">Porcentaje a realizar</label>
-            <input
-              class="form-control"
-              type="number"
-              id="porcentaje_a_realizar"
-              [(ngModel)]="project.porcentaje_a_realizar"
-              name="porcentaje_a_realizar"
-            />
-            <br />
-          </div>
-
-          <div class="form-group">
-            <mat-form-field appearance="outline" >
-                <mat-label>Fecha de ultima entrega</mat-label>
-                <input 
-                    matInput 
-                    [matDatepicker]="picker3" 
-                    placeholder="Seleccionar fecha"
-                    class="form-control"
-                    id="ultima_entrega"
-                    [(ngModel)]="project.ultima_entrega"
-                    name="ultima_entrega"
-                >
-                <mat-hint>dd/mm/yyyy</mat-hint>
-                <mat-datepicker-toggle matIconSuffix [for]="picker3"></mat-datepicker-toggle>
-                <mat-datepicker #picker3></mat-datepicker>
-            </mat-form-field>
-          </div>
-
-          <div class="form-group">
-            <mat-form-field appearance="outline" >
-                <mat-label>Fecha proxima entrega</mat-label>
-                <input 
-                    matInput 
-                    [matDatepicker]="picker4" 
-                    placeholder="Seleccionar fecha"
-                    class="form-control"
-                    id="fecha_proxima"
-                    [(ngModel)]="project.fecha_proxima"
-                    name="fecha_proxima"
-                >
-                <mat-hint>dd/mm/yyyy</mat-hint>
-                <mat-datepicker-toggle matIconSuffix [for]="picker4"></mat-datepicker-toggle>
-                <mat-datepicker #picker4></mat-datepicker>
-            </mat-form-field>
-            <br /><br />
-          </div>
-
-          <div class="form-group">
-            <label for="factura">Factura</label>
-            <input
-              class="form-control"
-              id="factura"
-              [(ngModel)]="project.factura"
-              name="factura"
-            />
-            <br /><br />
-          </div>
-      
           <button (click)="saveProject()" type="submit" [disabled]="!projectForm.form.valid" class="btn2">Enviar</button>
         </form>
       </div>

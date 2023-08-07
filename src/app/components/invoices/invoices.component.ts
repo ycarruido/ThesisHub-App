@@ -21,7 +21,7 @@ export class InvoicesComponent {
   mostrarForm: boolean = false;
   mostrarViewForm: boolean = false;
   currentUserEmail: string | null = null;
-  strtitle:string ="AGREGAR FACTURA";
+  strtitle:string ="Agregar Factura";
 
   //bibliografias
   options: string[] = [
@@ -91,7 +91,7 @@ export class InvoicesComponent {
 
     this.mostrarForm=true;
     this.mostrarViewForm=false;
-    this.strtitle = "MODIFICAR FACTURA"
+    this.strtitle = "Moificar Factura"
   }
 
   async saveInvoice() {
@@ -121,7 +121,7 @@ export class InvoicesComponent {
       this.invoice.lastUpdate =  this.currentDate;
       this.invoice.lastUpdateUser =  this.currentUserEmail != null ? this.currentUserEmail : '';        
       this.invoice.status =  "Pendiente";
-      this.strtitle = "AGREGAR FACTURA";
+      this.strtitle = "Agregar Factura";
 
       this.invoiceService.create(this.invoice).then(() => {
         console.log('¡Se ha enviado con éxito!');
@@ -137,7 +137,7 @@ export class InvoicesComponent {
     this.invoice = new InvoiceModel();
     this.editing = false;
     this.invoice.uid = "";
-    this.strtitle = "AGREGAR FACTURA"
+    this.strtitle = "Agregar Factura"
   }//end newInvoice
 
   refreshList(): void {
@@ -214,7 +214,7 @@ export class InvoicesComponent {
  
     this.mostrarViewForm = false;
 
-    this.strtitle = "AGREGAR FACTURA";
+    this.strtitle = "Agregar Factura";
     this.currentIndex = -1;
     this.editing = false;
     this.currentInvoice = undefined;

@@ -59,6 +59,12 @@
   text-align: center;
 }
 
+.label-generic {
+  font-weight: 500;
+  font-size: 14px;
+  color: #161616;
+}
+
 /* mat-datatable */
 .mat-table {
   border-collapse: collapse;

@@ -59,6 +59,12 @@
     text-align: center;
   }
   
+  .label-generic {
+    font-weight: 500;
+    font-size: 14px;
+    color: #161616;
+  }
+  
   /* mat-datatable */
   .mat-table {
     border-collapse: collapse;
@@ -119,8 +125,8 @@
   }  
 
   .custom-datepicker {
-    font-size: 10px; /* Tamaño de fuente personalizado */
-    width: 50px; /* Ancho personalizado */
+    border-width: 0px;
+    /*width: 50px;*/ /* Ancho personalizado */
     /* Otros estilos personalizados */
   }
 

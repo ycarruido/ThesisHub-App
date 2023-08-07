@@ -45,7 +45,7 @@ export class ProjectService {
     try {
       await this.getNextId(); //Obtener el proximo ID disponible
       const id = this.lastId.toString();
-      project.project_id = id;
+      project.project_id = "THUBVE"+id;
   
       const refer = this.db.collection('projects').doc(); //Referencia a la colección "projects"
       const nro = refer.ref.id; //ID Autogenerado del documento
