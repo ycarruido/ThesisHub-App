@@ -3,7 +3,7 @@
 
   <div class="row">
     <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
-      <div><h3 style="font-size: 22px; font-weight: bold;">DATOS DE USUARIO</h3></div>
+      <div><h3 style="font-size: 22px; font-weight: bold;">Datos de Usuario</h3></div>
     </div>
     <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
       <div class="close-icon">
@@ -13,40 +13,58 @@
   </div>
 
   <div class="form-group">
-    <label style="font-weight: bold;" for="titulo">Nombre</label>
-    <p class="form-control-static">{{user.name}} {{user.lastname}}</p>
+    <div class="mb-3">
+      <label class="label-generic" for="titulo">Nombre</label>
+      <p class="form-control-static">{{user.name}} {{user.lastname}}</p>
+    </div>
   </div>
    <div>
-    <label style="font-weight: bold;" for="bibliografia">Email</label>
-    <p class="form-control-static">{{user.email}}</p>
+    <div class="mb-3">
+      <label class="label-generic" for="bibliografia">Email</label>
+      <p class="form-control-static">{{user.email}}</p>
+    </div>
   </div>
    <div class="form-group">
-    <label style="font-weight: bold;" for="carrera">Contraseña</label>
-    <p class="form-control-static">******</p>
+    <div class="mb-3">
+      <label class="label-generic" for="carrera">Contraseña</label>
+      <p class="form-control-static">******</p>
+    </div>
   </div>
    <div class="form-group">
-    <label style="font-weight: bold;" for="especialidad">Número de Teléfono</label>
-    <p class="form-control-static">{{user.tlf}}</p>
+    <div class="mb-3">
+      <label class="label-generic" for="especialidad">Número de Teléfono</label>
+      <p class="form-control-static">{{user.tlf}}</p>
+    </div>
   </div>
    <div class="form-group">
-    <label style="font-weight: bold;" for="tema">Número de WhatsApp</label>
-    <p class="form-control-static">{{user.wapp}}</p>
+    <div class="mb-3">
+      <label class="label-generic" for="tema">Número de WhatsApp</label>
+      <p class="form-control-static">{{user.wapp}}</p>
+    </div>
   </div>
    <div class="form-group">
-    <label style="font-weight: bold;" for="universidad">País</label>
-    <p class="form-control-static">{{user.country}}</p>
+    <div class="mb-3">
+      <label class="label-generic" for="universidad">País</label>
+      <p class="form-control-static">{{user.country}}</p>
+    </div>
   </div>
    <div class="form-group">
-    <label style="font-weight: bold;" for="numero_paginas">Ciudad</label>
-    <p class="form-control-static">{{user.city}}</p>
+    <div class="mb-3">
+      <label class="label-generic" for="numero_paginas">Ciudad</label>
+      <p class="form-control-static">{{user.city}}</p>
+    </div>
   </div>
    <div class="form-group">
-    <label style="font-weight: bold;" for="entregas">Dirección</label>
-    <p class="form-control-static">{{user.address}}</p>
+    <div class="mb-3">
+      <label class="label-generic" for="entregas">Dirección</label>
+      <p class="form-control-static">{{user.address}}</p>
+    </div>
   </div>
    <div class="form-group">
-    <label style="font-weight: bold;" for="descripcion">Tipo de Usuario</label>
-    <p class="form-control-static">{{user.user_type}}</p>
+    <div class="mb-3">
+      <label class="label-generic" for="descripcion">Tipo de Usuario</label>
+      <p class="form-control-static">{{user.user_type}}</p>
+    </div>
   </div>
 </div>
 <!-- Vista de solo lectura  -->
@@ -54,7 +72,6 @@
   
   <!-- Formulario de Usuarios -->
   <div *ngIf="mostrarForm">
-    
     <div class="register-container">
       
       <div class="row">
@@ -70,150 +87,173 @@
 
       <div>
         <form #userForm="ngForm">
-
-          <div class="form-group">
-            <label for="name">Nombre *</label>
-            <input
-              type="text"
-              class="form-control"
-              id="name"
-              required
-              [(ngModel)]="user.name"
-              name="name"
-              #nameField="ngModel"
-            />
-            <div *ngIf="nameField.invalid && (nameField.dirty || nameField.touched)" class="text-danger">
-              El nombre es requerido.
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="lastname">Apellido *</label>
-            <input
-              type="text"
-              class="form-control"
-              id="lastname"
-              required
-              [(ngModel)]="user.lastname"
-              name="lastname"
-              #nameField="ngModel"
-            />
-            <div *ngIf="nameField.invalid && (nameField.dirty || nameField.touched)" class="text-danger">
-              El apellido es requerido.
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="email">Email *</label>
-            <input
-              class="form-control"
-              id="email"
-              required
-              [(ngModel)]="user.email"
-              name="email"
-              #email="ngModel"
-              pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}"
-            />
-            <div *ngIf="email.invalid && (email.dirty || email.touched)" class="text-danger">
-              <div *ngIf="email.errors">
-                <small>Se requiere un email válido</small>
+          <div class="card">
+            <div class="card-body">
+              <div class="form-group">
+                <div class="mb-3">
+                  <label class="label-generic" for="name">Nombre *</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="name"
+                    required
+                    [(ngModel)]="user.name"
+                    name="name"
+                    #nameField="ngModel"
+                  />
+                  <div *ngIf="nameField.invalid && (nameField.dirty || nameField.touched)" class="text-danger">
+                    El nombre es requerido.
+                  </div>
+                </div>
               </div>
-              <!-- <div *ngIf="email.errors[]">
-                <small>Por favor ingrese una dirección de correo válida</small>
-              </div> -->
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="password">Contraseña *</label>
-            <input
-              type="password"
-              class="form-control"
-              id="password"
-              required
-              [(ngModel)]="user.password"
-              name="password"
-            />
-            <div *ngIf="nameField.invalid && (nameField.dirty || nameField.touched)" class="text-danger">
-              Se requiere una Contraseña
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="tlf">Número de Teléfono</label>
-            <input
-              class="form-control"
-              id="tlf"
-              required
-              [(ngModel)]="user.tlf"
-              name="tlf"
-            />
-          </div>
-
-          <div class="form-group">
-            <label for="wapp">Número de WhatsApp</label>
-            <input
-              class="form-control"
-              id="wapp"
-              required
-              [(ngModel)]="user.wapp"
-              name="wapp"
-            />
-          </div>
-          <div class="form-group">
-            <label for="country">País</label>
-            <input
-              class="form-control"
-              id="country"
-              [(ngModel)]="user.country"
-              name="country"
-            />
-          </div>
-
-          <div class="form-group">
-            <label for="city">Ciudad</label>
-            <input
-              class="form-control"
-              id="city"
-              [(ngModel)]="user.city"
-              name="city"
-            />
-          </div>
-
-          <div class="form-group">
-            <label for="address">Dirección</label>
-            <input
-              class="form-control"
-              id="address"
-              [(ngModel)]="user.address"
-              name="address"
-            />
-          </div>
-
-          <div class="form-group">
-            <label for="user_type">Tipo de Usuario *</label>
-            <select 
-                class="form-control"
-                id="user_type"
-                required
-                value=selected
-                [(ngModel)]="user.user_type"
-                name="user_type"
-                required
-            >
-                <option selected>
-                    Admin
-                </option>
-                <option selected>
-                    Profesor
-                </option>
-                <option selected>
-                    Cliente
-                </option>
-            </select>
-            <br/>
-            <div *ngIf="nameField.invalid && (nameField.dirty || nameField.touched)" class="text-danger">
-              Se requiere un tipo de usuario
+    
+              <div class="form-group">
+                <div class="mb-3">
+                  <label class="label-generic" for="lastname">Apellido *</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="lastname"
+                    required
+                    [(ngModel)]="user.lastname"
+                    name="lastname"
+                    #nameField="ngModel"
+                  />
+                  <div *ngIf="nameField.invalid && (nameField.dirty || nameField.touched)" class="text-danger">
+                    El apellido es requerido.
+                  </div>
+                </div>
+              </div>
+    
+              <div class="form-group">
+                <div class="mb-3">
+                  <label class="label-generic" for="email">Email *</label>
+                  <input
+                    class="form-control"
+                    id="email"
+                    required
+                    [(ngModel)]="user.email"
+                    name="email"
+                    #email="ngModel"
+                    pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}"
+                  />
+                  <div *ngIf="email.invalid && (email.dirty || email.touched)" class="text-danger">
+                    <div *ngIf="email.errors">
+                      <small>Se requiere un email válido</small>
+                    </div>
+                    <!-- <div *ngIf="email.errors[]">
+                      <small>Por favor ingrese una dirección de correo válida</small>
+                    </div> -->
+                  </div>
+                </div>
+              </div>
+    
+              <div class="form-group">
+                <div class="mb-3">
+                  <label class="label-generic" for="password">Contraseña *</label>
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="password"
+                    required
+                    [(ngModel)]="user.password"
+                    name="password"
+                  />
+                  <div *ngIf="nameField.invalid && (nameField.dirty || nameField.touched)" class="text-danger">
+                    Se requiere una Contraseña
+                  </div>
+                </div>
+              </div>
+    
+              <div class="form-group">
+                <div class="mb-3">
+                  <label class="label-generic" for="tlf">Número de Teléfono</label>
+                  <input
+                    class="form-control"
+                    id="tlf"
+                    required
+                    [(ngModel)]="user.tlf"
+                    name="tlf"
+                  />
+                </div>
+              </div>
+    
+              <div class="form-group">
+                <div class="mb-3">
+                  <label class="label-generic" for="wapp">Número de WhatsApp</label>
+                  <input
+                    class="form-control"
+                    id="wapp"
+                    required
+                    [(ngModel)]="user.wapp"
+                    name="wapp"
+                  />
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="mb-3">
+                  <label class="label-generic" for="country">País</label>
+                  <input
+                    class="form-control"
+                    id="country"
+                    [(ngModel)]="user.country"
+                    name="country"
+                  />
+                </div>
+              </div>
+    
+              <div class="form-group">
+                <div class="mb-3">
+                  <label class="label-generic" for="city">Ciudad</label>
+                  <input
+                    class="form-control"
+                    id="city"
+                    [(ngModel)]="user.city"
+                    name="city"
+                  />
+                </div>
+              </div>
+    
+              <div class="form-group">
+                <div class="mb-3">
+                  <label class="label-generic" for="address">Dirección</label>
+                  <input
+                    class="form-control"
+                    id="address"
+                    [(ngModel)]="user.address"
+                    name="address"
+                  />
+                </div>
+              </div>
+    
+              <div class="form-group">
+                <div class="mb-3">
+                  <label class="label-generic" for="user_type">Tipo de Usuario *</label>
+                  <select 
+                      class="form-control"
+                      id="user_type"
+                      required
+                      value=selected
+                      [(ngModel)]="user.user_type"
+                      name="user_type"
+                      required
+                  >
+                      <option selected>
+                          Admin
+                      </option>
+                      <option selected>
+                          Profesor
+                      </option>"
+                      <option selected>
+                          Cliente
+                      </option>
+                  </select>
+                </div>
+                <br/>
+                <div *ngIf="nameField.invalid && (nameField.dirty || nameField.touched)" class="text-danger">
+                  Se requiere un tipo de usuario
+                </div>
+              </div>
             </div>
           </div>
       

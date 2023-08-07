@@ -1,6 +1,10 @@
 import { Component, ViewChild, ElementRef, OnInit, AfterViewInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { ActivatedRoute } from '@angular/router';
+
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/firestore';
+
 import { UserModel } from 'src/app/models/user.model';
 import { LoginService } from 'src/app/services/login.service';
 import { UserService } from 'src/app/services/user.service';
@@ -32,6 +36,7 @@ export class ChatComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+
     this.route.queryParams.subscribe(params => {
       this.currentUserUid = params['uidCurrentUser'];
       this.receiveUserUid = params['uidReceiveUser'];
@@ -40,7 +45,6 @@ export class ChatComponent implements OnInit, AfterViewInit {
       this.tituloPrd = params['title'];
     });
 
-
     this.firestore.collection('chats', ref => ref
       .where('senderUid', 'in', [this.currentUserUid, this.receiveUserUid])
       .where('receiverUid', 'in', [this.currentUserUid, this.receiveUserUid])
@@ -48,8 +52,8 @@ export class ChatComponent implements OnInit, AfterViewInit {
       .orderBy('timestamp')
     ).valueChanges().subscribe((messages: any[]) => {
       this.chatMessages = messages.map(message => {
-        const timestamp = message.timestamp.toDate();
-        const formattedTimestamp = timestamp.toLocaleString('es-VE', {
+        const timestamp = message.timestamp?.toDate();
+        const formattedTimestamp = timestamp?.toLocaleString('es-VE', {
           day: '2-digit',
           month: '2-digit',
           year: 'numeric',
@@ -67,8 +71,6 @@ export class ChatComponent implements OnInit, AfterViewInit {
   }
 
   sendMessage() {
-
-
     this.loginService.user$.subscribe(user => {
       this.currentUserEmail = user ? user.email: null;
       if (this.currentUserEmail != null){  
@@ -86,7 +88,7 @@ export class ChatComponent implements OnInit, AfterViewInit {
                 senderUid: this.currentUserUid,
                 receiverUid: this.receiveUserUid,
                 message: this.newMessage,
-                timestamp: new Date(),
+                timestamp: firebase.firestore.FieldValue.serverTimestamp(),
                 uidProject: this.uidProy,
                 sendersName: this.sendersName,
                 id: this.id,
@@ -109,4 +111,5 @@ export class ChatComponent implements OnInit, AfterViewInit {
       this.chatBody.nativeElement.scrollTop = this.chatBody.nativeElement.scrollHeight;
     }, 0);
   }
+
 }

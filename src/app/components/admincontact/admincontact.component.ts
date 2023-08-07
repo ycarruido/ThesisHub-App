@@ -1,5 +1,9 @@
 import { Component, ViewChild, ElementRef, OnInit, AfterViewInit } from '@angular/core';
 import { AngularFirestore, QueryFn } from '@angular/fire/compat/firestore';
+
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/firestore';
+
 import { ActivatedRoute } from '@angular/router';
 import { LoginService } from 'src/app/services/login.service';
 import { UserService } from 'src/app/services/user.service';
@@ -38,12 +42,10 @@ export class AdmincontactComponent implements OnInit, AfterViewInit{
   ngOnInit() {
     
     this.loginService.user$.subscribe(user => {
-
       this.currentUserUid = user ? user.uid : null;
       this.currentUserEmail = user ? user.email: null;
 
       if (this.currentUserEmail != null){  
-        
         //buscamos los datos del usuario por el email del currentUser
         this.userService.getusrbyEmail(this.currentUserEmail.toString()).valueChanges().subscribe(data => {
           if (data[0]){
@@ -60,31 +62,23 @@ export class AdmincontactComponent implements OnInit, AfterViewInit{
               this.receiveUserUid = '';
               this.currentUserUid = "USUARIOADMIN";
               this.sendersName = "Admin";
-
               //Buscas usuarios con mensajes de chat para admin
               this.getUsuariosConMensajes().subscribe(data => {
                 this.usuariosConMensajes = data;
               });
-
             }else{ //si el usuario conectado es cliente o tutor
-
               this.panelUsr = false;
               this.receiveUserUid = 'USUARIOADMIN';
               if(this.user.name){
                 this.sendersName = this.user.name;
               }
-              
               //Muestra los mensajes de chat de ese usuario
               this.viewChatMessage(usrUID);
-
             }
-
           }
-
         });
       }
     });
-
   }//end ngOnInit
 
   getUsuariosConMensajes(): Observable<any[]> {
@@ -93,14 +87,6 @@ export class AdmincontactComponent implements OnInit, AfterViewInit{
     // const chatsCollection = this.firestore.collection('chats');
     // const senderUids$ = chatsCollection.valueChanges({ idField: 'id' }).pipe(
     //   map((chats: any[]) => chats.filter(chat => chat.uidProject === 'AyudaAdmin')),
-    //   map((chats: any[]) => chats.map(chat => chat.senderUid)),
-    //   map(senderUids => [...new Set(senderUids)]),
-    //   map(senderUids => senderUids.filter(uid => uid != null && uid !== ''))
-    // );
-
-    //Obcion 2 para filtra por uidProject === 'AyudaAdmin'. pero me da error
-    // const chatsCollection = this.firestore.collection('chats');
-    // const senderUids$ = chatsCollection.where('uidProject', '==', 'AyudaAdmin').valueChanges({ idField: 'id' }).pipe(
     //   map((chats: any[]) => chats.map(chat => chat.senderUid)),
     //   map(senderUids => [...new Set(senderUids)]),
     //   map(senderUids => senderUids.filter(uid => uid != null && uid !== ''))
@@ -116,7 +102,6 @@ export class AdmincontactComponent implements OnInit, AfterViewInit{
       map(senderUids => [...new Set(senderUids)]),
       map(senderUids => senderUids.filter(uid => uid != null && uid !== ''))
     );
-
 
     const receiverUids$ = chatsCollection.valueChanges({ idField: 'id' }).pipe(
       //map((chats: any[]) => chats.filter(chat => chat.uidProject === 'AyudaAdmin')),
@@ -142,13 +127,12 @@ export class AdmincontactComponent implements OnInit, AfterViewInit{
   }
 
   sendMessage() {    
-
     if (this.newMessage) {
       this.firestore.collection('chats').add({
         senderUid: this.currentUserUid,
         receiverUid: this.receiveUserUid,
         message: this.newMessage,
-        timestamp: new Date(),
+        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
         uidProject: 'AyudaAdmin',
         sendersName: this.sendersName,
         status: 'E' //Enviado
@@ -170,59 +154,46 @@ export class AdmincontactComponent implements OnInit, AfterViewInit{
     this.viewChatMessage(uid);
   }
 
-
-
-  viewChatMessage(usrCode:string){
-    // this.receiveUserUid = '';
-    // this.currentUserUid = '';
- 
-          if (this.currentUserEmail != null){  
-    
-            //buscamos los datos del usuario por el email del currentUser
-            this.userService.getusrbyEmail(this.currentUserEmail.toString()).valueChanges().subscribe(data => {
-              if (data[0]){
-                this.user = data[0];
-                if (this.user.user_type == 'Admin'){
-                  this.receiveUserUid = usrCode;
-                  this.currentUserUid = 'USUARIOADMIN';
-                }else{
-                  this.receiveUserUid = 'USUARIOADMIN';
-                  this.currentUserUid = usrCode;
-                }
-                
-                console.log("CU: ",this.currentUserUid)
-                console.log("RU", this.receiveUserUid)
-                //Con los datos encontrados, cosultamos los mensajes de chats para los usuarios Admin
-                this.firestore.collection('chats', ref => ref
-                  .where('senderUid', 'in', [this.currentUserUid, this.receiveUserUid])
-                  .where('receiverUid', 'in', [this.currentUserUid, this.receiveUserUid])
-                  .where('uidProject', '==', 'AyudaAdmin')
-                  .orderBy('timestamp')
-                  ).valueChanges().subscribe((messages: any[]) => {
-                  this.chatMessages = messages.map(message => {
-                    const timestamp = message.timestamp.toDate();
-                    const formattedTimestamp = timestamp.toLocaleString('es-VE', {
-                      day: '2-digit',
-                      month: '2-digit',
-                      year: 'numeric',
-                      hour: '2-digit',
-                      minute: '2-digit'
-                    });
-                    return { ...message, formattedTimestamp };
-                });
-                  this.scrollToBottom();
-                });
-                //Con los datos encontrados, cosultamos los mensajes de chats para los usuarios Admin
-    
-              }//end if (data[0])
-              
-            });
-            //buscamos los datos del usuario por el email del currentUser
-            
-          }else{
-            console.log("Error al recuperar los datos");
+  viewChatMessage(usrCode: string) {
+    if (this.currentUserEmail != null) {
+      // Buscamos los datos del usuario por el email del currentUser
+      this.userService.getusrbyEmail(this.currentUserEmail.toString()).valueChanges().subscribe(data => {
+        if (data[0]) {
+          this.user = data[0];
+          if (this.user.user_type == 'Admin') {
+            this.receiveUserUid = usrCode;
+            this.currentUserUid = 'USUARIOADMIN';
+          } else {
+            this.receiveUserUid = 'USUARIOADMIN';
+            this.currentUserUid = usrCode;
           }
-
-  }//end viewChatMessage
+          // Con los datos encontrados, consultamos los mensajes de chats para los usuarios Admin
+          this.firestore.collection('chats', ref => ref
+            .where('senderUid', 'in', [this.currentUserUid, this.receiveUserUid])
+            .where('receiverUid', 'in', [this.currentUserUid, this.receiveUserUid])
+            .where('uidProject', '==', 'AyudaAdmin')
+            .orderBy('timestamp')
+          ).valueChanges().subscribe((messages: any[]) => {
+            this.chatMessages = messages.map(message => {
+              const timestamp = message.timestamp?.toDate();
+              const formattedTimestamp = timestamp?.toLocaleString('es-VE', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+              });
+              return { ...message, formattedTimestamp };
+            });
+            this.scrollToBottom();
+          });
+          // Con los datos encontrados, consultamos los mensajes de chats para los usuarios Admin
+        } // end if (data[0])
+      });
+    } else {
+      // No se encontró el email del currentUser, mostrar error
+      console.log("Error al recuperar los datos");
+    }
+  }
 
 }

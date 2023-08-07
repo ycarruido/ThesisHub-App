@@ -22,7 +22,7 @@ export class LeadsComponent implements OnInit{
   mostrarForm: boolean = false;
   mostrarViewForm: boolean = false;
   currentLeadEmail: string | null = null;
-  strtitle:string ="Agregar Usuarios";
+  strtitle:string ="Agregar Clientes Potenciales";
 
   editing: boolean = false;
 
@@ -72,7 +72,7 @@ export class LeadsComponent implements OnInit{
     this.editing = true;
     this.lead = leadUp;
     this.mostrarForm=true;
-    this.strtitle = "Modificar Usuarios"
+    this.strtitle = "Modificar Clientes Potenciales"
   }
 
   async saveLead() {
@@ -104,7 +104,7 @@ export class LeadsComponent implements OnInit{
       this.lead.lastUpdateLead =  this.currentLeadEmail != null ? this.currentLeadEmail : '';
       this.lead.status =  true;
       this.lead.state =  "Activo"; //Activo - Iniactivo - Bloqueado - Suspendido
-      this.strtitle = "Agregar Usuarios";
+      this.strtitle = "Agregar Clientes Potenciales";
 
       this.leadService.create(this.lead).then(() => {
         console.log('¡Se ha enviado con éxito!');
@@ -120,7 +120,7 @@ export class LeadsComponent implements OnInit{
     this.lead = new LeadModel();
     this.editing = false;
     this.lead.uid = "";
-    this.strtitle = "Agregar Usuarios"
+    this.strtitle = "Agregar Clientes Potenciales"
   }//end newLead
 
   refreshList(): void {
@@ -198,7 +198,7 @@ export class LeadsComponent implements OnInit{
       this.mostrarForm = true;
     }
 
-    this.strtitle = "Agregar Usuarios";
+    this.strtitle = "Agregar Clientes Potenciales";
     this.currentIndex = -1;
     this.editing = false;
     this.currentLead = undefined;

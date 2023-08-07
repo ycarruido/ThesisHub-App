@@ -3,7 +3,7 @@
 
     <div class="row">
       <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
-        <div><h3 style="font-size: 22px; font-weight: bold;">DATOS DE USUARIO</h3></div>
+        <div><h3 style="font-size: 22px; font-weight: bold;">Datos de Clientes Potenciales</h3></div>
       </div>
       <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
         <div class="close-icon">
@@ -11,43 +11,125 @@
         </div>
       </div>
     </div>
+
+    <div class="card">
+      <div class="card-header">Datos de contacto</div>
+      <div class="card-body">
+        <div class="form-group">
+          <div class="mb-3">
+            <label class="label-generic" for="titulo">Nombre</label>
+            <p class="form-control-static">{{lead.name}} {{lead.lastname}}</p>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="mb-3">
+            <label class="label-generic" for="bibliografia">Email</label>
+            <p class="form-control-static">{{lead.email}}</p>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="mb-3">
+          <label class="label-generic" for="carrera">Contraseña</label>
+            <p class="form-control-static">******</p>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="mb-3">
+            <label class="label-generic" for="especialidad">Número de Teléfono</label>
+            <p class="form-control-static">{{lead.tlf}}</p>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="mb-3">
+            <label class="label-generic" for="tema">Número de WhatsApp</label>
+            <p class="form-control-static">{{lead.wapp}}</p>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="mb-3">
+            <label class="label-generic" for="universidad">País</label>
+            <p class="form-control-static">{{lead.country}}</p>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="mb-3">
+            <label class="label-generic" for="numero_paginas">Ciudad</label>
+            <p class="form-control-static">{{lead.city}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header">Información relevante del usuario</div>
+      <div class="card-body">
+        <div class="form-group">
+          <div class="mb-3">
+            <label class="label-generic" for="entregas">Universidad</label>
+            <p class="form-control-static">{{lead.university}}</p>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="mb-3">
+            <label class="label-generic" for="entregas">Bibliografía</label>
+            <p class="form-control-static">{{lead.bibliografia}}</p>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="mb-3">
+            <label class="label-generic" for="entregas">Carrera</label>
+            <p class="form-control-static">{{lead.carrera}}</p>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="mb-3">
+            <label class="label-generic" for="entregas">Especialidad</label>
+            <p class="form-control-static">{{lead.especialidad}}</p>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="mb-3">
+            <label class="label-generic" for="entregas">Número de página</label>
+            <p class="form-control-static">{{lead.numero_paginas}}</p>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="mb-3">
+            <label class="label-generic" for="entregas">Número de entregas</label>
+            <p class="form-control-static">{{lead.entregas}}</p>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="mb-3">
+            <label class="label-generic" for="entregas">Descripción</label>
+            <p class="form-control-static">{{lead.descripcion}}</p>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="mb-3">
+            <label class="label-generic" for="entregas">Fecha de inicio</label>
+            <p class="form-control-static">{{lead.fecha_inicio}}</p>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="mb-3">
+            <label class="label-generic" for="entregas">Fecha de entrega</label>
+            <p class="form-control-static">{{lead.fecha_entrega}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-body">
+        <div class="form-group">
+          <div class="mb-3">
+            <label class="label-generic" for="descripcion">Fuente o Canal</label>
+            <p class="form-control-static">{{lead.sourse}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
   
-    <div class="form-group">
-      <label style="font-weight: bold;" for="titulo">Nombre</label>
-      <p class="form-control-static">{{lead.name}} {{lead.lastname}}</p>
-    </div>
-     <div>
-      <label style="font-weight: bold;" for="bibliografia">Email</label>
-      <p class="form-control-static">{{lead.email}}</p>
-    </div>
-     <div class="form-group">
-      <label style="font-weight: bold;" for="carrera">Contraseña</label>
-      <p class="form-control-static">******</p>
-    </div>
-     <div class="form-group">
-      <label style="font-weight: bold;" for="especialidad">Número de Teléfono</label>
-      <p class="form-control-static">{{lead.tlf}}</p>
-    </div>
-     <div class="form-group">
-      <label style="font-weight: bold;" for="tema">Número de WhatsApp</label>
-      <p class="form-control-static">{{lead.wapp}}</p>
-    </div>
-     <div class="form-group">
-      <label style="font-weight: bold;" for="universidad">País</label>
-      <p class="form-control-static">{{lead.country}}</p>
-    </div>
-     <div class="form-group">
-      <label style="font-weight: bold;" for="numero_paginas">Ciudad</label>
-      <p class="form-control-static">{{lead.city}}</p>
-    </div>
-     <div class="form-group">
-      <label style="font-weight: bold;" for="entregas">Universidad</label>
-      <p class="form-control-static">{{lead.university}}</p>
-    </div>
-     <div class="form-group">
-      <label style="font-weight: bold;" for="descripcion">Fuente o Canal</label>
-      <p class="form-control-static">{{lead.sourse}}</p>
-    </div>
   </div>
   <!-- Vista de solo lectura  -->
     
@@ -58,10 +140,10 @@
       <div class="register-container">
         
         <div class="row">
-          <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
+          <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8">
             <div><h3 style="font-size: 22px; font-weight: bold;">{{strtitle}}</h3></div>
           </div>
-          <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
+          <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4">
             <div class="close-icon">
               <i class="fas fa-times" (click)="closeview()"></i>
             </div>
@@ -70,164 +152,300 @@
   
         <div>
           <form #leadForm="ngForm">
-  
-            <div class="form-group">
-              <label for="name">Nombre *</label>
-              <input
-                type="text"
-                class="form-control"
-                id="name"
-                required
-                [(ngModel)]="lead.name"
-                name="name"
-                #nameField="ngModel"
-              />
-              <div *ngIf="nameField.invalid && (nameField.dirty || nameField.touched)" class="text-danger">
-                El nombre es requerido.
+
+            <div class="card">
+              <div class="card-header">
+                  Datos de contacto
               </div>
-            </div>
-  
-            <div class="form-group">
-              <label for="lastname">Apellido *</label>
-              <input
-                type="text"
-                class="form-control"
-                id="lastname"
-                required
-                [(ngModel)]="lead.lastname"
-                name="lastname"
-                #nameField="ngModel"
-              />
-              <div *ngIf="nameField.invalid && (nameField.dirty || nameField.touched)" class="text-danger">
-                El apellido es requerido.
-              </div>
-            </div>
-  
-            <div class="form-group">
-              <label for="email">Email *</label>
-              <input
-                class="form-control"
-                id="email"
-                required
-                [(ngModel)]="lead.email"
-                name="email"
-                #email="ngModel"
-                pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}"
-              />
-              <div *ngIf="email.invalid && (email.dirty || email.touched)" class="text-danger">
-                <div *ngIf="email.errors">
-                  <small>Se requiere un email válido</small>
+              <div class="card-body">
+                <div class="mb-3">
+                  <div class="form-group">
+                    <label class="label-generic" for="name">Nombre *</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="name"
+                      required
+                      [(ngModel)]="lead.name"
+                      name="name"
+                      #nameField="ngModel"
+                    />
+                    <div *ngIf="nameField.invalid && (nameField.dirty || nameField.touched)" class="text-danger">
+                      El nombre es requerido.
+                    </div>
+                  </div>
                 </div>
-                <!-- <div *ngIf="email.errors[]">
-                  <small>Por favor ingrese una dirección de correo válida</small>
-                </div> -->
+                <div class="mb-3">
+                  <div class="form-group">
+                    <label class="label-generic" for="lastname">Apellido *</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="lastname"
+                      required
+                      [(ngModel)]="lead.lastname"
+                      name="lastname"
+                      #nameField="ngModel"
+                    />
+                    <div *ngIf="nameField.invalid && (nameField.dirty || nameField.touched)" class="text-danger">
+                      El apellido es requerido.
+                    </div>
+                  </div>
+                </div>
+    
+                <div class="mb-3">
+                  <div class="form-group">
+                    <label class="label-generic" for="email">Email *</label>
+                    <input
+                      class="form-control"
+                      id="email"
+                      required
+                      [(ngModel)]="lead.email"
+                      name="email"
+                      #email="ngModel"
+                      pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}"
+                    />
+                    <div *ngIf="email.invalid && (email.dirty || email.touched)" class="text-danger">
+                      <div *ngIf="email.errors">
+                        <small>Se requiere un email válido</small>
+                      </div>
+                      <!-- <div *ngIf="email.errors[]">
+                        <small>Por favor ingrese una dirección de correo válida</small>
+                      </div> -->
+                    </div>
+                  </div>
+                </div>
+    
+                <div class="mb-3">
+                  <div class="form-group">
+                    <label class="label-generic" for="password">Intereses</label>
+                    <input
+                      type="interests"
+                      class="form-control"
+                      id="interests"
+                      [(ngModel)]="lead.interests"
+                      name="interests"
+                    />
+                  </div>
+                </div>
+    
+                <div class="mb-3">
+                  <div class="form-group">
+                    <label class="label-generic" for="tlf">Número de Teléfono</label>
+                    <input
+                      class="form-control"
+                      id="tlf"
+                      required
+                      [(ngModel)]="lead.tlf"
+                      name="tlf"
+                    />
+                  </div>
+                </div>
+    
+                <div class="mb-3">
+                  <div class="form-group">
+                    <label class="label-generic" for="wapp">Número de WhatsApp</label>
+                    <input
+                      class="form-control"
+                      id="wapp"
+                      required
+                      [(ngModel)]="lead.wapp"
+                      name="wapp"
+                    />
+                  </div>
+                </div>
+    
+                <div class="mb-3">
+                  <div class="form-group">
+                    <label class="label-generic" for="country">País</label>
+                    <input
+                      class="form-control"
+                      id="country"
+                      [(ngModel)]="lead.country"
+                      name="country"
+                    />
+                  </div>
+                </div>
+    
+                <div class="mb-3">
+                  <div class="form-group">
+                    <label class="label-generic" for="city">Ciudad</label>
+                    <input
+                      class="form-control"
+                      id="city"
+                      [(ngModel)]="lead.city"
+                      name="city"
+                    />
+                  </div>
+                </div>
               </div>
             </div>
-  
-            <div class="form-group">
-              <label for="password">Intereses</label>
-              <input
-                type="interests"
-                class="form-control"
-                id="interests"
-                [(ngModel)]="lead.interests"
-                name="interests"
-              />
-            </div>
-  
-            <div class="form-group">
-              <label for="tlf">Número de Teléfono</label>
-              <input
-                class="form-control"
-                id="tlf"
-                required
-                [(ngModel)]="lead.tlf"
-                name="tlf"
-              />
-            </div>
-  
-            <div class="form-group">
-              <label for="wapp">Número de WhatsApp</label>
-              <input
-                class="form-control"
-                id="wapp"
-                required
-                [(ngModel)]="lead.wapp"
-                name="wapp"
-              />
-            </div>
-            <div class="form-group">
-              <label for="country">País</label>
-              <input
-                class="form-control"
-                id="country"
-                [(ngModel)]="lead.country"
-                name="country"
-              />
-            </div>
-  
-            <div class="form-group">
-              <label for="city">Ciudad</label>
-              <input
-                class="form-control"
-                id="city"
-                [(ngModel)]="lead.city"
-                name="city"
-              />
-            </div>
-  
-            <div class="form-group">
-              <label for="university">Universidad</label>
-              <input
-                class="form-control"
-                id="university"
-                [(ngModel)]="lead.university"
-                name="university"
-              />
-            </div>
-  
-            <div class="form-group">
-              <label for="sourse">Fuente o Canal *</label>
-              <select 
-                  class="form-control"
-                  id="sourse"
-                  required
-                  value=selected
-                  [(ngModel)]="lead.sourse"
-                  name="sourse"
-                  required
-              >
-                  <option selected>
-                      Instagram
-                  </option>
-                  <option selected>
-                      Motores de busqueda
-                  </option>
-                  <option selected>
-                      Publicidad en la Web
-                  </option>
-                  <option selected>
-                    Recomendación 
-                  </option>
-              </select>
-              <br/>
-              <div *ngIf="nameField.invalid && (nameField.dirty || nameField.touched)" class="text-danger">
-                Ingrese la fuente o canal a través del cual se obtuvo el lead
+            <div class="card">
+              <div class="card-header">
+                Información relevante del usuario 
+              </div>
+              <div class="card-body">
+                <div class="mb-3">
+                  <div class="form-group">
+                    <label class="label-generic" for="university">Universidad</label>
+                    <input
+                      class="form-control"
+                      id="university"
+                      [(ngModel)]="lead.university"
+                      name="university"
+                    />
+                  </div>
+                </div>
+    
+                <div class="mb-3">
+                  <div class="form-group">
+                    <label class="label-generic" for="titulo">Título del Proyecto</label>
+                    <input
+                      class="form-control"
+                      id="titulo"
+                      [(ngModel)]="lead.titulo"
+                      name="titulo"
+                    />
+                  </div>
+                </div>
+    
+                <div class="mb-3">
+                  <div class="form-group">
+                    <label class="label-generic" for="bibliografia">Bibliografía</label>
+                    <input
+                      class="form-control"
+                      id="bibliografia"
+                      [(ngModel)]="lead.bibliografia"
+                      name="bibliografia"
+                    />
+                  </div>
+                </div>
+    
+                <div class="mb-3">
+                  <div class="form-group">
+                    <label class="label-generic" for="carrera">Carrera</label>
+                    <input
+                      class="form-control"
+                      id="carrera"
+                      [(ngModel)]="lead.carrera"
+                      name="carrera"
+                    />
+                  </div>
+                </div>
+    
+                <div class="mb-3">
+                  <div class="form-group">
+                    <label class="label-generic" for="especialidad">Especialidad</label>
+                    <input
+                      class="form-control"
+                      id="especialidad"
+                      [(ngModel)]="lead.especialidad"
+                      name="especialidad"
+                    />
+                  </div>
+                </div>
+    
+                <div class="mb-3">
+                  <div class="form-group">
+                    <label class="label-generic" for="numero_paginas">Número de página</label>
+                    <input
+                      class="form-control"
+                      id="numero_paginas"
+                      [(ngModel)]="lead.numero_paginas"
+                      name="numero_paginas"
+                    />
+                  </div>
+                </div>
+    
+                <div class="mb-3">
+                  <div class="form-group">
+                    <label class="label-generic" for="entregas">Número de entregas</label>
+                    <input
+                      class="form-control"
+                      id="entregas"
+                      [(ngModel)]="lead.entregas"
+                      name="entregas"
+                    />
+                  </div>
+                </div>
+    
+                <div class="mb-3">
+                  <div class="form-group">
+                    <label class="label-generic" for="descripcion">Descripción</label>
+                    <input
+                      class="form-control"
+                      id="descripcion"
+                      [(ngModel)]="lead.descripcion"
+                      name="descripcion"
+                    />
+                  </div>
+                </div>
+    
+                <div class="mb-3">
+                  <div class="form-group">
+                    <label class="label-generic" for="fecha_inicio">Fecha de inicio</label>
+                    <input
+                      class="form-control"
+                      id="fecha_inicio"
+                      [(ngModel)]="lead.fecha_inicio"
+                      name="fecha_inicio"
+                    />
+                  </div>
+                </div>
+    
+                <div class="mb-3">
+                  <div class="form-group">
+                    <label class="label-generic" for="fecha_entrega">Fecha de entrega</label>
+                    <input
+                      class="form-control"
+                      id="fecha_entrega"
+                      [(ngModel)]="lead.fecha_entrega"
+                      name="fecha_entrega"
+                    />
+                  </div>
+                </div>
+    
               </div>
             </div>
-        
+            <div class="card">
+              <div class="card-body">
+                <div class="mb-3">
+                  <div class="form-group">
+                    <label class="label-generic" for="sourse">Fuente o Canal *</label>
+                    <select 
+                        class="form-control"
+                        id="sourse"
+                        required
+                        value=selected
+                        [(ngModel)]="lead.sourse"
+                        name="sourse"
+                        required
+                    >
+                        <option selected>
+                            Instagram
+                        </option>
+                        <option selected>
+                            Motores de busqueda
+                        </option>
+                        <option selected>
+                            Publicidad en la Web
+                        </option>
+                        <option selected>
+                          Recomendación 
+                        </option>
+                    </select>
+                    <br/>
+                    <div *ngIf="nameField.invalid && (nameField.dirty || nameField.touched)" class="text-danger">
+                      Ingrese la fuente o canal a través del cual se obtuvo el lead
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
             <button (click)="saveLead()" type="submit" [disabled]="!leadForm.form.valid" class="btn2">Enviar</button>
           </form>
         </div>
-      
-        <!-- <div *ngIf="submitted">
-          <h4>¡El usuario se registró con éxito!</h4>
-          <button class="btn2" (click)="newLead()"><i class="fa fa-solid fa-angles-left"></i>Agregar</button>
-        </div>
-        <div *ngIf="edditted">
-          <h4>¡El usuario se modifico con éxito!</h4>
-          <button class="btn2" (click)="moForm()"><i class="fa fa-solid fa-angles-left"></i>Agregar</button>
-        </div> -->
         <br/><br/>
       </div>
     </div>

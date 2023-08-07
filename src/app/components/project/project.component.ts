@@ -24,7 +24,7 @@ export class ProjectComponent implements OnInit{
   mostrarViewForm: boolean = false;
   currentUserEmail: string | null = null;
   currentUserUid: string | null = null;
-  strtitle:string ="AGREGAR PROYECTOS";
+  strtitle:string ="Agregar Proyecto";
   confirmDelete: boolean = false;
   usersList: UserModel[] = [];
   usersList2: UserModel[] = [];
@@ -122,7 +122,7 @@ export class ProjectComponent implements OnInit{
 
     this.mostrarForm=true;
     this.mostrarViewForm=false;
-    this.strtitle = "MODIFICAR PROYECTOS"
+    this.strtitle = "Modificar Proyecto"
     //console.log("Element: ",projectUp)
   }
 
@@ -156,7 +156,7 @@ export class ProjectComponent implements OnInit{
       this.project.lastUpdateUser =  this.currentUserEmail != null ? this.currentUserEmail : '';        
       this.project.status =  true;
       this.project.state =  "Activo"; //Activo - Iniactivo - Bloqueado - Suspendido
-      this.strtitle = "AGREGAR PROYECTOS";   
+      this.strtitle = "Agregar Proyecto";   
       this.project.client_name = this.selectedNameClientOption;  
       this.project.tutor_name = this.selectedNameTutorOption;
 
@@ -182,7 +182,7 @@ export class ProjectComponent implements OnInit{
     this.project = new ProjectModel();
     this.editing = false;
     this.project.uid = "";
-    this.strtitle = "AGREGAR PROYECTOS"
+    this.strtitle = "Agregar Proyecto"
   }//end newProject
 
   refreshList(): void {
@@ -261,7 +261,7 @@ export class ProjectComponent implements OnInit{
  
     this.mostrarViewForm = false;
 
-    this.strtitle = "AGREGAR PROYECTOS";
+    this.strtitle = "Agregar Proyecto";
     this.currentIndex = -1;
     this.editing = false;
     this.currentProject = undefined;
