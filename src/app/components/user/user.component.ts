@@ -12,6 +12,8 @@ import { ActivatedRoute } from '@angular/router';
 import { CountryModel } from 'src/app/models/country.model';
 import { CityModel } from 'src/app/models/city.model';
 import { LocationService } from 'src/app/services/location.service';
+import { RoleModel } from 'src/app/models/role.model';
+import { RoleService } from 'src/app/services/role.service';
 
 
 @Component({
@@ -30,6 +32,7 @@ export class UserComponent implements OnInit  {
   strtitle:string ="Agregar Usuarios";
   countryList: CountryModel[] = [];
   cityList: CityModel[] = [];
+  roleList: RoleModel[] = [];
   
   editing: boolean = false;
 
@@ -45,7 +48,7 @@ export class UserComponent implements OnInit  {
   @ViewChild(MatPaginator, { static: true }) paginatior !: MatPaginator;
   @ViewChild(MatSort) sort !: MatSort;
 
-  constructor(private locationService: LocationService, private route: ActivatedRoute, private loginService: LoginService, private userService: UserService, private alertService: AlertService) { }
+  constructor(private roleService: RoleService, private locationService: LocationService, private route: ActivatedRoute, private loginService: LoginService, private userService: UserService, private alertService: AlertService) { }
 
   //listar
   ngOnInit(): void {
@@ -88,6 +91,10 @@ export class UserComponent implements OnInit  {
       this.countryList = data;
     });
     
+    //llenamos roleList 
+    this.roleService.getAllRole().valueChanges().subscribe((data: RoleModel[]) => {
+      this.roleList = data;
+    });
 
   }//end ngOnInit
 

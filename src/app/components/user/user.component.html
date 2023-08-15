@@ -225,29 +225,6 @@
                   </select>
                 </div>
             </div>
-              <!-- <div class="form-group">
-                <div class="mb-3">
-                  <label class="label-generic" for="country">País</label>
-                  <input
-                    class="form-control"
-                    id="country"
-                    [(ngModel)]="user.country"
-                    name="country"
-                  />
-                </div>
-              </div>
-    
-              <div class="form-group">
-                <div class="mb-3">
-                  <label class="label-generic" for="city">Ciudad</label>
-                  <input
-                    class="form-control"
-                    id="city"
-                    [(ngModel)]="user.city"
-                    name="city"
-                  />
-                </div>
-              </div> -->
     
               <div class="form-group">
                 <div class="mb-3">
@@ -264,46 +241,29 @@
               <div class="form-group">
                 <div class="mb-3">
                   <label class="label-generic" for="user_type">Tipo de Usuario *</label>
-                  <select 
-                      class="form-control"
-                      id="user_type"
-                      required
-                      value=selected
-                      [(ngModel)]="user.user_type"
-                      name="user_type"
-                      required
-                  >
-                      <option selected>
-                          Admin
-                      </option>
-                      <option selected>
-                          Profesor
-                      </option>"
-                      <option selected>
-                          Cliente
-                      </option>
+                  <select
+                    required
+                    class="form-control" 
+                    id="user_type"  
+                    [(ngModel)]="user.user_type" 
+                    name="user_type"
+                    #user_type="ngModel"
+                    >
+                    <option value="" disabled selected>Seleccionar opción</option>
+                    <option *ngFor="let tipo of roleList" [value]="tipo.roleName">{{ tipo.roleName }}</option>
                   </select>
                 </div>
-                <br/>
-                <div *ngIf="nameField.invalid && (nameField.dirty || nameField.touched)" class="text-danger">
+                <div *ngIf="user_type.invalid && (user_type.dirty || user_type.touched)" class="text-danger">
                   Se requiere un tipo de usuario
                 </div>
               </div>
+
             </div>
           </div>
       
           <button (click)="saveUser()" type="submit" [disabled]="!userForm.form.valid" class="btn2">Enviar</button>
         </form>
       </div>
-    
-      <!-- <div *ngIf="submitted">
-        <h4>¡El usuario se registró con éxito!</h4>
-        <button class="btn2" (click)="newUser()"><i class="fa fa-solid fa-angles-left"></i>Agregar</button>
-      </div>
-      <div *ngIf="edditted">
-        <h4>¡El usuario se modifico con éxito!</h4>
-        <button class="btn2" (click)="moForm()"><i class="fa fa-solid fa-angles-left"></i>Agregar</button>
-      </div> -->
       <br/><br/>
     </div>
   </div>
@@ -318,10 +278,16 @@
         <!-- barra para mostrar o ocultar fila -->
         <div style="margin: 10px;">
           <div class="row panel-add">
-            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12" (click)="moForm()">
+
+
+            <!-- BOTON AGREGAR DEHABILITADO TEMPORALMENTE -->
+            <!-- <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12" (click)="moForm()">
               <span style="text-decoration: none;color: #dc3545;" *ngIf="!this.mostrarForm" class="btn btn-link"><i class="fa fa-solid fa-circle-plus"></i> Agregar</span>
               <span style="text-decoration: none;color: #dc3545;" *ngIf="this.mostrarForm" class="btn btn-link"><i class="fa fa-solid fa-circle-minus"></i> </span> 
-            </div>
+            </div> -->
+            <!-- BOTON AGREGAR DEHABILITADO TEMPORALMENTE -->
+            
+
           </div>
         </div>
       

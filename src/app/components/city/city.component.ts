@@ -15,7 +15,7 @@ import { CountryModel } from 'src/app/models/country.model';
   templateUrl: './city.component.html',
   styleUrls: ['./city.component.css']
 })
-export class CityComponent {
+export class CityComponent implements OnInit {
   showForm: string = "";
   currentDate: Date = new Date;
   city: CityModel = new CityModel();
@@ -241,4 +241,5 @@ export class CityComponent {
       //carga de datos del observable, llamando al servicio alert.service
       this.alertService.ShowAlert(type, message, 3000);
   }
+
 }
