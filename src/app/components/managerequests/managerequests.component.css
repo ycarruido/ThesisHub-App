@@ -1,0 +1,23 @@
+.space-y-3 > * + * {
+    margin-top: 0.75rem; /* Ajusta el valor según el espacio vertical deseado */
+}
+
+.rowbtn{
+    padding-left: 0px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.facheckCustom{
+    margin-right: 10px;
+    cursor: pointer;
+}
+.facheckCustom:hover{
+    color: rgb(49, 187, 60);
+}
+.fatimesCustom{
+    color: rgb(254, 100, 100);
+    cursor: pointer;
+}
+.fatimesCustom:hover{
+    color: red;
+} 

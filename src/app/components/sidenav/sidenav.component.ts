@@ -33,10 +33,17 @@ export class SidenavComponent implements OnInit {
       selected: false
     },
     {
-      number: '4',
-      name: 'Leads',
+      number: '3',
+      name: 'Clientes Potenciales',
       icon: 'fa fa-regular fa-address-card',
       routeLink: "leads",
+      selected: false
+    },
+    {
+      number: '4',
+      name: 'Gestión Solicitudes',
+      icon: 'fa-solid fa-arrow-up-right-dots',
+      routeLink: "managerequests",
       selected: false
     },
     {
@@ -54,14 +61,14 @@ export class SidenavComponent implements OnInit {
       selected: false
     },
     {
-      number: '3',
+      number: '7',
       name: 'Consulta Adm',
       icon: 'fa fa-regular fa-message',
       routeLink: "admincontact",
       selected: false
     },
     {
-      number: '7',
+      number: '8',
       name: 'Configuración',
       icon: 'fa-solid fa-ellipsis', 
       routeLink: "settings",

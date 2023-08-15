@@ -8,6 +8,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { AlertService } from 'src/app/services/alert.service';
 import { Timestamp } from 'firebase/firestore';
 import { LoginService } from 'src/app/services/login.service';
+import { UserModel } from 'src/app/models/user.model';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-invoices',
@@ -22,6 +24,9 @@ export class InvoicesComponent {
   mostrarViewForm: boolean = false;
   currentUserEmail: string | null = null;
   strtitle:string ="Agregar Factura";
+  
+  usersList: UserModel[] = [];
+  usersList2: UserModel[] = [];
 
   //bibliografias
   options: string[] = [
@@ -44,7 +49,7 @@ export class InvoicesComponent {
   @ViewChild(MatPaginator, { static: true }) paginatior !: MatPaginator;
   @ViewChild(MatSort) sort !: MatSort;
 
-  constructor(private loginService: LoginService, private invoiceService: InvoiceService, private alertService: AlertService) { }
+  constructor(private userService: UserService, private loginService: LoginService, private invoiceService: InvoiceService, private alertService: AlertService) { }
 
   //listar
   ngOnInit(): void {
@@ -56,6 +61,7 @@ export class InvoicesComponent {
     this.paginatior._intl.lastPageLabel="Última Página"
     this.paginatior._intl.nextPageLabel="Siguiente"
     this.paginatior._intl.previousPageLabel="Anterior"
+
     this.paginatior._intl.getRangeLabel = (page: number, pageSize: number, length: number) => {
       if (length === 0 || pageSize === 0) {
         return `0 de ${length}`;
@@ -70,6 +76,15 @@ export class InvoicesComponent {
   
       return `${startIndex + 1} - ${endIndex} de ${length}`;
     };
+
+    //llenamos usersList 
+    this.userService.getperType("Profesor").valueChanges().subscribe((data: UserModel[]) => {
+      this.usersList = data;
+    });
+    this.userService.getperType("Cliente").valueChanges().subscribe((data: UserModel[]) => {
+      this.usersList2 = data;
+    });
+
     //Personaliza el paginador de mat datatable, con textos en espanol
   }//end ngOnInit
 
@@ -259,4 +274,12 @@ export class InvoicesComponent {
     let dia_ = dateObject.getDate();
     return dateObject;
   }
+
+  updateClienteId(event: any) {
+    const cliente_id = event.target.value;
+    this.invoice.client_id = cliente_id;
+    const selectedUser = this.usersList.find(user => user.uid === cliente_id);
+    this.invoice.nombreCliente = selectedUser ? selectedUser.name + ' ' + selectedUser.lastname : '';
+  }
+
 }

@@ -54,6 +54,18 @@
       </div>
       <div class="form-group">
         <div class="mb-3">
+          <label class="label-generic" for="universidad">País</label>
+          <p class="form-control-static">{{project.pais}}</p>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="mb-3">
+          <label class="label-generic" for="universidad">Ciudad</label>
+          <p class="form-control-static">{{project.ciudad}}</p>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="mb-3">
           <label class="label-generic" for="universidad">Cliente</label>
           <p class="form-control-static">{{project.client_name}}</p>
         </div>
@@ -251,7 +263,43 @@
                   />
                 </div>
               </div>
-    
+              
+              <div class="form-group">
+                <div class="mb-3">
+                  <label class="label-generic" for="pais">País*</label>
+                  <select
+                    required
+                    class="form-control" 
+                    id="pais"  
+                    [(ngModel)]="project.pais" 
+                    name="pais"
+                    #pais 
+                    (change)="getCity($event)"
+                    >
+                    <option value="" disabled selected>Seleccionar opción</option>
+                    <option *ngFor="let pais of countryList" [value]="pais.countryName">{{ pais.countryCode +' - '+ pais.countryName }}</option>
+                  </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="mb-3">
+                  <label class="label-generic" for="ciudad">Ciudad*</label>
+                  <select
+                    required
+                    class="form-control" 
+                    id="ciudad"  
+                    [(ngModel)]="project.ciudad" 
+                    name="ciudad"
+                    #ciudad 
+                    >
+                    <option value="" disabled selected>Seleccionar opción</option>
+                    <option *ngFor="let ciudad of cityList" [value]="ciudad.cityName">{{ ciudad.cityName }}</option>
+                  </select>
+                </div>
+            </div>
+
+
               <div class="form-group">
                 <div class="mb-3">
                   <label class="label-generic" for="client_id">Cliente *</label>
@@ -331,7 +379,7 @@
               <div class="form-group">
                 <div class="mb-3">
                   <mat-form-field appearance="outline" >
-                      <mat-label>Fecha de inicio</mat-label>
+                      <mat-label>Fecha de inicio*</mat-label>
                       <input 
                           matInput 
                           [matDatepicker]="picker" 
@@ -339,6 +387,7 @@
                           class="form-control"
                           id="fecha_inicio"
                           [(ngModel)]="project.fecha_inicio"
+                          required
                           name="fecha_inicio"
                       >
                       <mat-hint>dd/mm/yyyy</mat-hint>
@@ -351,7 +400,7 @@
               <div class="form-group">
                 <div class="mb-3">
                   <mat-form-field appearance="outline" >
-                      <mat-label>Fecha de entrega</mat-label>
+                      <mat-label>Fecha de entrega*</mat-label>
                       <input 
                           matInput 
                           [matDatepicker]="picker2" 
@@ -360,6 +409,7 @@
                           id="fecha_entrega"
                           [(ngModel)]="project.fecha_entrega"
                           name="fecha_entrega"
+                          required
                       >
                       <mat-hint>dd/mm/yyyy</mat-hint>
                       <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
@@ -408,31 +458,11 @@
                 </div>
                 <br />
               </div>
-    
+              
               <div class="form-group">
                 <div class="mb-3">
                   <mat-form-field appearance="outline" >
-                      <mat-label>Fecha de ultima entrega</mat-label>
-                      <input 
-                          matInput 
-                          [matDatepicker]="picker3" 
-                          placeholder="Seleccionar fecha"
-                          class="form-control"
-                          id="ultima_entrega"
-                          [(ngModel)]="project.ultima_entrega"
-                          name="ultima_entrega"
-                      >
-                      <mat-hint>dd/mm/yyyy</mat-hint>
-                      <mat-datepicker-toggle matIconSuffix [for]="picker3"></mat-datepicker-toggle>
-                      <mat-datepicker #picker3></mat-datepicker>
-                  </mat-form-field>
-                </div>
-              </div>
-    
-              <div class="form-group">
-                <div class="mb-3">
-                  <mat-form-field appearance="outline" >
-                      <mat-label>Fecha proxima entrega</mat-label>
+                      <mat-label>Fecha proxima entrega*</mat-label>
                       <input 
                           matInput 
                           [matDatepicker]="picker4" 
@@ -441,10 +471,32 @@
                           id="fecha_proxima"
                           [(ngModel)]="project.fecha_proxima"
                           name="fecha_proxima"
+                          required
                       >
                       <mat-hint>dd/mm/yyyy</mat-hint>
                       <mat-datepicker-toggle matIconSuffix [for]="picker4"></mat-datepicker-toggle>
                       <mat-datepicker #picker4></mat-datepicker>
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="mb-3">
+                  <mat-form-field appearance="outline" >
+                      <mat-label>Fecha de ultima entrega*</mat-label>
+                      <input 
+                          matInput 
+                          [matDatepicker]="picker3" 
+                          placeholder="Seleccionar fecha"
+                          class="form-control"
+                          id="ultima_entrega"
+                          [(ngModel)]="project.ultima_entrega"
+                          name="ultima_entrega"
+                          required
+                      >
+                      <mat-hint>dd/mm/yyyy</mat-hint>
+                      <mat-datepicker-toggle matIconSuffix [for]="picker3"></mat-datepicker-toggle>
+                      <mat-datepicker #picker3></mat-datepicker>
                   </mat-form-field>
                 </div>
                 <br /><br />

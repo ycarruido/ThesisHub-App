@@ -18,6 +18,7 @@ import { UserService } from 'src/app/services/user.service';
 export class ChatComponent implements OnInit, AfterViewInit {
   @ViewChild('chatBody') chatBody!: ElementRef;
   
+  sendingMessage: boolean = false;
   user: UserModel = new UserModel();
   currentUserEmail: any = '';
   currentUserUid: string;
@@ -49,6 +50,7 @@ export class ChatComponent implements OnInit, AfterViewInit {
       .where('senderUid', 'in', [this.currentUserUid, this.receiveUserUid])
       .where('receiverUid', 'in', [this.currentUserUid, this.receiveUserUid])
       .where('uidProject', '==', this.uidProy)
+      //.where('status', 'in', ['Released', 'Refused'])
       .orderBy('timestamp')
     ).valueChanges().subscribe((messages: any[]) => {
       this.chatMessages = messages.map(message => {
@@ -70,41 +72,88 @@ export class ChatComponent implements OnInit, AfterViewInit {
     this.scrollToBottom();
   }
 
-  sendMessage() {
-    this.loginService.user$.subscribe(user => {
-      this.currentUserEmail = user ? user.email: null;
-      if (this.currentUserEmail != null){  
-        //buscamos los datos del usuario por el email del currentUser
-        this.userService.getusrbyEmail(this.currentUserEmail.toString()).valueChanges().subscribe(data => {
-          if (data[0]){
-            this.user = data[0];
 
-            if (this.user.name){
-              this.sendersName = this.user.name;
+  sendMessage() {
+    this.sendingMessage = true;
+    this.loginService.user$.subscribe(user => {
+      this.currentUserEmail = user ? user.email : null;
+      if (this.currentUserEmail != null) {
+        // Buscamos los datos del usuario por el email del currentUser
+        this.userService.getusrbyEmail(this.currentUserEmail.toString()).valueChanges().subscribe(data => {
+          if (data[0]) {
+            this.user = data[0];
+  
+            if (this.user.name) {
+              this.sendersName = this.user.name + ' ' + this.user.lastname;
             }
-            
+  
             if (this.newMessage) {
-              this.firestore.collection('chats').add({
+              const docRef = this.firestore.collection('chats').doc(); // Obtener una referencia a un nuevo documento sin ID
+              const newId = docRef.ref.id; // Obtener el ID autogenerado por Firebase
+  
+              docRef.set({
                 senderUid: this.currentUserUid,
                 receiverUid: this.receiveUserUid,
                 message: this.newMessage,
                 timestamp: firebase.firestore.FieldValue.serverTimestamp(),
                 uidProject: this.uidProy,
                 sendersName: this.sendersName,
-                id: this.id,
-                status: 'E' //Enviado
+                status: 'E', // Enviado
+                id: newId // Asignar el ID autogenerado al campo "id" del documento
               }).then(() => {
                 this.newMessage = '';
+                this.sendingMessage = false;
               }).catch((error) => {
                 console.error('Error al enviar el mensaje:', error);
               });
             }
           }
         });
-      }// if this.currentUserEmail != null
+      } // if this.currentUserEmail != null
     });
+  }
 
-  }//end sendMessage
+  //Guardaba los mensajes pero el campo ID, no era el mismo que el ID del documento
+  // sendMessage() {
+  //   this.loginService.user$.subscribe(user => {
+  //     this.currentUserEmail = user ? user.email: null;
+  //     if (this.currentUserEmail != null){  
+  //       //buscamos los datos del usuario por el email del currentUser
+  //       this.userService.getusrbyEmail(this.currentUserEmail.toString()).valueChanges().subscribe(data => {
+  //         if (data[0]){
+  //           this.user = data[0];
+
+  //           if (this.user.name){
+  //             this.sendersName = this.user.name;
+  //           }
+            
+  //           if (this.newMessage) {
+  //             this.firestore.collection('chats').add({
+  //               senderUid: this.currentUserUid,
+  //               receiverUid: this.receiveUserUid,
+  //               message: this.newMessage,
+  //               timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+  //               uidProject: this.uidProy,
+  //               sendersName: this.sendersName,
+  //               id: this.id,
+  //               status: 'E' //Enviado
+  //             }).then(() => {
+  //               this.newMessage = '';
+  //             }).catch((error) => {
+  //               console.error('Error al enviar el mensaje:', error);
+  //             });
+  //           }
+  //         }
+  //       });
+  //     }// if this.currentUserEmail != null
+  //   });
+
+  // }//end sendMessage
+
+  obtenerPrimerNombre(nombreCompleto: string): string {
+    const partesNombre = nombreCompleto.split(' ');
+    return partesNombre[0];
+  }
 
   scrollToBottom() {
     setTimeout(() => {

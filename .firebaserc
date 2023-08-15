@@ -1,5 +1,10 @@
 {
   "projects": {
-    "default": "thesiswapp"
-  }
+    "default": "tesishub",
+    "ThesisHub": "tesishub",
+    "thesiswapp": "thesiswapp",
+    "tesishub": "tesishub"
+  },
+  "targets": {},
+  "etags": {}
 }

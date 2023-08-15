@@ -45,28 +45,28 @@
         </div>
          <div class="form-group">
           <div class="mb-3">
-            <label class="label-generic"  for="universidad">Metodo de Pago</label>
+            <label class="label-generic"  for="universidad">Método de Pago</label>
             <p class="form-control-static">{{invoice.paymentMethod}}</p>
           </div>
         </div>
-         <div class="form-group">
+         <!-- <div class="form-group">
           <div class="mb-3">
             <label class="label-generic"  for="numero_paginas">Código del Proyecto</label>
             <p class="form-control-static">{{invoice.project_id}}</p>
           </div>
-        </div>
+        </div> -->
          <div class="form-group">
           <div class="mb-3">
             <label class="label-generic"  for="entregas">Nombre del Proyecto</label>
             <p class="form-control-static">{{invoice.nombreProyecto}}</p>
           </div>
         </div>
-         <div class="form-group">
+         <!-- <div class="form-group">
           <div class="mb-3">
             <label class="label-generic"  for="descripcion">Código del Cliente</label>
             <p class="form-control-static">{{invoice.client_id}}</p>
           </div>
-        </div>
+        </div> -->
          <div class="form-group">
           <div class="mb-3">
             <label class="label-generic" >Nombre del Ciente</label>
@@ -128,7 +128,7 @@
                 <div>
                     <div class="form-group">
                       <div class="mb-3">
-                        <label class="label-generic" for="titulo" for="Fecha de Emisión">Fecha de Emisión</label><br/>
+                        <label class="label-generic" for="titulo" for="Fecha de Emisión">Fecha de Emisión*</label><br/>
                         <mat-form-field appearance="outline" class="custom-datepicker" >
                             <input 
                                 matInput 
@@ -138,6 +138,7 @@
                                 id="fechaEmision"
                                 [(ngModel)]="invoice.fechaEmision"
                                 name="fechaEmision"
+                                required
                             >
                             <mat-hint>dd/mm/yyyy</mat-hint>
                             <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
@@ -208,32 +209,34 @@
                 <div class="form-group">
                   <div class="mb-3">
                     <label class="label-generic" for="nombreProyecto">Nombre del Proyecto *</label>
-                    <select 
+                    <input
+                      type="text"
                       class="form-control"
                       id="nombreProyecto"
                       required
-                      [(ngModel)]="invoice.nombreProyecto" 
+                      [(ngModel)]="invoice.nombreProyecto"
                       name="nombreProyecto"
-                      >
-                      <option value="" disabled selected>Seleccionar opción</option>
-                      <option *ngFor="let items of options" [value]="items">{{ items }}</option>
-                    </select>
+                    />
                   </div>
                 </div>
     
                 <div class="form-group">
                   <div class="mb-3">
-                      <label class="label-generic" for="nombreCliente">Nombre del Cliente</label>
+                      <label class="label-generic" for="nombreCliente">Nombre del Cliente*</label>
                       <select 
                         class="form-control"
                         id="nombreCliente"
                         required
                         [(ngModel)]="invoice.nombreCliente" 
                         name="nombreCliente"
+                        (change)="updateClienteId($event)"
                         >
                         <option value="" disabled selected>Seleccionar opción</option>
-                        <option *ngFor="let items of options" [value]="items">{{ items }}</option>
+                        <option *ngFor="let user of usersList" [value]="user.uid">{{ user.name }} {{user.lastname}}</option>
                       </select>
+
+                      <input type="hidden" [(ngModel)]="invoice.client_id" name="cliente_id">
+                      
                   </div>
                 </div>
     
@@ -243,7 +246,6 @@
                     <input
                       class="form-control"
                       id="notas"
-                      required
                       [(ngModel)]="invoice.notas"
                       name="notas"
                     />
@@ -252,7 +254,7 @@
 
                 <div class="form-group">
                   <div class="mb-3">
-                    <label class="label-generic" for="status">Fuente o Canal *</label>
+                    <label class="label-generic" for="status">Estado de la factura *</label>
                     <select 
                         class="form-control"
                         id="status"
@@ -277,7 +279,7 @@
                     </select>
                     <br/>
                     <div *ngIf="nameField.invalid && (nameField.dirty || nameField.touched)" class="text-danger">
-                      Ingrese la fuente o canal a través del cual se obtuvo el lead
+                      Ingrese el estado
                     </div>
                   </div>
                 </div>

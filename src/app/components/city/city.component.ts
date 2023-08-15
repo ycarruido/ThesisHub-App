@@ -1,8 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { UserModel } from 'src/app/models/user.model';
-import { UserService } from 'src/app/services/user.service';
+import { CityModel } from 'src/app/models/city.model';
+import { LocationService } from 'src/app/services/location.service';
 import { map } from 'rxjs/operators';
-import {FormControl, Validators} from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -10,46 +9,42 @@ import { AlertService } from 'src/app/services/alert.service';
 import { LoginService } from 'src/app/services/login.service';
 import { ActivatedRoute } from '@angular/router';
 import { CountryModel } from 'src/app/models/country.model';
-import { CityModel } from 'src/app/models/city.model';
-import { LocationService } from 'src/app/services/location.service';
-
 
 @Component({
-  selector: 'app-user',
-  templateUrl: './user.component.html',
-  styleUrls: ['./user.component.css']
+  selector: 'app-city',
+  templateUrl: './city.component.html',
+  styleUrls: ['./city.component.css']
 })
-export class UserComponent implements OnInit  {
+export class CityComponent {
   showForm: string = "";
   currentDate: Date = new Date;
-  user: UserModel = new UserModel();
+  city: CityModel = new CityModel();
   edditted = false;
   mostrarForm: boolean = false;
   mostrarViewForm: boolean = false;
-  currentUserEmail: string | null = null;
-  strtitle:string ="Agregar Usuarios";
+  currentCityEmail: string | null = null;
+  strtitle:string ="Agregar Ciudades";
   countryList: CountryModel[] = [];
-  cityList: CityModel[] = [];
-  
+
   editing: boolean = false;
 
   //listar
-  users?: UserModel[];
-  currentUser?: UserModel;
+  citys?: CityModel[];
+  currentCity?: CityModel;
   currentIndex = -1;
   title = '';
   
   //mat datatable
   dataSource: any;
-  displayedColumns: string[] = ["id", "name", "email", "country","city", "tlf", "wapp", "state", "Opc"];
+  displayedColumns: string[] = ["cityId", "cityName", "countryName", "status" , "Opc"];
   @ViewChild(MatPaginator, { static: true }) paginatior !: MatPaginator;
   @ViewChild(MatSort) sort !: MatSort;
 
-  constructor(private locationService: LocationService, private route: ActivatedRoute, private loginService: LoginService, private userService: UserService, private alertService: AlertService) { }
+  constructor(private route: ActivatedRoute, private loginService: LoginService, private locationService: LocationService, private alertService: AlertService) { }
 
   //listar
   ngOnInit(): void {
-    this.retrieveUsers();
+    this.retrieveCitys();
 
     //Personaliza el paginador de mat datatable, con textos en espanol
     this.paginatior._intl.itemsPerPageLabel="Elementos por página";
@@ -79,41 +74,45 @@ export class UserComponent implements OnInit  {
       console.log(this.showForm);
     });
 
-    if (this.showForm == 'NewForm'){
-      this.moForm();
-    }
-
-    //llenamos countryList 
+    //llenamos usersList 
     this.locationService.getAllCountries().valueChanges().subscribe((data: CountryModel[]) => {
       this.countryList = data;
     });
     
+    if (this.showForm == 'NewForm'){
+      this.moForm();
+    }
 
   }//end ngOnInit
 
-  editUser(userUp: UserModel) {
+  editCity(cityUp: CityModel) {
     this.editing = true;
-    this.user = userUp;
+    this.city = cityUp;
     this.mostrarForm=true;
-    this.strtitle = "Modificar Usuarios"
+    this.strtitle = "Modificar Ciudades"
   }
 
-  async saveUser() {
+  async saveCity() {
     //buscamos el usuario actual
-    this.loginService.user$.subscribe(user => {
-      this.currentUserEmail = user ? user.email : null;
+    this.loginService.user$.subscribe(city => {
+      this.currentCityEmail = city ? city.email : null;
     });
 
     if (this.editing) {
       try {
-        this.user.lastUpdate =  this.currentDate;
-        this.user.lastUpdateUser =  this.currentUserEmail != null ? this.currentUserEmail : '';
+        this.city.lastUpdate =  this.currentDate;
+        this.city.lastUpdateUser =  this.currentCityEmail != null ? this.currentCityEmail : '';
         
-        await this.userService.update(this.user);
+        let CountryFullname: any;
+        CountryFullname = this.city.countryName?.split("**");
+        this.city.countryCode = CountryFullname[0];
+        this.city.countryName = CountryFullname[1];
+
+        await this.locationService.update(this.city);
         this.edditted = true;
         //llamada a la alerta
-        //console.log("Currentuser: ",this.currentUserEmail);
-        this.doSomething("update","El usuario se ha modificado correctamente.");
+        //console.log("Currentcity: ",this.currentCityEmail);
+        this.doSomething("update","La ciudad se ha modificado correctamente.");
         this.mostrarForm = false;
         // Aquí puedes agregar código para manejar la actualización exitosa, como mostrar un mensaje al usuario
       } catch (error) {
@@ -122,72 +121,75 @@ export class UserComponent implements OnInit  {
     } else {
       //Crea un nuevo usuario
       //default value
-      this.user.registration_date =  this.currentDate;
-      this.user.lastUpdate =  this.currentDate;
-      this.user.lastUpdateUser =  this.currentUserEmail != null ? this.currentUserEmail : '';
-      this.user.status =  true;
-      this.user.state =  "Activo"; //Activo - Iniactivo - Bloqueado - Suspendido
-      this.strtitle = "Agregar Usuarios";
+      
+      this.city.lastUpdate =  this.currentDate;
+      this.city.lastUpdateUser =  this.currentCityEmail != null ? this.currentCityEmail : '';
+      let CountryFullname2: any;
+      CountryFullname2 = this.city.countryName?.split("**");
+      this.city.countryCode = CountryFullname2[0];
+      this.city.countryName = CountryFullname2[1];
 
-      this.userService.create(this.user).then(() => {
+      this.city.status =  true;
+      this.strtitle = "Agregar Ciudades";
+      this.locationService.createCity(this.city).then(() => {
         console.log('¡Se ha enviado con éxito!');
         this.mostrarForm = false;
         //llamada a la alerta
-        this.doSomething("create","El usuario se ha creado correctamente.");
+        this.doSomething("create","La ciudad se ha creado correctamente.");
       });
     }//end if (this.editing)
-  }//end saveUser
+  }//end saveCity
 
-  newUser(): void {
+  newCity(): void {
     this.edditted = false;
-    this.user = new UserModel();
+    this.city = new CityModel();
     this.editing = false;
-    this.user.uid = "";
-    this.strtitle = "Agregar Usuarios"
-  }//end newUser
+    this.city.uid = "";
+    this.strtitle = "Agregar Ciudades"
+  }//end newCity
 
   refreshList(): void {
-    this.currentUser = undefined;
+    this.currentCity = undefined;
     this.currentIndex = -1;
-    this.retrieveUsers();
+    this.retrieveCitys();
   }//end refreshList
 
-  retrieveUsers(): void {
-    this.userService.getAll().snapshotChanges().pipe(
+  retrieveCitys(): void {
+    this.locationService.getAllCity().snapshotChanges().pipe(
       map(changes =>
         changes.map(c =>
           ({ id: c.payload.doc.id, ...c.payload.doc.data() })
         )
       )
     ).subscribe(data => {
-      this.users = data;
+      this.citys = data;
 
       //ELEMENT_DATA FOR MAT DATATABLE
-      this.dataSource = new MatTableDataSource(this.users);
+      this.dataSource = new MatTableDataSource(this.citys);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginatior;
 
     });    
-  }//end retrieveUsers
+  }//end retrieveCitys
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }//end applyFilter
 
-  setActiveUser(user: UserModel, index: number): void {
-    this.currentUser = user;
+  setActiveCity(city: CityModel, index: number): void {
+    this.currentCity = city;
     this.currentIndex = index;
-  }//end setActiveUser
+  }//end setActiveCity
 
   async removeUsr(uid:string){
     //buscamos el usuario actual
     this.loginService.user$.subscribe(user => {
-      this.currentUserEmail = user ? user.email : null;
+      this.currentCityEmail = user ? user.email : null;
     });
-    this.currentUserEmail =  this.currentUserEmail != null ? this.currentUserEmail : '';
-    await this.userService.delete(uid, this.currentUserEmail.toString(), this.currentDate)
-    this.doSomething("delete","El usuario se ha eliminado correctamente.");
+    this.currentCityEmail =  this.currentCityEmail != null ? this.currentCityEmail : '';
+    await this.locationService.delete(uid, this.currentCityEmail.toString(), this.currentDate)
+    this.doSomething("delete","La ciudad se ha eliminado correctamente.");
     this.mostrarForm = false;
   }
 
@@ -203,8 +205,8 @@ export class UserComponent implements OnInit  {
     this.removeUsr(element.uid);
   }
   
-  viewRecod(userUp: UserModel){
-    this.user = userUp;
+  viewRecod(cityUp: CityModel){
+    this.city = cityUp;
     this.mostrarForm=false;
     this.mostrarViewForm=true;
   }
@@ -221,17 +223,11 @@ export class UserComponent implements OnInit  {
       this.mostrarForm = true;
     }
 
-    this.strtitle = "Agregar Usuarios";
+    this.strtitle = "Agregar Ciudades";
     this.currentIndex = -1;
     this.editing = false;
-    this.currentUser = undefined;
-    this.user = new UserModel();
-
-    // console.log("moform: ",this.mostrarForm);
-    // console.log("strtitle: ",this.strtitle);
-    // console.log("currentIndex: ",this.currentIndex);
-    // console.log("editing: ",this.editing);
-    // console.log("user: ",this.user);
+    this.currentCity = undefined;
+    this.city = new CityModel();
 
   }//end moForm
 
@@ -245,15 +241,4 @@ export class UserComponent implements OnInit  {
       //carga de datos del observable, llamando al servicio alert.service
       this.alertService.ShowAlert(type, message, 3000);
   }
-
-  getCity(event: any) {
-    const country_name = event.target.value;
-    const country_id = event.target.options[event.target.selectedIndex].text;
-    //this.project.paisCode = country_id.split(' ')[0];
-    //llenamos cityList 
-    this.locationService.getAllCityCode(country_id.split(' ')[0]).valueChanges().subscribe((data: CountryModel[]) => {
-      this.cityList = data;
-    });
-  }
-
 }

@@ -13,7 +13,19 @@
     </div>
 
     <div class="card">
-      <div class="card-header">Datos de contacto</div>
+      <div class="card-header">
+        Datos de contacto
+        <!-- Botón para guardar la postulación -->
+        <div class="form-check form-switch position-absolute top-0 end-0 mt-3 me-3">
+          <input class="form-check-input" type="checkbox" id="guardarPostulacion" (click)="guardarPostulacion($event)" [(ngModel)]="postulacionGuardada">
+          <label class="form-check-label" for="guardarPostulacion">{{lblPostulacion}}</label>
+          
+          <div *ngIf="postConfirmation" style="padding-left:5px">
+            <i class="fas fa-check facheckCustom" (click)="postulationConfirmed(true)" data-toggle="tooltip" data-placement="top" title="Confirmar postulación"></i>
+            <i class="fas fa-times fatimesCustom" (click)="postulationConfirmed(false)" data-toggle="tooltip" data-placement="top" title="Cancelar postulación"></i>
+          </div>
+        </div>
+      </div>
       <div class="card-body">
         <div class="form-group">
           <div class="mb-3">
@@ -66,6 +78,12 @@
           <div class="mb-3">
             <label class="label-generic" for="entregas">Universidad</label>
             <p class="form-control-static">{{lead.university}}</p>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="mb-3">
+            <label class="label-generic" for="entregas">Título de Proyecto</label>
+            <p class="form-control-static">{{lead.titulo}}</p>
           </div>
         </div>
         <div class="form-group">
@@ -185,9 +203,9 @@
                       required
                       [(ngModel)]="lead.lastname"
                       name="lastname"
-                      #nameField="ngModel"
+                      #nameField1="ngModel"
                     />
-                    <div *ngIf="nameField.invalid && (nameField.dirty || nameField.touched)" class="text-danger">
+                    <div *ngIf="nameField1.invalid && (nameField1.dirty || nameField1.touched)" class="text-danger">
                       El apellido es requerido.
                     </div>
                   </div>
@@ -231,7 +249,7 @@
     
                 <div class="mb-3">
                   <div class="form-group">
-                    <label class="label-generic" for="tlf">Número de Teléfono</label>
+                    <label class="label-generic" for="tlf">Número de Teléfono*</label>
                     <input
                       class="form-control"
                       id="tlf"
@@ -244,7 +262,7 @@
     
                 <div class="mb-3">
                   <div class="form-group">
-                    <label class="label-generic" for="wapp">Número de WhatsApp</label>
+                    <label class="label-generic" for="wapp">Número de WhatsApp*</label>
                     <input
                       class="form-control"
                       id="wapp"
@@ -254,30 +272,43 @@
                     />
                   </div>
                 </div>
-    
-                <div class="mb-3">
-                  <div class="form-group">
-                    <label class="label-generic" for="country">País</label>
-                    <input
-                      class="form-control"
-                      id="country"
-                      [(ngModel)]="lead.country"
+
+              <div class="form-group">
+                  <div class="mb-3">
+                    <label class="label-generic" for="country">País*</label>
+                    <select
+                      required
+                      class="form-control" 
+                      id="country"  
+                      [(ngModel)]="lead.country" 
                       name="country"
-                    />
+                      #country 
+                      (change)="getCity($event)"
+                      >
+                      <option value="" disabled selected>Seleccionar opción</option>
+                      <option *ngFor="let country of countryList" [value]="country.countryName">{{ country.countryCode +' - '+ country.countryName }}</option>
+                    </select>
                   </div>
-                </div>
-    
-                <div class="mb-3">
-                  <div class="form-group">
-                    <label class="label-generic" for="city">Ciudad</label>
-                    <input
-                      class="form-control"
-                      id="city"
-                      [(ngModel)]="lead.city"
+              </div>
+
+              <div class="form-group">
+                  <div class="mb-3">
+                    <label class="label-generic" for="city">Ciudad*</label>
+                    <select
+                      required
+                      class="form-control" 
+                      id="city"  
+                      [(ngModel)]="lead.city" 
                       name="city"
-                    />
+                      #city 
+                      >
+                      <option value="" disabled selected>Seleccionar opción</option>
+                      <option *ngFor="let city of cityList" [value]="city.cityName">{{ city.cityName }}</option>
+                    </select>
                   </div>
-                </div>
+              </div>
+
+
               </div>
             </div>
             <div class="card">
@@ -299,13 +330,18 @@
     
                 <div class="mb-3">
                   <div class="form-group">
-                    <label class="label-generic" for="titulo">Título del Proyecto</label>
+                    <label class="label-generic" for="titulo">Título del Proyecto*</label>
                     <input
                       class="form-control"
                       id="titulo"
                       [(ngModel)]="lead.titulo"
                       name="titulo"
+                      #tituLo="ngModel"
+                      required
                     />
+                  </div>
+                  <div *ngIf="tituLo.invalid && (tituLo.dirty || tituLo.touched)" class="text-danger">
+                    El apellido es requerido. Si no lo tiene, debe colocar uno tentativo
                   </div>
                 </div>
     
@@ -372,12 +408,15 @@
                 <div class="mb-3">
                   <div class="form-group">
                     <label class="label-generic" for="descripcion">Descripción</label>
-                    <input
+                    <textarea
                       class="form-control"
                       id="descripcion"
                       [(ngModel)]="lead.descripcion"
                       name="descripcion"
-                    />
+                      rows="10"
+                    >
+
+                    </textarea>
                   </div>
                 </div>
     

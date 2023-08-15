@@ -14,6 +14,9 @@ export class ProjectModel {
     numero_paginas?: number;
     entregas?: number;
     descripcion?: string;
+    paisCode?: string;
+    pais?: string;
+    ciudad?: string;
     fecha_inicio?: Date;
     fecha_entrega?: Date;
     presupuesto?: number;

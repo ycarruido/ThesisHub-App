@@ -190,7 +190,42 @@
                   />
                 </div>
               </div>
+
               <div class="form-group">
+                <div class="mb-3">
+                  <label class="label-generic" for="pais">País*</label>
+                  <select
+                    required
+                    class="form-control" 
+                    id="pais"  
+                    [(ngModel)]="user.country" 
+                    name="pais"
+                    #pais 
+                    (change)="getCity($event)"
+                    >
+                    <option value="" disabled selected>Seleccionar opción</option>
+                    <option *ngFor="let pais of countryList" [value]="pais.countryName">{{ pais.countryCode +' - '+ pais.countryName }}</option>
+                  </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="mb-3">
+                  <label class="label-generic" for="ciudad">Ciudad*</label>
+                  <select
+                    required
+                    class="form-control" 
+                    id="ciudad"  
+                    [(ngModel)]="user.city" 
+                    name="ciudad"
+                    #ciudad 
+                    >
+                    <option value="" disabled selected>Seleccionar opción</option>
+                    <option *ngFor="let ciudad of cityList" [value]="ciudad.cityName">{{ ciudad.cityName }}</option>
+                  </select>
+                </div>
+            </div>
+              <!-- <div class="form-group">
                 <div class="mb-3">
                   <label class="label-generic" for="country">País</label>
                   <input
@@ -212,7 +247,7 @@
                     name="city"
                   />
                 </div>
-              </div>
+              </div> -->
     
               <div class="form-group">
                 <div class="mb-3">

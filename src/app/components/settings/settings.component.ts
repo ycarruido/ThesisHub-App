@@ -9,7 +9,8 @@ import { Router } from '@angular/router';
 export class SettingsComponent {
   constructor(private router: Router) {}
 
-  irAModulo(modulo: string) {
-    this.router.navigate([`/${modulo}`]);
+  irAModulo(modulo: string, f:string) {
+    //this.router.navigate([`/${modulo}`,uidCurrentUser]);
+    this.router.navigate([`/${modulo}`], { queryParams: { form: f } });
   }
 }

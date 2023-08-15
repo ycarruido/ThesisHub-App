@@ -100,4 +100,18 @@ export class LoginService {
     );
   }
 
+  getUserFullName(userId: string): Observable<string | null> {
+    return this.db.collection('users').doc(userId).get().pipe(
+      map((doc: any) => {
+        if (doc.exists) {
+          const name = doc.data().name;
+          const lastname = doc.data().lastname;
+          return name + ' ' + lastname;
+        } else {
+          return null;
+        }
+      })
+    );
+  }
+
 } //end LoginService

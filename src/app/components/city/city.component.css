@@ -58,67 +58,11 @@
     border-radius: 10px;
     text-align: center;
   }
-
+  
   .label-generic {
     font-weight: 500;
     font-size: 14px;
     color: #161616;
-  }
-
-  .form-check-label {
-    font-size: 1rem;
-    margin-left: 1rem;
-  }
-
-  .form-switch {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    position: relative;
-  }
-  
-  .form-switch .form-check-input {
-    width: 2rem;
-    height: 1.5rem; /* Ajustar el tamaño verticalmente */
-    margin: 0;
-    padding: 0;
-    position: relative;
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    outline: none;
-    border: 2px solid #adb5bd; /* Cambiar el color del borde a gris */
-    border-radius: 0.75rem;
-    background-color: transparent;
-    cursor: pointer;
-    transition: background-color 0.3s ease-in-out;
-  }
-  
-  .form-switch .form-check-input:checked {
-    background-color: #28a745; /* Cambiar el color de fondo a verde */
-  }
-  
-  .form-switch .form-check-input::before {
-    content: "";
-    position: absolute;
-    top: 0.25rem;
-    left: 0.25rem;
-    width: 1rem; /* Ajustar el tamaño de la pelotita */
-    height: 1rem; /* Ajustar el tamaño de la pelotita */
-    border-radius: 50%;
-    background-color: #fff;
-    transition: transform 0.3s ease-in-out;
-  }
-  
-  .form-switch .form-check-input:checked::before {
-    transform: translateX(0.5rem); /* Mover la pelotita hacia la derecha */
-  }
-
-  .card-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding-bottom: 15px;
   }
   
   /* mat-datatable */
@@ -203,4 +147,9 @@
   }
   .fatimesCustom:hover{
     color: red;
-  }  
+  }
+  
+  
+  
+  
+  

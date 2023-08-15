@@ -8,6 +8,10 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { AlertService } from 'src/app/services/alert.service';
 import { LoginService } from 'src/app/services/login.service';
+import { Observable } from 'rxjs';
+import { CountryModel } from 'src/app/models/country.model';
+import { LocationService } from 'src/app/services/location.service';
+import { CityModel } from 'src/app/models/city.model';
 
 @Component({
   selector: 'app-leads',
@@ -23,6 +27,14 @@ export class LeadsComponent implements OnInit{
   mostrarViewForm: boolean = false;
   currentLeadEmail: string | null = null;
   strtitle:string ="Agregar Clientes Potenciales";
+  currentUserEmail: string | null = "";
+  currentUserName: string | null = "";
+  countryList: CountryModel[] = [];
+  cityList: CityModel[] = [];
+
+  postulacionGuardada = false;
+  postConfirmation = false;
+  lblPostulacion = "Quiero Postularme";
 
   editing: boolean = false;
 
@@ -38,10 +50,19 @@ export class LeadsComponent implements OnInit{
   @ViewChild(MatPaginator, { static: true }) paginatior !: MatPaginator;
   @ViewChild(MatSort) sort !: MatSort;
 
-  constructor(private loginService: LoginService, private leadService: LeadService, private alertService: AlertService) { }
+  constructor(private locationService: LocationService, private loginService: LoginService, private leadService: LeadService, private alertService: AlertService) { }
 
   //listar
   ngOnInit(): void {
+    //this.postulacionGuardada = false;
+    //Colocamos el check para postularse en falso por defecto   
+
+    this.loginService.getUserObservable().subscribe((user) => {
+      if (user) {
+        this.currentUserEmail = user.email;
+      }
+    });
+
     this.retrieveLeads();
 
     //Personaliza el paginador de mat datatable, con textos en espanol
@@ -65,6 +86,11 @@ export class LeadsComponent implements OnInit{
       return `${startIndex + 1} - ${endIndex} de ${length}`;
     };
     //Personaliza el paginador de mat datatable, con textos en espanol
+    
+    //llenamos countryList 
+    this.locationService.getAllCountries().valueChanges().subscribe((data: CountryModel[]) => {
+      this.countryList = data;
+    });
 
   }//end ngOnInit
 
@@ -179,12 +205,6 @@ export class LeadsComponent implements OnInit{
     // Realiza la eliminación aquí
     this.removeUsr(element.uid);
   }
-  
-  viewRecod(leadUp: LeadModel){
-    this.lead = leadUp;
-    this.mostrarForm=false;
-    this.mostrarViewForm=true;
-  }
 
   closeview(){
     this.mostrarForm=false;
@@ -204,12 +224,6 @@ export class LeadsComponent implements OnInit{
     this.currentLead = undefined;
     this.lead = new LeadModel();
 
-    // console.log("moform: ",this.mostrarForm);
-    // console.log("strtitle: ",this.strtitle);
-    // console.log("currentIndex: ",this.currentIndex);
-    // console.log("editing: ",this.editing);
-    // console.log("lead: ",this.lead);
-
   }//end moForm
 
   validarEmail(email: string): boolean {
@@ -222,6 +236,129 @@ export class LeadsComponent implements OnInit{
       //carga de datos del observable, llamando al servicio alert.service
       this.alertService.ShowAlert(type, message, 3000);
   }
+
+  viewRecod(leadUp: LeadModel){
+    //verificamos si ya esta ostulado a este proyecto
+    const emailCli = leadUp.email;
+    const title = leadUp.titulo;
+    if (this.currentUserEmail){
+      const uid = 'P-'+ this.convertirTextoANumeros(title?.substring(0,8).trim().toString()) + '@' + this.convertirTextoANumeros(this.currentUserEmail?.substring(0,5).trim().toString());
+      
+      this.leadService.getPostulation(uid,emailCli, this.currentUserEmail).then(
+        (postulacionesObservable: Observable<any[]>) => {
+          postulacionesObservable.subscribe((postulaciones: any[]) => {
+            const checkbox = document.getElementById('guardarPostulacion') as HTMLInputElement;
+            if (postulaciones.length > 0) {
+              //console.log('Se encontraron documentos:');
+              checkbox.checked = true;
+              checkbox.disabled = true;
+              this.lblPostulacion = "Postulado";
+
+            } else {
+              //console.log('No se encontraron documentos');
+              checkbox.disabled = false;
+              checkbox.checked = false;
+            }
+          });
+      })
+      .catch((error) => {
+        console.error('Error al obtener las postulaciones:', error);
+      });
+
+      //this.leadService.getPostulation(emailCli, this.currentUserEmail)
+    }
+
+    this.lead = leadUp;
+    this.mostrarForm=false;
+    this.mostrarViewForm=true;
+  }//end viewrecord
+
+  postulationConfirmed(vlue:boolean){
+    
+    if (!vlue){
+      this.postConfirmation = false;
+      this.postulacionGuardada = false;
+      this.lblPostulacion = "Quiero Postularme";
+    }else{      
+
+      this.loginService.getUserObservable().subscribe((user) => {
+        if (user) {
+          this.currentUserEmail = user.email;
+
+          this.loginService.getUserFullName(user.uid).subscribe((name) => {
+            if (name) {
+              //Datos para la postulación
+              this.currentUserName = name;
+              const status = 'Pendiente'; // En revisión - Aprobada - Rechazada
+              const lastUpdate = new Date();
+              //ID = ocho caracteres del titulo mas @ mas cinco caracteres del email del usr conectado, convertidos a numero
+              const id = 'P-'+ this.convertirTextoANumeros(this.lead.titulo?.substring(0,8).trim().toString()) + '@' + this.convertirTextoANumeros(this.currentUserEmail?.substring(0,5).trim().toString());
+              const fullName = this.lead.name + ' ' + this.lead.lastname;
+              const postulacion = {
+                id: id,
+                titulo: this.lead.titulo ? this.lead.titulo : '',
+                cliente: fullName,
+                emailCliente: this.lead.email ? this.lead.email : '',
+                currentUser: this.currentUserName ? this.currentUserName : '',
+                currentUserEmail: this.currentUserEmail ? this.currentUserEmail : '',
+                status: status,
+                lastUpdate: lastUpdate
+              };
+
+              // Guardar la postulación en la colección
+              this.leadService.savepostulation(postulacion);
+
+            } else {
+              console.log('No se encontró el nombre del usuario');
+            }
+          });
+        }
+      });
+
+      this.postConfirmation = false;
+      this.postulacionGuardada = true;
+      const checkbox = document.getElementById('guardarPostulacion') as HTMLInputElement;
+      checkbox.disabled = true;
+    }
+  }
+
+  guardarPostulacion(e: any) {
+    if (!this.postulacionGuardada) {
+      this.postConfirmation = e.target.checked ? true : false;
+      this.lblPostulacion = "Confirmar Postulación";
+    }else{
+      this.postConfirmation = false;
+    }
+  }
+
+  convertirTextoANumeros(texto?: string): string {
+    const abecedario = 'abcdefghijklmnopqrstuvwxyz';
+    let resultado = '';
+    if (texto){
+      for (let i = 0; i < texto.length; i++) {
+        const letra = texto[i].toLowerCase();
+        const posicion = abecedario.indexOf(letra) + 1;
+    
+        if (posicion > 0) {
+          resultado += posicion.toString();
+        } else {
+          resultado += letra;
+        }
+      }
+    }
+    return resultado;
+  }
+
+  getCity(event: any) {
+    const country_name = event.target.value;
+    const country_id = event.target.options[event.target.selectedIndex].text;
+
+    //llenamos cityList 
+    this.locationService.getAllCityCode(country_id.split(' ')[0]).valueChanges().subscribe((data: CountryModel[]) => {
+      this.cityList = data;
+    });
+  }
+  
 
 }
 

@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { LeadModel } from '../models/lead.model';
+import { QuerySnapshot } from 'firebase/firestore';
+import { Observable } from 'rxjs';
 
 
 @Injectable({
@@ -83,6 +85,22 @@ export class LeadService {
 
   delete(id: string, usr:string, fecha: Date): Promise<void> {
     return this.leadsRef.doc(id).update({ state: 'Eliminado', status: false, lastUpdate: fecha, lastUpdateLead: usr });
+  }
+
+  savepostulation(post: {id:string, titulo?:string, nombreCliente?:string, emailCliente?:string, currentUser:string, currentUserEmail:string, status:string, lastUpdate:Date}) {
+    // Guardar la postulación en la colección de Firestore
+    this.db.collection('postulaciones').add(post).then(() => {
+        // La postulación se ha guardado correctamente
+        console.log('Se envio la postulación');
+    })
+    .catch((error) => {
+      // Ocurrió un error al guardar la postulación
+      console.error('Error al guardar la postulación:', error);
+    });
+  }
+
+  async getPostulation(uid?:string,emailc?: string, emailcu?: string): Promise<Observable<any[]>> {
+    return this.db.collection('postulaciones', ref => ref.where('id', '==', uid).where('emailCliente', '==', emailc).where('currentUserEmail', '==', emailcu)).valueChanges();
   }
 
 }

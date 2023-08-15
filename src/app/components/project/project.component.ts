@@ -10,6 +10,9 @@ import { LoginService } from 'src/app/services/login.service';
 import { UserService } from 'src/app/services/user.service';
 import { UserModel } from 'src/app/models/user.model';
 import { Router } from '@angular/router';
+import { LocationService } from 'src/app/services/location.service';
+import { CountryModel } from 'src/app/models/country.model';
+import { CityModel } from 'src/app/models/city.model';
 
 @Component({
   selector: 'app-project',
@@ -30,7 +33,9 @@ export class ProjectComponent implements OnInit{
   usersList2: UserModel[] = [];
   selectedNameClientOption: string = '';
   selectedNameTutorOption: string = '';
-
+  countryList: CountryModel[] = [];
+  cityList: CityModel[] = [];
+  
   //bibliografias
   options: string[] = [
     'APA', 
@@ -57,7 +62,7 @@ export class ProjectComponent implements OnInit{
   @ViewChild(MatPaginator, { static: true }) paginatior !: MatPaginator;
   @ViewChild(MatSort) sort !: MatSort;
 
-  constructor(private router: Router, private loginService: LoginService, private projectService: ProjectService, private alertService: AlertService, private userService: UserService) { }
+  constructor(private locationService: LocationService, private router: Router, private loginService: LoginService, private projectService: ProjectService, private alertService: AlertService, private userService: UserService) { }
 
   //listar
   ngOnInit(): void {
@@ -99,6 +104,11 @@ export class ProjectComponent implements OnInit{
       this.currentUserEmail = user ? user.email: null;
     });
 
+    //llenamos countryList 
+    this.locationService.getAllCountries().valueChanges().subscribe((data: CountryModel[]) => {
+      this.countryList = data;
+    });
+
   }//end ngOnInit
 
   //si es Date, retorna la misma fecha, si no, si es timestamp de Firestore,
@@ -123,7 +133,14 @@ export class ProjectComponent implements OnInit{
     this.mostrarForm=true;
     this.mostrarViewForm=false;
     this.strtitle = "Modificar Proyecto"
-    //console.log("Element: ",projectUp)
+
+    //llenamos cityList 
+    if (projectUp.paisCode){
+      this.locationService.getAllCityCode(projectUp.paisCode).valueChanges().subscribe((data: CountryModel[]) => {
+        this.cityList = data;
+      });
+    }
+    
   }
 
   async saveProject() {
@@ -351,6 +368,16 @@ export class ProjectComponent implements OnInit{
     } else {
       console.log("El proyecto no se ha asignado a ningun tutor")
     }
+  }
+
+  getCity(event: any) {
+    const country_name = event.target.value;
+    const country_id = event.target.options[event.target.selectedIndex].text;
+    this.project.paisCode = country_id.split(' ')[0];
+    //llenamos cityList 
+    this.locationService.getAllCityCode(country_id.split(' ')[0]).valueChanges().subscribe((data: CountryModel[]) => {
+      this.cityList = data;
+    });
   }
 
 }

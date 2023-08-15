@@ -32,6 +32,13 @@ import { ProjectComponent } from './components/project/project.component';
 import { UserComponent } from './components/user/user.component';
 import { ChatComponent } from './components/chat/chat.component';
 import { DocumentUploadComponent } from './components/document-upload/document-upload.component';
+import { ManagerequestsComponent } from './components/managerequests/managerequests.component';
+import { RoleComponent } from './components/role/role.component';
+import { CurrencyComponent } from './components/currency/currency.component';
+import { CountryComponent } from './components/country/country.component';
+
+import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { CityComponent } from './components/city/city.component';
 
 
 @NgModule({
@@ -51,7 +58,12 @@ import { DocumentUploadComponent } from './components/document-upload/document-u
     ProjectComponent,
     UserComponent,
     ChatComponent,
-    DocumentUploadComponent
+    DocumentUploadComponent,
+    ManagerequestsComponent,
+    RoleComponent,
+    CurrencyComponent,
+    CountryComponent,
+    CityComponent
   ],
   imports: [
     BrowserModule,
@@ -66,7 +78,7 @@ import { DocumentUploadComponent } from './components/document-upload/document-u
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
   ],
-  providers: [],
+  providers: [{ provide: MAT_DATE_LOCALE, useValue: 'es-VE' }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

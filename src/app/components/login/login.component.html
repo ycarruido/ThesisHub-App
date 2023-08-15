@@ -6,9 +6,12 @@
   
   <form [formGroup]="formLogin" (ngSubmit)="onSubmit()" class="login-form">
     <div class="mb-3">
-      <label class="form-label">Email</label>
-      <input required type="email" class="form-control" formControlName="email">
-      <span *ngIf="formLogin.get('email')?.hasError('required') && formLogin.get('email')?.touched" class="text-danger errorLabel">
+      <!-- <label class="form-label">Email</label> -->
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1"><img src="assets/img/en.png" width="16" height="16"></span>
+        <input required type="email" placeholder="Email" class="form-control" formControlName="email">
+      </div>
+        <span *ngIf="formLogin.get('email')?.hasError('required') && formLogin.get('email')?.touched" class="text-danger errorLabel">
         El <strong>correo</strong> es requerido
       </span>
       <span *ngIf="formLogin.get('email')?.hasError('email') && formLogin.get('email')?.touched" class="text-danger errorLabel">
@@ -22,8 +25,11 @@
       </span>
     </div>
     <div class="mb-3">
-      <label class="form-label">Contraseña</label>
-      <input type="password" class="form-control" formControlName="password">
+      <!-- <label class="form-label">Contraseña</label> -->
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1"><img src="assets/img/cerrar.png" width="16" height="16"></span>
+        <input type="password" placeholder="Contraseña" class="form-control" formControlName="password">
+      </div>
       <span *ngIf="formLogin.get('password')?.hasError('required') && formLogin.get('password')?.touched" class="text-danger errorLabel">
         La <strong>contraseña</strong> es requerida
       </span>
