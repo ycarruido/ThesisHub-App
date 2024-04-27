@@ -1,0 +1,186 @@
+<!-- Vista de solo lectura  -->
+<div class="register-container" *ngIf="mostrarViewForm">
+
+    <div class="row">
+      <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
+        <div><h3 style="font-size: 22px; font-weight: bold;">Datos de Roles</h3></div>
+      </div>
+      <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
+        <div class="close-icon">
+          <i class="fas fa-times" (click)="closeview()"></i>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+        <div class="mb-3">
+          <label class="label-generic" for="roleId">Id</label>
+          <p class="form-control-static">{{role.roleId}}</p>
+        </div>
+      </div>
+    <div class="form-group">
+      <div class="mb-3">
+        <label class="label-generic" for="roleName">Nombre del Role</label>
+        <p class="form-control-static">{{role.roleName}}</p>
+      </div>
+    </div>
+    <div class="form-group">
+        <div class="mb-3">
+          <label class="label-generic" for="roleDescripcion">Descripción</label>
+          <p class="form-control-static">{{role.roleDescripcion}}</p>
+        </div>
+    </div>
+    
+  </div>
+  <!-- Vista de solo lectura  -->
+    
+    
+    <!-- Formulario de Roles -->
+    <div *ngIf="mostrarForm">
+      <div class="register-container">
+        
+        <div class="row">
+          <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
+            <div><h3 style="font-size: 22px; font-weight: bold;">{{strtitle}}</h3></div>
+          </div>
+          <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
+            <div class="close-icon">
+              <i class="fas fa-times" (click)="closeview()"></i>
+            </div>
+          </div>
+        </div>
+  
+        <div>
+          <form #roleForm="ngForm">
+            <div class="card">
+              <div class="card-body">
+
+                <div class="form-group">
+                  <div class="mb-3">
+                    <label class="label-generic" for="roleName">Role*</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="roleName"
+                      required
+                      [(ngModel)]="role.roleName"
+                      name="roleName"
+                      #roleName="ngModel"
+                    />
+                    <div *ngIf="roleName.invalid && (roleName.dirty || roleName.touched)" class="text-danger">
+                      El role es requerido.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="mb-3">
+                      <label class="label-generic" for="roleDescripcion">Descripción*</label>
+                      <textarea
+                        class="form-control"
+                        id="roleDescripcion"
+                        required
+                        [(ngModel)]="role.roleDescripcion"
+                        name="roleDescripcion"
+                        #roleDescripcion="ngModel"
+                      >
+
+                      </textarea>
+                      <div *ngIf="roleDescripcion.invalid && (roleDescripcion.dirty || roleDescripcion.touched)" class="text-danger">
+                        Ingrese una descripción sobre este Role
+                      </div>
+                    </div>
+                </div>
+
+              </div>
+            </div>
+        
+            <button (click)="saveRole()" type="submit" [disabled]="!roleForm.form.valid" class="btn2">Enviar</button>
+          </form>
+        </div>
+        <br/><br/>
+      </div>
+    </div>
+    
+  
+  
+    <!-- Lita - Mat datatable -->
+    <div style="width: 100%; margin-left: 10px; padding-right: 10px; padding-top:5px; padding-bottom: 50px;">
+      <div class="row panel-addh" style="text-align:right;"> 	
+        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6" style="text-align:left;">
+        
+          <!-- barra para mostrar o ocultar fila -->
+          <div style="margin: 10px;">
+            <div class="row panel-add">
+              <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12" (click)="moForm()">
+                <span style="text-decoration: none;color: #dc3545;" *ngIf="!this.mostrarForm" class="btn btn-link"><i class="fa fa-solid fa-circle-plus"></i> Agregar</span>
+                <span style="text-decoration: none;color: #dc3545;" *ngIf="this.mostrarForm" class="btn btn-link"><i class="fa fa-solid fa-circle-minus"></i> </span> 
+              </div>
+            </div>
+          </div>
+        
+        </div>
+        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6" style="text-align:left;">
+          <div class="form-group" style="padding-top: 3px;">
+            <input
+              matInput (keyup)="applyFilter($event)" 
+              placeholder="Buscar Role" 
+              #input
+              class="form-control"
+              style="border-color:#dc3545;border-width: 1px;"
+            />
+          </div>
+        </div>
+      </div>
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 table-hover mat-table" matSort class="table">
+        <!-- roleId Column -->
+              <ng-container matColumnDef="roleId">
+                  <th *matHeaderCellDef mat-sort-header class="mat-header-row" style="text-align: left;">ID </th>
+                  <td mat-cell *matCellDef="let element" class="mat-cell">{{element.roleId}} </td>
+              </ng-container>
+          
+              <!-- roleName Column -->
+              <ng-container matColumnDef="roleName">
+                  <th *matHeaderCellDef mat-sort-header class="mat-header-row" style="text-align: left;"> NOMBRE </th>
+                  <td style="cursor: pointer; text-decoration:underline;" (click)="viewRecod(element)" mat-cell *matCellDef="let element" class="mat-cell"> {{element.roleName}}</td>
+              </ng-container>
+              
+        <!-- status Column -->
+              <ng-container matColumnDef="status">
+                  <th *matHeaderCellDef mat-sort-header class="mat-header-row" style="text-align: left;"> ESTADO </th>
+                  <td mat-cell *matCellDef="let element" class="mat-cell"> {{element.status ? 'Activo' : ''}} </td>
+              </ng-container>
+  
+       
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              
+              <!-- Row shown when there is no matching data. -->
+              <tr class="mat-row" *matNoDataRow>
+                  <td class="mat-cell" colspan="9" style="text-align: left;">No hay datos que coincidan con la busqueda</td>
+              </tr>
+      
+              <!-- Symbol Column -->
+        <ng-container matColumnDef="Opc">
+          <th *matHeaderCellDef class="mat-header-row">OPC</th>
+          <td mat-cell *matCellDef="let element index as i">
+            <button class="btn btn-light btn-sm" (click)="editRole(element)" data-toggle="tooltip" data-placement="top" title="Editar elemento">
+              <i class="fa-solid fa-pen" data-toggle="tooltip" data-placement="top" title="Editar elemento"></i>
+            </button>
+            <div class="btn-group">
+              <button class="btn btn-light btn-sm" (click)="toggleConfirmDelete(element)" data-toggle="tooltip" data-placement="top" title="Eliminar elemento">
+                <ng-container *ngIf="!element.confirmDelete; else confirmIcon">
+                  <i class="far fa-trash-alt" data-toggle="tooltip" style="color: red;" data-placement="top" title="Eliminar elemento"></i>
+                </ng-container>
+              </button>
+              <ng-template #confirmIcon>
+                <i class="fas fa-check facheckCustom" (click)="deleteConfirmed(element)" data-toggle="tooltip" data-placement="top" title="Confirmar eliminación"></i>
+                <i class="fas fa-times fatimesCustom" (click)="element.confirmDelete = false;toggleConfirmDelete(element)" data-toggle="tooltip" data-placement="top" title="Cancelar eliminación"></i>
+              </ng-template>
+            </div>
+          </td>
+        </ng-container>
+      </table>
+      <mat-paginator #paginator [pageSizeOptions]="[10, 25, 50]" showFirstLastButtons>
+        [intl]="customPaginatorIntl"
+      </mat-paginator>
+    </div>

@@ -1,0 +1,420 @@
+<div *ngIf="displayframe">
+  <!-- Vista de solo lectura  -->
+  <div class="register-container" *ngIf="mostrarViewForm">
+
+    <div class="row">
+      <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
+        <div><h3 style="font-size: 22px; font-weight: bold;">Datos de la Factura</h3></div>
+      </div>
+      <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
+        <div class="close-icon">
+          <i class="fas fa-times" (click)="closeview()"></i>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-body">
+        <div class="form-group">
+          <div class="mb-3"></div>
+          <label class="label-generic"  for="titulo">Número Factura</label>
+          <p class="form-control-static">{{invoice.numeroFactura}}</p>
+        </div>
+         <div>
+          <div class="mb-3">  
+            <label class="label-generic"  for="bibliografia">Fecha de Emisión</label>
+            <p class="form-control-static">{{ formatFecha(invoice.fechaEmision) }}</p>
+          </div>
+        </div>
+         <div class="form-group">
+          <div class="mb-3">
+            <label class="label-generic"  for="carrera">Subtotal</label>
+            <p class="form-control-static">{{invoice.subtotal}}</p>
+          </div>
+        </div>
+         <div class="form-group">
+          <div class="mb-3">
+            <label class="label-generic"  for="especialidad">Monto Total</label>
+            <p class="form-control-static">{{invoice.montoTotal}}</p>
+          </div>
+        </div>
+         <div class="form-group">
+          <div class="mb-3">
+            <label class="label-generic"  for="tema">Impuesto</label>
+            <p class="form-control-static">{{invoice.impuestos}}</p>
+          </div>
+        </div>
+         <div class="form-group">
+          <div class="mb-3">
+            <label class="label-generic"  for="universidad">Método de Pago</label>
+            <p class="form-control-static">{{invoice.paymentMethod}}</p>
+          </div>
+        </div>
+         <!-- <div class="form-group">
+          <div class="mb-3">
+            <label class="label-generic"  for="numero_paginas">Código del Proyecto</label>
+            <p class="form-control-static">{{invoice.project_id}}</p>
+          </div>
+        </div> -->
+         <div class="form-group">
+          <div class="mb-3">
+            <label class="label-generic"  for="entregas">Nombre del Proyecto</label>
+            <p class="form-control-static">{{invoice.nombreProyecto}}</p>
+          </div>
+        </div>
+         <!-- <div class="form-group">
+          <div class="mb-3">
+            <label class="label-generic"  for="descripcion">Código del Cliente</label>
+            <p class="form-control-static">{{invoice.client_id}}</p>
+          </div>
+        </div> -->
+         <div class="form-group">
+          <div class="mb-3">
+            <label class="label-generic" >Nombre del Ciente</label>
+            <p class="form-control-static">{{ invoice.nombreCliente }}</p>
+          </div>
+        </div>
+         <div class="form-group">
+          <div class="mb-3">
+            <label class="label-generic" >Fecha de Registro</label>
+            <p class="form-control-static">{{ formatFecha(invoice.registration_date) }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+  <!-- Vista de solo lectura  -->
+  
+  
+  
+    <!-- Formulario de Usuarios -->
+    <div *ngIf="mostrarForm">
+  
+      <div class="register-container">
+        
+        <div class="row">
+          <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
+            <div><h3 style="font-size: 22px; font-weight: bold;">{{strtitle}}</h3></div>
+          </div>
+          <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
+            <div class="close-icon">
+              <i class="fas fa-times" (click)="closeview()"></i>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <form #invoiceForm="ngForm">
+            <div class="card">
+              <div class="card-body">
+                <div class="form-group">
+                    <div class="mb-3">
+                      <label class="label-generic" for="titulo">Número de Factura *</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="titulo"
+                        required
+                        [(ngModel)]="invoice.numeroFactura"
+                        name="titulo"
+                        #nameField="ngModel"
+                      />
+                      <div *ngIf="nameField.invalid && (nameField.dirty || nameField.touched)" class="text-danger">
+                        El número de factura es requerido.
+                      </div>
+                  </div>
+                </div>
+      
+                <div>
+                    <div class="form-group">
+                      <div class="mb-3">
+                        <label class="label-generic" for="titulo" for="Fecha de Emisión">Fecha de Emisión*</label><br/>
+                        <mat-form-field appearance="outline" class="custom-datepicker" >
+                            <input 
+                                matInput 
+                                [matDatepicker]="picker" 
+                                placeholder="Seleccionar fecha"
+                                class="form-control"
+                                id="fechaEmision"
+                                [(ngModel)]="invoice.fechaEmision"
+                                name="fechaEmision"
+                                required
+                            >
+                            <mat-hint>dd/mm/yyyy</mat-hint>
+                            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                </div>
+      
+                <div class="form-group">
+                  <div class="mb-3">
+                    <label class="label-generic" for="subtotal">Subtotal *</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="subtotal"
+                      required
+                      [(ngModel)]="invoice.subtotal"
+                      name="subtotal"
+                    />
+                  </div>
+                </div>
+    
+                <div class="form-group">
+                  <div class="mb-3">
+                    <label class="label-generic" for="impuestos">Impuesto *</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="impuestos"
+                      required
+                      [(ngModel)]="invoice.impuestos"
+                      name="impuestos"
+                    />
+                  </div>
+                </div>
+    
+                <div class="form-group">
+                  <div class="mb-3">
+                    <label class="label-generic" for="montoTotal">Monto total factura *</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="montoTotal"
+                      required
+                      [(ngModel)]="invoice.montoTotal"
+                      name="montoTotal"
+                    />
+                  </div>
+                </div>
+    
+                <div class="form-group">
+                  <div class="mb-3">
+                    <label class="label-generic" for="paymentMethod">Metodo de Pago *</label>
+                    <select 
+                      class="form-control"
+                      id="paymentMethod"
+                      required
+                      [(ngModel)]="invoice.paymentMethod" 
+                      name="paymentMethod"
+                      >
+                      <option value="" disabled selected>Seleccionar opción</option>
+                      <option *ngFor="let items of options" [value]="items">{{ items }}</option>
+                    </select>
+                  </div>
+                </div>
+    
+                <div class="form-group">
+                  <div class="mb-3">
+                    <label class="label-generic" for="nombreProyecto">Nombre del Proyecto *</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="nombreProyecto"
+                      required
+                      [(ngModel)]="invoice.nombreProyecto"
+                      name="nombreProyecto"
+                    />
+                  </div>
+                </div>
+    
+                <div class="form-group">
+                  <div class="mb-3">
+                      <label class="label-generic" for="nombreCliente">Nombre del Cliente*</label>
+                      <select 
+                        class="form-control"
+                        id="nombreCliente"
+                        required
+                        [(ngModel)]="invoice.nombreCliente" 
+                        name="nombreCliente"
+                        (change)="updateClienteId($event)"
+                        >
+                        <option value="" disabled selected>Seleccionar opción</option>
+                        <option *ngFor="let user of usersList" [value]="user.uid">{{ user.name }} {{user.lastname}}</option>
+                      </select>
+
+                      <input type="hidden" [(ngModel)]="invoice.client_id" name="cliente_id">
+                      
+                  </div>
+                </div>
+    
+                <div class="form-group">
+                  <div class="mb-3">
+                    <label class="label-generic" for="notas">Notas Adicionales</label>
+                    <input
+                      class="form-control"
+                      id="notas"
+                      [(ngModel)]="invoice.notas"
+                      name="notas"
+                    />
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <div class="mb-3">
+                    <label class="label-generic" for="status">Estado de la factura *</label>
+                    <select 
+                        class="form-control"
+                        id="status"
+                        required
+                        value=selected
+                        [(ngModel)]="invoice.status"
+                        name="status"
+                        required
+                    >
+                        <option selected>
+                          Pendiente
+                        </option>
+                        <option selected>
+                          Aprobada
+                        </option>
+                        <option selected>
+                          Pagada
+                        </option>
+                        <option selected>
+                          Anulada 
+                        </option>
+                    </select>
+                    <br/>
+                    <div *ngIf="nameField.invalid && (nameField.dirty || nameField.touched)" class="text-danger">
+                      Ingrese el estado
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+        
+            <button (click)="saveInvoice()" type="submit" [disabled]="!invoiceForm.form.valid" class="btn2">Enviar</button>
+          </form>
+        </div>
+        <br/><br/>
+      </div>
+    </div>
+    
+  
+  
+    <!-- Lita - Mat datatable -->
+    <div style="width: 100%; margin-left: 10px; padding-right: 10px; padding-top:5px; padding-bottom: 50px;">
+      <div class="row panel-addh" style="text-align:right;"> 	
+        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6" style="text-align:left;">
+        
+          <!-- barra para mostrar o ocultar fila -->
+          <div style="margin: 10px;">
+            <div class="row panel-add">
+              <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12" (click)="moForm()">
+                <span style="text-decoration: none;color: #dc3545;" *ngIf="!this.mostrarForm" class="btn btn-link"><i class="fa fa-solid fa-circle-plus"></i> Agregar</span>
+                <span style="text-decoration: none;color: #dc3545;" *ngIf="this.mostrarForm" class="btn btn-link"><i class="fa fa-solid fa-circle-minus"></i> </span> 
+              </div>
+            </div>
+          </div>
+        
+        </div>
+        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6" style="text-align:left;">
+          <div class="form-group" style="padding-top: 3px;">
+            <input
+              matInput (keyup)="applyFilter($event)" 
+              placeholder="Buscar factura" 
+              #input
+              class="form-control"
+              style="border-color:#dc3545;border-width: 1px;"
+            />
+          </div>
+        </div>
+      </div>
+  
+  
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 table-hover mat-table" matSort class="table">
+              <!-- invoice_id Column -->
+              <ng-container matColumnDef="invoice_id">
+                  <th *matHeaderCellDef mat-sort-header class="mat-header-row" style="text-align: left;">ID </th>
+                  <td mat-cell *matCellDef="let element" class="mat-cell">{{element.invoice_id}} </td>
+              </ng-container>
+          
+              <!-- numeroFactura Column -->
+              <ng-container matColumnDef="numeroFactura">
+                  <th *matHeaderCellDef mat-sort-header class="mat-header-row" style="text-align: left;">FACTURA </th>
+                  <td style="cursor: pointer; text-decoration:underline;" (click)="viewRecod(element)" mat-cell *matCellDef="let element" class="mat-cell"> {{element.numeroFactura}} </td>
+              </ng-container>
+  
+               <!-- paymentMethod Column -->
+              <ng-container matColumnDef="paymentMethod">
+                  <th *matHeaderCellDef mat-sort-header class="mat-header-row" style="text-align: left;"> METODO PAGO </th>
+                  <td mat-cell *matCellDef="let element" class="mat-cell"> {{element.paymentMethod}} </td>
+              </ng-container>
+  
+              <!-- fechaEmision Column -->
+              <ng-container matColumnDef="fechaEmision">
+                  <th *matHeaderCellDef mat-sort-header class="mat-header-row" style="text-align: left;"> FECHA EMISION </th>
+                  <td mat-cell *matCellDef="let element" class="mat-cell"> {{ formatFecha(element.fechaEmision) }} </td>
+              </ng-container>
+  
+  
+              <!-- subtotal Column -->
+              <ng-container matColumnDef="subtotal">
+                  <th *matHeaderCellDef mat-sort-header class="mat-header-row" style="text-align: left;"> SUBTOTAL </th>
+                  <td mat-cell *matCellDef="let element" class="mat-cell"> {{element.subtotal}} </td>
+              </ng-container>
+  
+              <!-- impuestos Column -->
+              <ng-container matColumnDef="impuestos">
+                  <th *matHeaderCellDef mat-sort-header class="mat-header-row" style="text-align: left;"> IMPUESTOS </th>
+                  <td mat-cell *matCellDef="let element" class="mat-cell"> {{element.impuestos}} </td>
+              </ng-container>
+  
+              <!-- montoTotal Column -->
+              <ng-container matColumnDef="montoTotal">
+                  <th *matHeaderCellDef mat-sort-header class="mat-header-row" style="text-align: left;"> MONTO TOTAL</th>
+                  <td mat-cell *matCellDef="let element" class="mat-cell"> {{element.montoTotal}} </td>
+              </ng-container>
+
+               <!-- nombreProyecto Column -->
+               <ng-container matColumnDef="nombreProyecto">
+                <th *matHeaderCellDef mat-sort-header class="mat-header-row" style="text-align: left;"> PROYECTOL</th>
+                <td mat-cell *matCellDef="let element" class="mat-cell"> {{element.nombreProyecto}} </td>
+                </ng-container>
+  
+              <!-- status Column -->
+              <ng-container matColumnDef="status">
+                  <th *matHeaderCellDef mat-sort-header class="mat-header-row" style="text-align: left;"> STATUS </th>
+                  <td mat-cell *matCellDef="let element" class="mat-cell"> {{element.status}} </td>
+              </ng-container>
+  
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              
+              <!-- Row shown when there is no matching data. -->
+              <tr class="mat-row" *matNoDataRow>
+                  <td class="mat-cell" colspan="9" style="text-align: left;">No hay datos que coincidan con la busqueda</td>
+              </tr>
+      
+              <!-- Symbol Column -->
+              <ng-container matColumnDef="Opc">
+                <th *matHeaderCellDef class="mat-header-row">OPC</th>
+                <td mat-cell *matCellDef="let element index as i">
+                  <button class="btn btn-light btn-sm" (click)="editInvoice(element)" data-toggle="tooltip" data-placement="top" title="Editar elemento">
+                    <i class="fa-solid fa-pen" data-toggle="tooltip" data-placement="top" title="Editar elemento"></i>
+                  </button>
+                  <div class="btn-group">
+                    <button class="btn btn-light btn-sm" (click)="toggleConfirmDelete(element)" data-toggle="tooltip" data-placement="top" title="Eliminar elemento">
+                      <ng-container *ngIf="!element.confirmDelete; else confirmIcon">
+                        <i class="far fa-trash-alt" data-toggle="tooltip" style="color: red;" data-placement="top" title="Eliminar elemento"></i>
+                      </ng-container>
+                    </button>
+                    <ng-template #confirmIcon>
+                      <i class="fas fa-check facheckCustom" (click)="deleteConfirmed(element)" data-toggle="tooltip" data-placement="top" title="Confirmar eliminación"></i>
+                      <i class="fas fa-times fatimesCustom" (click)="element.confirmDelete = false;toggleConfirmDelete(element)" data-toggle="tooltip" data-placement="top" title="Cancelar eliminación"></i>
+                    </ng-template>
+                  </div>
+                </td>
+              </ng-container>
+  
+      </table>
+      <mat-paginator #paginator [pageSizeOptions]="[10, 25, 50]" showFirstLastButtons>
+        [intl]="customPaginatorIntl"
+      </mat-paginator>
+    </div>
+  </div>
+  

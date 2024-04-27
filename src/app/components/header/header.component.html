@@ -1,0 +1,33 @@
+<nav class="navbar navbar-expand navbar-dark bg-dark px-2">
+    <div class="side-nav-button p-2 me-3 text-light" (click)="SideNavToggle()">
+        <i class="fa fa-solid fa-bars"></i>
+    </div>
+
+    <a class="navbar-brand px-3" href="#">Tesis<span [@highlightAnimation]="highlight ? 'active' : 'inactive'">Hub</span></a>
+  
+    <div class="navbar-collapse">
+        <!-- <ul class="navbar-nav me-auto">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                    Menu 1
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">Sub01</a></li>
+                    <li><a class="dropdown-item" href="#">Sub02</a></li>
+                    <li><a class="dropdown-item" href="#">Sub03</a></li>
+                </ul>
+            </li>
+        </ul> -->
+    </div>
+    <div class="profile-logo dropstart">
+        <button class="btn btn-outline-light dropdown-toggle" data-bs-toggle="dropdown">
+             Hola{{this.userSeudonimo}} <!--<i class="fa-solid fa-ellipsis-vertical"></i> -->
+        </button>
+        <ul class="dropdown-menu">
+            <li *ngIf="registerBtnDisplay"><a class="dropdown-item" (click)="rutaa('register')"><i class="fa-solid fa-address-card"></i> Registrar Usuario</a></li>
+            <li><a class="dropdown-item" (click)="rutaa('login')"><i class="fa-solid fa-arrow-right-to-bracket"></i> Iniciar Sesión</a></li>
+            <li><a class="dropdown-item" (click)="rutaa('infor')" ><i class="fa-solid fa-user"></i> Perfil</a></li>
+            <li><a class="dropdown-item" (click)="logOut()"><i class="fa-solid fa-xmark"></i> Cerra Sesión</a></li>
+        </ul>
+    </div>
+</nav>

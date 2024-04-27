@@ -1,0 +1,400 @@
+<div  *ngIf="displayframe" class="register-container bg-light rounded">
+
+  <div class="row px-3">
+    <div class="col-11">
+      <h3 class="text-left fw-bold">DASHBOARD</h3>
+    </div>
+    <div class="col-1 text-end pt-2">
+      <button (click)="onClick()" class="btn btn-outline-danger btn-custom">Salir</button>
+    </div>
+  </div>
+
+
+  <div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3">
+            <div class="card card-chart">
+                <div class="card-body">
+                    <h4 class="card-title">Proyectos Propuestos</h4>
+                    <p class="card-category">Rendimiento de la última temporada</p>
+                </div>
+                <div class="card-footer">
+                    <div class="stats">
+                        <i class="material-icons">access_time</i> Hace 4 minutos
+                    </div>
+                </div>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="card card-chart">
+                <div class="card-body">
+                    <h4 class="card-title">Proyectos Ejecutados</h4>
+                    <p class="card-category">Rendimiento de la última temporada</p>
+                </div>
+                <div class="card-footer">
+                    <div class="stats">
+                        <i class="material-icons">access_time</i> Hace 4 minutos
+                    </div>
+                </div>
+            </div>
+          </div>
+
+            <div class="col-md-2">
+                <div class="card card-chart">
+                    <div class="card-body">
+                        <h4 class="card-title">Ingresos por mes</h4>
+                        <p class="card-category">
+                            <span class="text-success"><i class="fa fa-long-arrow-up"></i> 55% </span> Al dia de hoy</p>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            <i class="material-icons">access_time</i> Hace 4 minutos
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+              <div class="card card-chart">
+                  <div class="card-body">
+                      <h4 class="card-title">Perdidas</h4>
+                      <p class="card-category">
+                          <span class="text-success"><i class="fa fa-long-arrow-up"></i> 55% </span>Al dia de hoy</p>
+                  </div>
+                  <div class="card-footer">
+                      <div class="stats">
+                          <i class="material-icons">access_time</i> Hace 4 minutos
+                      </div>
+                  </div>
+              </div>
+          </div>
+            <div class="col-md-2">
+                <div class="card card-chart">
+                    <div class="card-body">
+                        <h4 class="card-title">Leads</h4>
+                        <p class="card-category">Por región</p>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            <i class="material-icons">access_time</i> Hace 2 minutos
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="margin-top: 15px;">
+            <div class="col-lg-6 col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-tabs card-header-primary">
+                        <div class="nav-tabs-navigation">
+                            <div class="nav-tabs-wrapper">
+                                <span class="nav-tabs-title">Proyectos recientes:</span>
+                                <ul class="nav nav-tabs" data-tabs="tabs">
+                                    <li class="nav-item">
+                                        <a mat-button class="nav-link active" href="#profile" data-toggle="tab">
+                                            <i class="material-icons">bug_report</i> Problemas
+                                            <div class="ripple-container"></div>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a mat-button class="nav-link" href="#messages" data-toggle="tab">
+                                            <i class="material-icons">code</i> Website
+                                            <div class="ripple-container"></div>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a mat-button class="nav-link" href="#settings" data-toggle="tab">
+                                            <i class="material-icons">cloud</i> Server
+                                            <div class="ripple-container"></div>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="profile">
+                                <table class="table">
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <div class="form-check">
+                                                    <label class="form-check-label">
+                                                        <input class="form-check-input" type="checkbox" value="" checked>
+                                                        <span class="form-check-sign">
+                                                            <span class="check"></span>
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td>Es importante definir un tema específico y delimitado para evitar dispersarse en diferentes direcciones.</td>
+                                            <td class="td-actions text-right">
+                                                <button mat-raised-button type="button" matTooltip="Edit Task"  class="btn btn-primary btn-link btn-sm btn-just-icon">
+                                                    <i class="material-icons">edit</i>
+                                                </button>
+                                                <button mat-raised-button type="button" matTooltip="Remove"  class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                                    <i class="material-icons">close</i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="form-check">
+                                                    <label class="form-check-label">
+                                                        <input class="form-check-input" type="checkbox" value="">
+                                                        <span class="form-check-sign">
+                                                            <span class="check"></span>
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td>Dificultades en la investigación</td>
+                                            <td class="td-actions text-right">
+                                                <button mat-raised-button type="button" matTooltip="Edit Task"  class="btn btn-primary btn-link btn-sm btn-just-icon">
+                                                    <i class="material-icons">edit</i>
+                                                </button>
+                                                <button mat-raised-button type="button" matTooltip="Remove"  class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                                    <i class="material-icons">close</i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="form-check">
+                                                    <label class="form-check-label">
+                                                        <input class="form-check-input" type="checkbox" value="">
+                                                        <span class="form-check-sign">
+                                                            <span class="check"></span>
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td>Problemas de estructura y organización: La falta de una estructura clara y una organización adecuada pueden dificultar la redacción de la tesis.
+                                            </td>
+                                            <td class="td-actions text-right">
+                                                <button mat-raised-button type="button" matTooltip="Edit Task"  class="btn btn-primary btn-link btn-sm btn-just-icon">
+                                                    <i class="material-icons">edit</i>
+                                                </button>
+                                                <button mat-raised-button type="button" matTooltip="Remove" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                                    <i class="material-icons">close</i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="form-check">
+                                                    <label class="form-check-label">
+                                                        <input class="form-check-input" type="checkbox" value="" checked>
+                                                        <span class="form-check-sign">
+                                                            <span class="check"></span>
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td>Problemas de redacción y estilo</td>
+                                            <td class="td-actions text-right">
+                                                <button mat-raised-button type="button" matTooltip="Edit Task"  class="btn btn-primary btn-link btn-sm btn-just-icon">
+                                                    <i class="material-icons">edit</i>
+                                                </button>
+                                                <button mat-raised-button type="button" matTooltip="Remove"  class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                                    <i class="material-icons">close</i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="tab-pane" id="messages">
+                                <table class="table">
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <div class="form-check">
+                                                    <label class="form-check-label">
+                                                        <input class="form-check-input" type="checkbox" value="" checked>
+                                                        <span class="form-check-sign">
+                                                            <span class="check"></span>
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td>Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit
+                                            </td>
+                                            <td class="td-actions text-right">
+                                                <button mat-raised-button type="button" matTooltip="Edit Task"  class="btn btn-primary btn-link btn-sm btn-just-icon">
+                                                    <i class="material-icons">edit</i>
+                                                </button>
+                                                <button mat-raised-button type="button" matTooltip="Remove"  class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                                    <i class="material-icons">close</i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="form-check">
+                                                    <label class="form-check-label">
+                                                        <input class="form-check-input" type="checkbox" value="">
+                                                        <span class="form-check-sign">
+                                                            <span class="check"></span>
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td>Sign contract for "What are conference organizers afraid of?"</td>
+                                            <td class="td-actions text-right">
+                                                <button mat-raised-button type="button" matTooltip="Edit Task"  class="btn btn-primary btn-link btn-sm btn-just-icon">
+                                                    <i class="material-icons">edit</i>
+                                                </button>
+                                                <button mat-raised-button type="button" matTooltip="Remove"  class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                                    <i class="material-icons">close</i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="tab-pane" id="settings">
+                                <table class="table">
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <div class="form-check">
+                                                    <label class="form-check-label">
+                                                        <input class="form-check-input" type="checkbox" value="">
+                                                        <span class="form-check-sign">
+                                                            <span class="check"></span>
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td>Lines From Great Russian Literature? Or E-mails From My Boss?</td>
+                                            <td class="td-actions text-right">
+                                                <button mat-raised-button type="button" matTooltip="Edit Task"  class="btn btn-primary btn-link btn-sm btn-just-icon">
+                                                    <i class="material-icons">edit</i>
+                                                </button>
+                                                <button mat-raised-button type="button" matTooltip="Remove"  class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                                    <i class="material-icons">close</i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="form-check">
+                                                    <label class="form-check-label">
+                                                        <input class="form-check-input" type="checkbox" value="" checked>
+                                                        <span class="form-check-sign">
+                                                            <span class="check"></span>
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td>Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit
+                                            </td>
+                                            <td class="td-actions text-right">
+                                                <button mat-raised-button type="button" matTooltip="Edit Task"  class="btn btn-primary btn-link btn-sm btn-just-icon">
+                                                    <i class="material-icons">edit</i>
+                                                </button>
+                                                <button mat-raised-button type="button" matTooltip="Remove"  class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                                    <i class="material-icons">close</i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="form-check">
+                                                    <label class="form-check-label">
+                                                        <input class="form-check-input" type="checkbox" value="" checked>
+                                                        <span class="form-check-sign">
+                                                            <span class="check"></span>
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td>Sign contract for "What are conference organizers afraid of?"</td>
+                                            <td class="td-actions text-right">
+                                                <button mat-raised-button type="button" matTooltip="Edit Task"  class="btn btn-primary btn-link btn-sm btn-just-icon">
+                                                    <i class="material-icons">edit</i>
+                                                </button>
+                                                <button mat-raised-button type="button" matTooltip="Remove"  class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                                    <i class="material-icons">close</i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-warning">
+                        <h4 class="card-title">Estadísticas de profesores</h4>
+                        <p class="card-category">Al 15 de septiembre de 2023</p>
+                    </div>
+                    <div class="card-body table-responsive">
+                        <table class="table table-hover">
+                            <thead class="text-warning2">
+                                <th>ID</th>
+                                <th>Nombre</th>
+                                <th>Ingresos</th>
+                                <th>Pais</th>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Dakota Rice</td>
+                                    <td>$36,738</td>
+                                    <td>Niger</td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>Minerva Hooper</td>
+                                    <td>$23,789</td>
+                                    <td>Curaçao</td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>Sage Rodriguez</td>
+                                    <td>$56,142</td>
+                                    <td>Netherlands</td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td>Philip Chaney</td>
+                                    <td>$38,735</td>
+                                    <td>Korea, South</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

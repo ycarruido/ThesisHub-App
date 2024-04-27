@@ -1,0 +1,41 @@
+export class ProjectModel {
+	uid? :string;
+    project_id?: string;
+    client_id?: string;
+    client_name?: string;
+    client_lastname?: string;
+    client_email?: string;
+    client_whatsapp?: string;
+    tutor_id?: string;
+    tutor_name?: string;
+    titulo?: string;
+    bibliografia?: string;
+    carrera?: string;
+    tipofuente?: string;
+    interlineado?: string; 
+	tamanofuente?: string;
+    especialidad?: string;
+    tema?: string;
+    universidad?: string;
+    numero_paginas?: number;
+    entregas?: number;
+    descripcion?: string;
+    paisCode?: string;
+    pais?: string  = "";
+    ciudad?: string = "";
+    fecha_inicio?: Date;
+    fecha_entrega1?: Date;
+	fecha_entrega2?: Date;
+	fecha_entrega3?: Date;
+	fecha_entrega4?: Date;
+    
+    presupuesto?: number;
+    monto_recibido?: number;
+    porcentaje_a_realizar?: number;
+    factura?: string;
+    registration_date?: Date;
+    lastUpdate?: Date;
+	lastUpdateUser?: string;
+    status?: boolean;
+    state?: string;
+}

@@ -1,0 +1,248 @@
+<div class="register-container bg-light rounded">
+  <div class="main-content">
+    <div class="container-fluid">
+      <div class="row pt-1">
+        <div class="col-4 col-md-4">
+          <h3 class="text-left fw-bold">Agregar Documentos</h3>
+          <form (ngSubmit)="uploadDocument()" #uploadForm="ngForm">
+            <div class="form-group">
+              <label for="documentTitle">Título*</label>
+              <input
+                type="text"
+                max="70"
+                id="documentTitle"
+                class="form-control"
+                [(ngModel)]="this.documentTitle"
+                name="documentTitle"
+                required
+              />
+            </div>
+            <div class="form-group" *ngIf="displayField">
+              <label for="documentTitle">Páginas</label>
+              <input
+                type="number"
+                min="1"
+                max="200"
+                id="nroPaginas"
+                class="form-control"
+                [(ngModel)]="this.nroPaginas"
+                name="nroPaginas"
+              />
+            </div>
+            <div class="form-group" *ngIf="displayField">
+              <label for="documentTitle">Porcentaje de Avance</label>
+              <input
+                type="number"
+                min="0"
+                max="100"
+                id="porcentajeAvance"
+                class="form-control"
+                [(ngModel)]="this.porcentajeAvance"
+                name="porcentajeAvance"
+              />
+            </div>
+            <div class="form-group">
+              <label for="documentTitle">Tipo de Documento*</label>
+              <select
+                class="form-control"
+                id="user_type"
+                required
+                value="selected"
+                [(ngModel)]="this.tipoDocumento"
+                name="user_type"
+                required
+              >
+                <option selected>Avance de proyecto (Entrega)</option>
+                <option>
+                  Documentos de referencia (Preliminares, Arranque)
+                </option>
+                <option>Correcciones</option>
+
+                <option>Pautas universidad</option>
+
+                <option>Plagio</option>
+
+                <option>Avance propio</option>
+
+                <option>PowerPoint</option>
+
+                <option>Esquema</option>
+
+                <option>Instrucciones generales</option>
+
+                <option>Rúbrica</option>
+
+                <option>Informe del tutor</option>
+
+                <option>Informe de la comisión / jurado</option>
+
+                <option>Calificación obtenida</option>
+                <option>Otro</option>
+              </select>
+              <br />
+            </div>
+
+            <div class="form-group mb-3">
+              <div class="custom-file">
+                <div class="file-select" id="file" style="margin-right: 10px">
+                  <input
+                    type="file"
+                    id="fileInput"
+                    class="custom-file-input"
+                    (change)="onFileSelected($event)"
+                    [disabled]="uploading"
+                    accept="application/pdf, .doc, .docx, .xls, .xlsx, .ppt, .pptx, .png, .jpg, .jpeg"
+                    required
+                  />
+                </div>
+                <label class="custom-file-label" for="file">{{
+                  selectedFileName || " "
+                }}</label>
+              </div>
+            </div>
+            <button
+              type="submit"
+              class="btn2"
+              [disabled]="!uploadForm.valid || !selectedFile"
+            >
+              Subir Documento
+            </button>
+
+            <button
+              *ngIf="uploading"
+              class="btn btn-primary"
+              style="margin-right: 10px"
+              type="button"
+              disabled
+            >
+              <span
+                class="spinner-border spinner-border-sm"
+                role="status"
+                aria-hidden="true"
+              ></span>
+              <span class="visually-hidden">Subiendo...</span>
+            </button>
+            <span *ngIf="uploadSuccess">Archivo subido exitosamente!</span>
+          </form>
+        </div>
+
+        <div class="col-8 col-md-8">
+          <div class="card">
+            <div class="card-header">
+              <h3 class="text-left fw-bold">
+                Documentos: Proyecto #{{ this.id }} - {{ this.title }}
+              </h3>
+            </div>
+            <div class="card-body">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th colspan="3">Cliente</th>
+                  </tr>
+                  <tr>
+                    <th style="width: 35px"></th>
+                    <th>Título</th>
+                    <th style="width: 50px">Creado</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let document of documentsCli">
+                    <td style="width: 35px">
+                      <a
+                        [href]="document.downloadURL"
+                        target="_blank"
+                        class="text-decoration-none"
+                        ><img
+                          style="width: 20px; height: 15px"
+                          src="assets/img/descarga-de-archivos.png"
+                          class="img-fluid"
+                      /></a>
+                    </td>
+                    <td>
+                      <a
+                        [href]="document.downloadURL"
+                        target="_blank"
+                        class="text-decoration-none"
+                        >{{ document.title }}</a
+                      >
+                    </td>
+                    <td style="width: 50px">
+                      {{ formatFecha(document.uploadDate) }}
+                    </td>
+
+                    <td style="width: 150px; color: #dc3545;">
+                      <span style="margin: 0 5px; cursor: pointer;" (click)="showConfirmationIcons(document) " *ngIf="document.OwnerId == currentUserUID || usertypeAdmin">Eliminar</span>
+                      <span *ngIf="confirmDeleteDoc[document.docName]"> 
+                          <i class="fas fa-check" style="color: rgb(5, 5, 5); cursor: pointer;" title="Confirmar" (click)="confirmDelete(document)"></i> 
+                          <span style="margin: 0 5px;">
+                            <i class="fas fa-times" style="color: red; cursor: pointer;" title="Cancelar" (click)="cancelDelete(document)"></i> 
+                          </span>
+                        </span>
+                    </td>
+
+                  </tr>
+                </tbody>
+              </table>
+
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th colspan="4">Tutor</th>
+                  </tr>
+                  <tr>
+                    <th></th>
+                    <th>Título</th>
+                    <th style="width: 50px">Páginas</th>
+                    <th style="width: 50px">Avance</th>
+                    <th style="width: 50px">Creado</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let document of documentsTut">
+                    <td style="width: 35px">
+                      <a
+                        [href]="document.downloadURL"
+                        target="_blank"
+                        class="text-decoration-none"
+                        ><img
+                          style="width: 20px; height: 15px"
+                          src="assets/img/descarga-de-archivos.png"
+                          class="img-fluid"
+                      /></a>
+                    </td>
+                    <td>
+                      <a
+                        [href]="document.downloadURL"
+                        target="_blank"
+                        class="text-decoration-none"
+                        >{{ document.title }}</a
+                      >
+                    </td>
+                    <td style="width: 50px">{{ document.numeroPaginas }}</td>
+                    <td style="width: 50px">
+                      {{ document.porcentajeAvance }}%
+                    </td>
+                    <td style="width: 50px">
+                      {{ formatFecha(document.uploadDate) }}
+                    </td>
+
+                    <td style="width: 150px; color: #dc3545;">
+                      <span style="margin: 0 5px; cursor: pointer;" (click)="showConfirmationIcons(document)" *ngIf="document.OwnerId == currentUserUID || usertypeAdmin">Eliminar</span>
+                      <span *ngIf="confirmDeleteDoc[document.docName]"> 
+                          <i class="fas fa-check" style="color: rgb(5, 5, 5); cursor: pointer;" title="Confirmar" (click)="confirmDelete(document)"></i> 
+                          <span style="margin: 0 5px;">
+                            <i class="fas fa-times" style="color: red; cursor: pointer;" title="Cancelar" (click)="cancelDelete(document)"></i> 
+                          </span>
+                        </span>
+                    </td>
+
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

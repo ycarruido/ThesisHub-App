@@ -1,0 +1,22 @@
+<div class="container">
+    <div class="card mt-5 w-50">
+        <div class="card-body">
+        <h3 class="card-title text-center">Ingrese su cuenta de email</h3>
+        <div class="form-group">
+            <input
+            type="email"
+            class="form-control"
+            [formControl]="email"
+            placeholder="a@a.com"
+            required
+            />
+        </div>
+        <div class="form-group text-center">
+            <button class="btn2" (click)="onReset()">
+            Recuperar contraseña
+            </button>
+        </div>
+        </div>
+    </div>
+</div>
+

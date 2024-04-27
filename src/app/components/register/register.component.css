@@ -1,0 +1,42 @@
+.register-container {
+    max-width: 800px; /* Establece un ancho máximo para el contenedor */
+    /* margin: 0 auto;  Centra el contenedor horizontalmente */
+    padding: 20px; /* Agrega un espacio interno al contenedor */
+    border: 1px solid #ccc; /* Agrega un borde al contenedor */
+    border-radius: 5px; /* Agrega esquinas redondeadas al contenedor */
+    text-align: right;
+  }
+
+.btn2 {
+  background-color: #6c757d; /* Color gris oscuro para el botón */
+  color: #ffffff; /* Color blanco para el texto del botón */
+  border: none;
+  padding: 10px 20px; /* Ajusta el tamaño del botón según tus preferencias */
+  cursor: pointer;
+  transition: background-color 0.3s; /* Transición suave al pasar el mouse */
+  width: 150px;
+  border-radius: 10px;
+}
+ .btn2:hover {
+  background-color: #343a40; /* Color gris más oscuro al pasar el mouse */
+}
+
+.password-field {
+  position: relative;
+}
+
+.toggle-password {
+  margin-left: 5px;
+  right: 10px;
+  float: left;
+  cursor: pointer;
+}
+
+.password-field-container {
+  display: flex;
+  align-items: center;
+}
+
+.password-field-container input {
+  flex: 1;
+}

@@ -1,0 +1,66 @@
+<div class="card">
+  <div class="card-header">
+    CHAT - Proyecto #{{this.id}} ({{this.tituloPrd}})
+  </div>
+
+
+  
+  <div class="card-body" #chatBody>
+    <!-- <div *ngFor="let message of chatMessages" class="msmcontent" >
+      <div style="overflow: hidden;" [ngClass]="{'current-user-message': message.senderUid === currentUserUid, 'other-user-message': message.senderUid !== currentUserUid}">
+      {{ message.message }}
+      <br />
+      <span class="smstime" style="float: right;"><strong>{{ message.sendersName }}.</strong> {{ message.formattedTimestamp }}</span>
+      </div>
+    </div> -->
+
+    <div *ngFor="let message of chatMessages" class="msmcontent">
+      <div style="overflow: hidden;"
+        [ngClass]="{'current-user-message': message.senderUid === currentUserUid && message.status !== 'Refused',
+                    'current-user-message-refused': ((message.senderUid === currentUserUid && message.status === 'Refused') || message.senderUid !== currentUserUid && message.status === 'Refused'),
+                    'other-user-message': message.senderUid !== currentUserUid && message.status !== 'E'}">
+        <div *ngIf="message.status === 'Released'">
+          {{ message.message }}
+        </div>  
+        <div *ngIf="message.status === 'Refused'">
+          !$w9J^@2#*+3Xq!K6p^5@yG&z#-4a
+        </div>      
+        <div *ngIf="message.status === 'E' && message.senderUid === currentUserUid">
+          {{ message.message }}
+        </div>    
+        
+
+        <br />
+        <span *ngIf="message.status === 'Released'" class="smstime" style="float: right;">
+          <strong>{{ message.sendersName.split(' ')[0] }}.</strong> 
+          {{ message.formattedTimestamp }} 
+          <i class="fa-solid fa-check-double facheckCustom" data-toggle="tooltip" data-placement="top" title="Enviado"></i>
+        </span>
+        
+        <span *ngIf="message.status === 'Refused'" class="smstime" style="float: right;">
+          <strong>{{ message.sendersName.split(' ')[0] }}.</strong> 
+          {{ message.formattedTimestamp }}
+          <ng-container> <span style="color: red; text-decoration:none;font-size: 12px;"> - El administrador ha bloqueado este mensaje debido a su contenido inapropiado</span> 
+            <i class="fas fa-times fatimesCustom" data-toggle="tooltip" data-placement="top" title="Rechazado"></i> </ng-container>
+        </span>
+
+        <span *ngIf="message.status === 'E' && message.senderUid === currentUserUid" class="smstime" style="float: right;">
+          <strong>{{ message.sendersName.split(' ')[0] }}.</strong> 
+          {{ message.formattedTimestamp }}
+          <ng-container> <span style="color: #022c26;; text-decoration:none;font-size: 12px;"> - Los comentarios están sujetos a moderación antes de ser enviados</span> <i class="fa fa-check facheckCustom" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Moderación pendiente"></i></ng-container>
+        </span>
+
+      </div>
+    </div>
+
+    
+  </div>
+  <div class="card-footer">
+    <div class="input-group mb-3">
+      <textarea class="form-control" style="resize: none;" rows="2" wrap="hard" [(ngModel)]="newMessage" placeholder="Escribe un mensaje" aria-label="Escribe un mensaje" aria-describedby="button-addon2" (keydown.enter)="sendMessage()">
+      </textarea>
+      <button [disabled]="sendingMessage" class="btn btn-outline-secondary" (click)="sendMessage()" type="button" id="button-addon2">Enviar</button>
+      <!-- <img style="padding-top: 7px; cursor: pointer;" src="assets/img/avion-de-papel.png" (click)="sendMessage()" width="25" height="28" alt="Enviar"> -->
+    </div>
+  </div>
+</div>

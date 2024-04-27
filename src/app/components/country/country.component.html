@@ -1,0 +1,29 @@
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            <h1>Agregar Países</h1>
+            <span>
+                - Agrega los países de forma masiva. Cada línea representa un registro.<br />
+                - Las columnas deben estar separadas por una coma (,).  <br />
+                - Recuerda no repetir los codigo<br />
+                <!-- <p style="color: red;">- Todos los registros de la base de datos se eliminarán y se reemplazarán por los nuevos registros. </p> -->
+                - Ejemplo:<br /><br />
+                    ID | País | CODIGO <br />
+                    ---------------------------------------<br />
+                    01,Estados Unidos,US <br />
+                    02,México,MX<br />
+                    03,España,ES<br />
+                    04,Colombia,CO<br />
+                    05,Chile,CL<br />
+                    06,Argentina,AR
+
+            </span>
+        </div>
+        <div class="card-body">
+            <textarea rows="20" cols="50" [(ngModel)]="countriesString"></textarea> 
+            <button class="btn2" (click)="confirmAddCountries()">Agregar</button>
+            <label style="color:darkgreen">{{this.lblmsj}}</label>
+        </div>
+    </div>
+</div>
+

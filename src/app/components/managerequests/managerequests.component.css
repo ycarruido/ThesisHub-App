@@ -1,0 +1,45 @@
+.space-y-3 > * + * {
+    margin-top: 0.75rem; /* Ajusta el valor según el espacio vertical deseado */
+}
+
+.rowbtn{
+    padding-left: 0px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.facheckCustom{
+    margin-right: 10px;
+    cursor: pointer;
+}
+.facheckCustom:hover{
+    color: rgb(49, 187, 60);
+}
+.fatimesCustom{
+    color: rgb(254, 100, 100);
+    cursor: pointer;
+}
+.fatimesCustom:hover{
+    color: red;
+} 
+
+.btn2 {
+    background-color: #6c757d; /* Color gris oscuro para el botón */
+    color: #ffffff; /* Color blanco para el texto del botón */
+    border: none;
+    padding: 1px 2px; /* Ajusta el tamaño del botón según tus preferencias */
+    cursor: pointer;
+    transition: background-color 0.3s; /* Transición suave al pasar el mouse */
+    width: 70px;
+    height: 25px;
+    border-radius: 10px;
+  }
+  
+  .btn2:hover {
+    background-color: #343a40; /* Color gris más oscuro al pasar el mouse */
+  }
+  
+  .btn2:disabled {
+    /* Estilos para el botón desactivado */
+    background-color: #cccccc;
+    cursor: not-allowed;
+  }

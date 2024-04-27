@@ -1,0 +1,66 @@
+.container h3 {
+  text-align: center;
+  margin: 25px auto;
+}
+
+.navbar-brand.ml-2 {
+  margin-left: 10px;
+}
+
+.black-border{
+  border: 1px solid black;
+}
+
+app-header{
+  position: fixed;
+  width: 100%;
+  top: 0px;
+  height: 4rem;
+  z-index: 2;
+}
+
+main{
+  position: absolute;
+  width: 100%;
+  top: 4rem;
+  z-index: 1;
+}
+
+app-sidenav{
+  position: absolute; 
+  left: 0rem;
+  width: 65px;
+  height: calc(100vh - 4rem);
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  /* background-color: rgba(34, 34, 34, 1); */
+  background-color:#263238;
+  border-top: 1px solid rgb(110, 107, 107);
+  overflow-x: hidden;
+  white-space: nowrap;
+  transition: width 350ms ease-in;
+}
+
+.app-sidenav-open{
+  width: 250px;
+}
+
+.display-area{
+  position: absolute;
+  left: 65px;
+  width: calc(100% - 65px);
+  transition: left 350ms linear, width 350ms linear;
+}
+
+.display-area-shrink{
+  width: calc(100% - 250px);
+  left: 250px;
+}
+
+/* Para las Alertas o notificaciones */
+.alerta{
+  position: fixed;
+
+  max-width: 750px;
+  top: 70px;
+  right: 10px;
+}

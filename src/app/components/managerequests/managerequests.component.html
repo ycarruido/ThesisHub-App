@@ -1,0 +1,68 @@
+<div class="container1" *ngIf="displayframe">
+    <div class="row">
+        <div class="col-lg-7 col-md-7">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Listado de Postulaciones</h2>
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Postulante</th>
+                            <th>Cliente</th>
+                            <th>Proyecto</th>
+                            <th>Fecha</th>
+                            <th>Estado</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let postulacion of postulaciones">
+                            <td>{{ postulacion.currentUser }}</td>
+                            <td>{{ postulacion.cliente }}</td>
+                            <td>{{ postulacion.titulo }}</td>
+                            <td>{{ formatFecha(postulacion.lastUpdate) }}</td>
+                            <td>{{ postulacion.status }}</td>
+                            <td><button (click)="asignrSol(postulacion.leadUID,postulacion.currentUser,postulacion.currentUserId)" type="submit" class="btn2">Asignar</button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-5 col-md-5">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Mensajes de Chat</h2>
+                </div>
+                <div class="card-body">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 md:hidden" *ngFor="let cts of chats">
+                        <div class="bg-white p-3 rounded-lg shadow mt-2">
+                            <div class="flex items-center space-x-2 text-sm">
+                                <div>
+                                <a href="#" class="text-blue-500 font-bold hover:underline">{{cts.sendersName}}</a>
+                                </div>
+                                <div class="text-gray-500">{{formatFechacts(cts.timestamp)}}</div>
+                            </div>
+                            <div class="text-sm text-gray-700">
+                                {{cts.message}}
+                            </div>
+                            <div class="text-sm font-medium text-black">
+                                {{cts.uid}}
+                            </div>
+                            <div class="alert alert-danger p-0 m-0" role="alert">
+                                <span class="p-1.5 text-xs font-medium uppercase tracking-wider rounded-lg bg-opacity-50"> Moderación pendiente</span>
+                            </div>
+                            <div class="rowbtn">
+                                <i class="fas fa-check facheckCustom" (click)="approveMessages(true, cts.id)" data-toggle="tooltip" data-placement="top" title="Liberar Mensaje"></i>
+                                <i class="fas fa-times fatimesCustom" (click)="approveMessages(false, cts.id)" data-toggle="tooltip" data-placement="top" title="Eliminar Mensaje"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+        </div>
+    </div>
+  </div>

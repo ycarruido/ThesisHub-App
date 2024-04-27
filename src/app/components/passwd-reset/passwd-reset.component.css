@@ -1,0 +1,21 @@
+.btn2 {
+    background-color: #6c757d; /* Color gris oscuro para el botón */
+    color: #ffffff; /* Color blanco para el texto del botón */
+    border: none;
+    padding: 10px 20px; /* Ajusta el tamaño del botón según tus preferencias */
+    cursor: pointer;
+    transition: background-color 0.3s; /* Transición suave al pasar el mouse */
+    width: 200px;
+    border-radius: 10px;
+
+  }
+  
+  .btn2:hover {
+    background-color: #343a40; /* Color gris más oscuro al pasar el mouse */
+  }
+  
+  .btn2:disabled {
+    /* Estilos para el botón desactivado */
+    background-color: #cccccc;
+    cursor: not-allowed;
+  }

@@ -1,0 +1,133 @@
+<!-- <div class="register-container bg-light p-4 rounded">
+  <div class="row">
+    <div class="col-12">
+      <h3 class="text-center fw-bold">CONFIGURACIÓN</h3>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-6 grid-item" (click)="irAModulo('user')">
+      <h4>Usuarios</h4>
+    </div>
+    <div class="col-lg-3 grid-item" (click)="irAModulo('location')">
+      <h4>Paises</h4>
+    </div>
+    <div class="col-lg-3 grid-item" (click)="irAModulo('modulo3')">
+      <h4>Ciudades</h4>
+    </div>
+    <div class="col-lg-9 grid-item" (click)="irAModulo('modulo4')">
+      <h4>Moneda</h4>
+    </div>
+    <div class="col-lg-3 grid-item" (click)="irAModulo('modulo5')">
+        <h4>Moneda</h4>
+    </div>
+    
+  </div>
+</div> -->
+
+
+
+
+
+
+<!-- Página de Administración de Datos Maestros -->
+<div class="container" *ngIf="displayframe">
+  <h1 class="text-center">Administración de Datos Maestros</h1>
+  
+  <div class="row mt-5">
+
+
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-header">
+          <h3 style="color: #dc3545;">Usuarios</h3>
+        </div>
+        <div class="card-body">
+          <p>Gestiona los datos de los usuarios.</p>
+          <div class="row m-0 p-0">
+            <div class="col-lg-12 m-0 pr-1 pb-1">
+              <a (click)="irAModulo('user','DispForm')" class="btn2">Ver - Modificar</a>
+            </div>
+            <!-- <div class="col-lg-4 m-0 pr-1 pb-1">
+              <a (click)="irAModulo('user','NewForm')" class="btn2">Agregar</a>
+            </div> -->
+            <!-- <div class="col-lg-4 m-0 pr-1 pb-1">
+              <a (click)="irAModulo('user','EditForm')" class="btn2">Modificar</a>
+            </div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-header">
+          <h3 style="color: #dc3545;">Países y Ciudades</h3>
+        </div>
+        <div class="card-body">
+          <p>Gestiona los datos Regionales.</p>
+          <div class="row m-0 p-0">
+            <div class="col-lg-6 m-0 pr-1 pb-1">
+              <a (click)="irAModulo('city','DispForm')" class="btn2">Ciudades</a>
+            </div>
+            <div class="col-lg-6 m-0 pr-1 pb-1">
+              <a (click)="irAModulo('country','NewForm')" class="btn2">Países</a>
+            </div>
+            <!-- <div class="col-lg-4 m-0 pr-1 pb-1">
+              <a (click)="irAModulo('location','NewForm')" class="btn2">Modificar</a> 
+            </div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-header">
+          <h3 style="color: #dc3545;">Roles</h3>
+        </div>
+        <div class="card-body">
+          <p>Gestiona los Permisos.</p>
+          <div class="row m-0 p-0">
+            <div class="col-lg-12 m-0 pr-1 pb-1">
+              <a (click)="irAModulo('role','DispForm')" class="btn2">Agregar - Modificar</a>
+            </div>
+            <!-- <div class="col-lg-4 m-0 pr-1 pb-1">
+              <a (click)="irAModulo('role','NewForm')" class="btn2">Agregar</a>
+            </div>
+            <div class="col-lg-4 m-0 pr-1 pb-1">
+              <a (click)="irAModulo('role','EditForm')" class="btn2">Modificar</a>
+            </div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  
+  <div class="row mt-5">
+    
+    
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <h3 style="color: #dc3545;">Categorías</h3>
+        </div>
+        <div class="card-body">
+          <p>Gestiona los datos de las categorías.</p>
+          <div class="row m-0 p-0">
+            <div class="col-lg-4 m-0 pr-1 pb-1">
+              <a href="#" class="btn2">Ver</a>
+            </div>
+            <div class="col-lg-4 m-0 pr-1 pb-1">
+              <a href="#" class="btn2">Agregar</a>
+            </div>
+            <div class="col-lg-4 m-0 pr-1 pb-1">
+              <a href="#" class="btn2">Modificar</a>
+            </div>
+          </div> 
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

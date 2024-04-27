@@ -1,0 +1,55 @@
+<div class="login-container">
+  <div style="text-align: center; width: 100%;">
+    <img class="mt-3 mx-auto d-block" src="../../../assets/img/logo.png" alt="Login">
+    <h3 class="mb-4">Inicia sesión para acceder a tu cuenta</h3>  
+  </div>
+  
+  <form [formGroup]="formLogin" (ngSubmit)="onSubmit()" class="login-form">
+    <div class="mb-3">
+      <!-- <label class="form-label">Email</label> -->
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1"><img src="assets/img/en.png" width="16" height="16"></span>
+        <input required type="email" placeholder="Email" class="form-control" formControlName="email">
+      </div>
+        <span *ngIf="formLogin.get('email')?.hasError('required') && formLogin.get('email')?.touched" class="text-danger errorLabel">
+        El <strong>correo</strong> es requerido
+      </span>
+      <span *ngIf="formLogin.get('email')?.hasError('email') && formLogin.get('email')?.touched" class="text-danger errorLabel">
+        El <strong>correo</strong> es inválido
+      </span>
+      <span *ngIf="formLogin.hasError('invalidEmail')" class="text-danger errorLabel">
+        El <strong>correo</strong> es inválido
+      </span>
+      <span *ngIf="formLogin.hasError('userNotFound')" class="text-danger errorLabel">
+        <strong>Usuario</strong> no encontrado
+      </span>
+      <span *ngIf="formLogin.hasError('accountdisabled')" class="text-danger errorLabel">
+        <strong>Cuenta</strong> deshabilitada
+      </span>
+    </div>
+    <div class="mb-3">
+      <!-- <label class="form-label">Contraseña</label> -->
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1"><img src="assets/img/cerrar.png" width="16" height="16"></span>
+        <input type="password" placeholder="Contraseña" class="form-control" formControlName="password">
+      </div>
+      <span *ngIf="formLogin.get('password')?.hasError('required') && formLogin.get('password')?.touched" class="text-danger errorLabel">
+        La <strong>contraseña</strong> es requerida
+      </span>
+      <span *ngIf="formLogin.hasError('wrongPassword')" class="text-danger errorLabel">
+        <strong>Contraseña</strong> incorrecta
+      </span>
+      <span *ngIf="formLogin.hasError('missingPassword')" class="text-danger errorLabel">
+        La <strong>Contraseña</strong> es requerida
+      </span>
+    </div>
+    <button type="submit" class="btn2">Iniciar sesión</button>
+  </form>
+  <div class="form-group mt-3">
+    <p>
+      <a [routerLink]="['/passwd-reset']"> Recuperar contrseña </a>
+    </p>
+  </div>
+  <!-- <button class="btn btn-outline-primary mt-3 mx-auto d-block" (click)="loginGoogle()">Iniciar sesión con Google</button> -->
+</div>
+

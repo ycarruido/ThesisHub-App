@@ -1,0 +1,983 @@
+<!-- Vista de solo lectura  -->
+<div class="register-container" *ngIf="mostrarViewForm">
+  <div class="row">
+    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
+      <div>
+        <h3 style="font-size: 22px; font-weight: bold">
+          Proyecto {{ project.project_id }}
+        </h3>
+      </div>
+    </div>
+    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
+      <div class="close-icon">
+        <i class="fas fa-times" (click)="closeview()"></i>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">Datos del Cliente</div>
+    <div class="card-body">
+      <div>
+        <h3 style="font-size: 22px; font-weight: bold"></h3>
+      </div>
+
+      <div class="form-group">
+        <div class="mb-3">
+          <label class="label-generic" for="universidad">Nombre</label>
+          <p class="form-control-static">{{ project.client_name }}</p>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="mb-3">
+          <label class="label-generic" for="bibliografia">Email</label>
+          <p *ngIf="lblDatDisplay" class="form-control-static">
+            {{ project.client_email }}
+          </p>
+          <p *ngIf="!lblDatDisplay" class="form-control-static">******</p>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="mb-3">
+          <label class="label-generic" for="tema">Número de WhatsApp</label>
+          <p *ngIf="lblDatDisplay" class="form-control-static">
+            {{ project.client_whatsapp }}
+          </p>
+          <p *ngIf="!lblDatDisplay" class="form-control-static">******</p>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="mb-3">
+          <label class="label-generic" for="universidad">País</label>
+          <p class="form-control-static">{{ project.pais }}</p>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="mb-3">
+          <label class="label-generic" for="universidad">Ciudad</label>
+          <p class="form-control-static">{{ project.ciudad }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-body">
+      <div class="form-group">
+        <div class="mb-3">
+          <label class="label-generic" for="universidad"
+            >Profesor Asignado</label
+          >
+          <p class="form-control-static">{{ project.tutor_name }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">Información relevante</div>
+    <div class="card-body">
+      <div class="form-group">
+        <div class="mb-3">
+          <label class="label-generic" for="titulo">Titulo *</label>
+          <p class="form-control-static">{{ project.titulo }}</p>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="mb-3">
+          <label class="label-generic" for="descripcion">Descripcion</label>
+          <p class="form-control-static">{{ project.descripcion }}</p>
+        </div>
+      </div>
+      <div>
+        <div class="mb-3">
+          <label class="label-generic" for="bibliografia">Bibliografía *</label>
+          <p class="form-control-static">{{ project.bibliografia }}</p>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="mb-3">
+          <label class="label-generic" for="carrera">Carrera *</label>
+          <p class="form-control-static">{{ project.carrera }}</p>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="mb-3">
+          <label class="label-generic" for="especialidad">Especialidad</label>
+          <p class="form-control-static">{{ project.especialidad }}</p>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="mb-3">
+          <label class="label-generic" for="tema">Tema</label>
+          <p class="form-control-static">{{ project.tema }}</p>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="mb-3">
+          <label class="label-generic" for="universidad">Universidad</label>
+          <p class="form-control-static">{{ project.universidad }}</p>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="mb-3">
+          <label class="label-generic" for="tamanofuente">Tipo de Letra</label>
+          <p class="form-control-static">{{ project.tipofuente }}</p>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="mb-3">
+          <label class="label-generic" for="tipofuente">Tamaño de Letra</label>
+          <p class="form-control-static">{{ project.tamanofuente }}</p>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="mb-3">
+          <label class="label-generic" for="interlineado">Interlineado</label>
+          <p class="form-control-static">{{ project.interlineado }}</p>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="mb-3">
+          <label class="label-generic" for="numero_paginas"
+            >Número de páginas</label
+          >
+          <p class="form-control-static">{{ project.numero_paginas }}</p>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="mb-3">
+          <label class="label-generic" for="entregas">Número de entregas</label>
+          <p class="form-control-static">{{ project.entregas }}</p>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="mb-3">
+          <label class="label-generic">Fecha de inicio</label>
+          <p class="form-control-static">
+            {{ formatFecha(project.fecha_inicio) }}
+          </p>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="mb-3">
+          <label class="label-generic">Fecha de entrega 1</label>
+          <p class="form-control-static">
+            {{ formatFecha(project.fecha_entrega1) }}
+          </p>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="mb-3">
+          <label class="label-generic">Fecha de entrega 2</label>
+          <p class="form-control-static">
+            {{ formatFecha(project.fecha_entrega2) }}
+          </p>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="mb-3">
+          <label class="label-generic">Fecha de entrega 3</label>
+          <p class="form-control-static">
+            {{ formatFecha(project.fecha_entrega3) }}
+          </p>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="mb-3">
+          <label class="label-generic">Fecha de entrega 4</label>
+          <p class="form-control-static">
+            {{ formatFecha(project.fecha_entrega4) }}
+          </p>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="mb-3">
+          <label class="label-generic" for="presupuesto">Presupuesto</label>
+          <p *ngIf="lblDatDisplay" class="form-control-static">
+            {{ project.presupuesto }}
+          </p>
+          <p *ngIf="!lblDatDisplay" class="form-control-static">******</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th colspan="3">Documentos del proyecto</th>
+          </tr>
+          <tr>
+            <th style="width: 35px"></th>
+            <th>Título</th>
+            <th style="width: 50px">Creado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let document of alldocuments">
+            <td style="width: 35px">
+              <a
+                [href]="document.downloadURL"
+                target="_blank"
+                class="text-decoration-none"
+                ><img
+                  style="width: 20px; height: 15px"
+                  src="assets/img/descarga-de-archivos.png"
+                  class="img-fluid"
+              /></a>
+            </td>
+            <td>
+              <a
+                [href]="document.downloadURL"
+                target="_blank"
+                class="text-decoration-none"
+                >{{ document.title }}</a
+              >
+            </td>
+            <td style="width: 50px">{{ formatFecha(document.uploadDate) }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<!-- Vista de solo lectura 
+*** DISPLAY VIEW ***
+-->
+
+<!-- Formulario de Proyectos -->
+<div *ngIf="mostrarForm">
+  <div class="register-container">
+    <div class="row">
+      <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
+        <div>
+          <h3 style="font-size: 22px; font-weight: bold">{{ strtitle }}</h3>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
+        <div class="close-icon">
+          <i class="fas fa-times" (click)="closeview()"></i>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <form #projectForm="ngForm">
+        <div class="card">
+          <div class="card-header">Datos del Cliente</div>
+          <div class="card-body">
+            <div class="form-group">
+              <div class="mb-3">
+                <label class="label-generic" for="client_id">Nombre *</label>
+                <select
+                  class="form-control"
+                  id="client_id"
+                  required
+                  [(ngModel)]="project.client_id"
+                  name="client_id"
+                  #client_id
+                  (change)="onChangeClient($event)"
+                >
+                  <option value="" disabled selected>Seleccionar opción</option>
+                  <option *ngFor="let user of usersList" [value]="user.uid">
+                    {{ user.name }} {{ user.lastname }}
+                  </option>
+                </select>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <div class="form-group">
+                <label class="label-generic" for="email">Email</label>
+                <input
+                  class="form-control"
+                  id="email"
+                  [(ngModel)]="project.client_email"
+                  name="email"
+                  #email="ngModel"
+                  pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}"
+                />
+                <div
+                  *ngIf="email.invalid && (email.dirty || email.touched)"
+                  class="text-danger"
+                >
+                  <div *ngIf="email.errors">
+                    <small>Se requiere un email válido</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <div class="form-group">
+                <label class="label-generic" for="wapp">Número de WhatsApp</label>
+                <input
+                  class="form-control"
+                  id="wapp"
+                  [(ngModel)]="project.client_whatsapp"
+                  name="wapp"
+                />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="mb-3">
+                <label class="label-generic" for="pais">País</label>
+                <select
+                  class="form-control"
+                  id="pais"
+                  [(ngModel)]="project.pais"
+                  name="pais"
+                  #pais
+                  (change)="getCity($event)"
+                >
+                  <option value="" disabled selected>Seleccionar opción</option>
+                  <option
+                    *ngFor="let pais of countryList"
+                    [value]="pais.countryName"
+                  >
+                    {{ pais.countryCode + " - " + pais.countryName }}
+                  </option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="mb-3">
+                <label class="label-generic" for="ciudad">Ciudad</label>
+                <select
+                  class="form-control"
+                  id="ciudad"
+                  [(ngModel)]="project.ciudad"
+                  name="ciudad"
+                  #ciudad
+                >
+                  <option value="" disabled selected>Seleccionar opción</option>
+                  <option
+                    *ngFor="let ciudad of cityList"
+                    [value]="ciudad.cityName"
+                  >
+                    {{ ciudad.cityName }}
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-body">
+            <div class="form-group">
+              <div class="mb-3">
+                <label class="label-generic" for="tutor_id"
+                  >Profesor Asignado</label
+                >
+                <select
+                  class="form-control"
+                  id="tutor_id"
+                  [(ngModel)]="project.tutor_id"
+                  name="tutor_id"
+                  #tutor_id
+                  (change)="onChangeTutor($event)"
+                >
+                  <option value="" disabled selected>Seleccionar opción</option>
+                  <option *ngFor="let user of usersList2" [value]="user.uid">
+                    {{ user.name }} {{ user.lastname }}
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">Información relevante</div>
+          <div class="card-body">
+            <div class="form-group">
+              <div class="mb-3">
+                <label class="label-generic" for="titulo">Titulo *</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="titulo"
+                  required
+                  [(ngModel)]="project.titulo"
+                  name="titulo"
+                  pattern="^[A-ZÁÉÍÓÚÑ][A-Za-zÁÉÍÓÚáéíóúñÑ0-9\s]*$"
+                  #nameField="ngModel"
+                />
+                <div
+                  *ngIf="
+                    nameField.invalid && (nameField.dirty || nameField.touched)
+                  "
+                  class="text-danger"
+                >
+                  El título es requerido y debe comenzar con mayúscula.
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="mb-3">
+                <label class="label-generic" for="descripcion">Descripción</label>
+                <textarea
+                  rows="3"
+                  class="form-control"
+                  id="descripcion"
+                  [(ngModel)]="project.descripcion"
+                  name="descripcion"
+                >
+                </textarea>
+              </div>
+              <br />
+            </div>
+
+            <div class="form-group">
+              <div class="mb-3">
+                <label class="label-generic" for="bibliografia"
+                  >Bibliografía *</label
+                >
+                <select
+                  class="form-control"
+                  id="bibliografia"
+                  required
+                  [(ngModel)]="project.bibliografia"
+                  name="selectedOption"
+                >
+                  <option value="" disabled selected>Seleccionar opción</option>
+                  <option *ngFor="let items of options" [value]="items">
+                    {{ items }}
+                  </option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="mb-3">
+                <label class="label-generic" for="carrera">Carrera *</label>
+                <input
+                  class="form-control"
+                  id="carrera"
+                  required
+                  [(ngModel)]="project.carrera"
+                  name="carrera"
+                />
+                <div
+                  *ngIf="
+                    nameField.invalid && (nameField.dirty || nameField.touched)
+                  "
+                  class="text-danger"
+                >
+                  Se requiere carrera
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="mb-3">
+                <label class="label-generic" for="especialidad"
+                  >Especialidad</label
+                >
+                <input
+                  class="form-control"
+                  id="especialidad"
+                  required
+                  [(ngModel)]="project.especialidad"
+                  name="especialidad"
+                />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="mb-3">
+                <label class="label-generic" for="tema">Tema</label>
+                <input
+                  class="form-control"
+                  id="tema"
+                  required
+                  [(ngModel)]="project.tema"
+                  name="tema"
+                />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="mb-3">
+                <label class="label-generic" for="universidad">Universidad</label>
+                <input
+                  class="form-control"
+                  id="universidad"
+                  [(ngModel)]="project.universidad"
+                  name="universidad"
+                />
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <div class="form-group">
+                <label class="label-generic" for="tipofuente"
+                  >Tipo de Letra</label
+                >
+                <input
+                  class="form-control"
+                  id="tipofuente"
+                  [(ngModel)]="project.tipofuente"
+                  name="tipofuente"
+                />
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <div class="form-group">
+                <label class="label-generic" for="tamanofuente"
+                  >Tamaño de Letra</label
+                >
+                <input
+                  class="form-control"
+                  id="tamanofuente"
+                  [(ngModel)]="project.tamanofuente"
+                  name="tamanofuente"
+                />
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <div class="form-group">
+                <label class="label-generic" for="interlineado"
+                  >Interlineado</label
+                >
+                <input
+                  class="form-control"
+                  id="interlineado"
+                  [(ngModel)]="project.interlineado"
+                  name="interlineado"
+                />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="mb-3">
+                <label class="label-generic" for="numero_paginas"
+                  >Número de páginas</label
+                >
+                <input
+                  class="form-control"
+                  type="number"
+                  id="numero_paginas"
+                  [(ngModel)]="project.numero_paginas"
+                  name="numero_paginas"
+                />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="mb-3">
+                <label class="label-generic" for="entregas"
+                  >Número de entregas</label
+                >
+                <input
+                  class="form-control"
+                  type="number"
+                  id="entregas"
+                  [(ngModel)]="project.entregas"
+                  name="entregas"
+                />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="mb-3">
+                <mat-form-field appearance="outline">
+                  <mat-label>Fecha de inicio*</mat-label>
+                  <input
+                    matInput
+                    [matDatepicker]="picker"
+                    placeholder="Seleccionar fecha"
+                    class="form-control"
+                    id="fecha_inicio"
+                    [(ngModel)]="project.fecha_inicio"
+                    required
+                    name="fecha_inicio"
+                  />
+                  <mat-datepicker-toggle
+                    matIconSuffix
+                    [for]="picker"
+                  ></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="mb-3">
+                <mat-form-field appearance="outline">
+                  <mat-label>Fecha de entrega 1</mat-label>
+                  <input
+                    matInput
+                    [matDatepicker]="picker1"
+                    placeholder="Seleccionar fecha"
+                    class="form-control"
+                    id="fecha_entrega1"
+                    [(ngModel)]="project.fecha_entrega1"
+                    name="fecha_entrega1"
+                  />
+                  <mat-datepicker-toggle
+                    matIconSuffix
+                    [for]="picker1"
+                  ></mat-datepicker-toggle>
+                  <mat-datepicker #picker1></mat-datepicker>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="mb-3">
+                <mat-form-field appearance="outline">
+                  <mat-label>Fecha de entrega 2</mat-label>
+                  <input
+                    matInput
+                    [matDatepicker]="picker2"
+                    placeholder="Seleccionar fecha"
+                    class="form-control"
+                    id="fecha_entrega2"
+                    [(ngModel)]="project.fecha_entrega2"
+                    name="fecha_entrega2"
+                  />
+                  <mat-datepicker-toggle
+                    matIconSuffix
+                    [for]="picker2"
+                  ></mat-datepicker-toggle>
+                  <mat-datepicker #picker2></mat-datepicker>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="mb-3">
+                <mat-form-field appearance="outline">
+                  <mat-label>Fecha de entrega 3</mat-label>
+                  <input
+                    matInput
+                    [matDatepicker]="picker3"
+                    placeholder="Seleccionar fecha"
+                    class="form-control"
+                    id="fecha_entrega3"
+                    [(ngModel)]="project.fecha_entrega3"
+                    name="fecha_entrega3"
+                  />
+                  <mat-datepicker-toggle
+                    matIconSuffix
+                    [for]="picker3"
+                  ></mat-datepicker-toggle>
+                  <mat-datepicker #picker3></mat-datepicker>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="mb-3">
+                <mat-form-field appearance="outline">
+                  <mat-label>Fecha de entrega 4</mat-label>
+                  <input
+                    matInput
+                    [matDatepicker]="picker4"
+                    placeholder="Seleccionar fecha"
+                    class="form-control"
+                    id="fecha_entrega4"
+                    [(ngModel)]="project.fecha_entrega4"
+                    name="fecha_entrega4"
+                  />
+                  <mat-datepicker-toggle
+                    matIconSuffix
+                    [for]="picker4"
+                  ></mat-datepicker-toggle>
+                  <mat-datepicker #picker4></mat-datepicker>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="mb-3">
+                <label class="label-generic" for="presupuesto">Presupuesto</label>
+                <input
+                  class="form-control"
+                  type="number"
+                  id="presupuesto"
+                  [(ngModel)]="project.presupuesto"
+                  name="presupuesto"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <button
+          (click)="saveProject()"
+          type="submit"
+          [disabled]="!projectForm.form.valid"
+          class="btn2"
+        >
+          Enviar
+        </button>
+      </form>
+    </div>
+    <br /><br />
+  </div>
+</div>
+
+<!-- Lita - Mat datatable -->
+<div
+  style="
+    width: 100%;
+    margin-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 50px;
+  "
+>
+  <div class="row panel-addh" style="text-align: right">
+    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6" style="text-align: left">
+      <!-- barra para mostrar o ocultar fila -->
+      <div style="margin: 10px">
+        <div class="row panel-add" *ngIf="addBtnDisplay">
+          <div
+            class="col-sm-12 col-md-12 col-lg-12 col-xl-12"
+            (click)="moForm()"
+          >
+            <span
+              style="text-decoration: none; color: #dc3545"
+              *ngIf="!this.mostrarForm"
+              class="btn btn-link"
+              ><i class="fa fa-solid fa-circle-plus"></i> Agregar</span
+            >
+            <span
+              style="text-decoration: none; color: #dc3545"
+              *ngIf="this.mostrarForm"
+              class="btn btn-link"
+              ><i class="fa fa-solid fa-circle-minus"></i>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6" style="text-align: left">
+      <div class="form-group" style="padding-top: 3px">
+        <input
+          matInput
+          (keyup)="applyFilter($event)"
+          placeholder="Buscar proyecto"
+          #input
+          class="form-control"
+          style="border-color: #dc3545; border-width: 1px"
+        />
+      </div>
+    </div>
+  </div>
+
+  <table
+    mat-table
+    [dataSource]="dataSource"
+    class="mat-elevation-z8 table-hover mat-table"
+    matSort
+    class="table"
+  >
+    <!-- project_id Column -->
+    <ng-container matColumnDef="project_id">
+      <th
+        *matHeaderCellDef
+        mat-sort-header
+        class="mat-header-row"
+        style="text-align: left"
+      >
+        ID
+      </th>
+      <td mat-cell *matCellDef="let element" class="mat-cell">
+        {{ element.project_id }}
+      </td>
+    </ng-container>
+
+    <!-- titulo Column -->
+    <ng-container matColumnDef="titulo">
+      <th
+        *matHeaderCellDef
+        mat-sort-header
+        class="mat-header-row"
+        style="text-align: left"
+      >
+        TITULO
+      </th>
+      <td
+        style="cursor: pointer; text-decoration: underline"
+        (click)="viewRecod(element)"
+        mat-cell
+        *matCellDef="let element"
+        class="mat-cell"
+      >
+        {{ element.titulo }}
+      </td>
+    </ng-container>
+
+    <!-- fecha_inicio Column -->
+    <ng-container matColumnDef="fecha_inicio">
+      <th
+        *matHeaderCellDef
+        mat-sort-header
+        class="mat-header-row"
+        style="text-align: left"
+      >
+        INICIO
+      </th>
+      <td mat-cell *matCellDef="let element" class="mat-cell">
+        {{ formatFecha(element.fecha_inicio) }}
+      </td>
+    </ng-container>
+
+    <!-- Chat Column -->
+    <ng-container matColumnDef="chat">
+      <th
+        *matHeaderCellDef
+        mat-sort-header
+        class="mat-header-row"
+        style="text-align: left"
+      >
+        CHAT
+      </th>
+      <td mat-cell *matCellDef="let element" class="mat-cell">
+        <img
+          style="padding-top: 7px; cursor: pointer"
+          src="assets/img/comentar-alt-puntos.png"
+          (click)="callChat(element)"
+          width="22"
+          height="25"
+          alt="Chat del proyecto"
+          title="Chat del proyecto"
+        />
+      </td>
+    </ng-container>
+
+    <!-- Up document Column -->
+    <ng-container matColumnDef="up">
+      <th
+        *matHeaderCellDef
+        mat-sort-header
+        class="mat-header-row"
+        style="text-align: left"
+      >
+        DOCTS
+      </th>
+      <td mat-cell *matCellDef="let element" class="mat-cell">
+        <img
+          style="padding-top: 7px; cursor: pointer"
+          src="assets/img/subir-archivo.png"
+          (click)="callStorage(element)"
+          width="22"
+          height="25"
+          alt="Documentos del proyecto"
+          title="Documentos del proyecto"
+        />
+      </td>
+    </ng-container>
+
+    <!-- state Column -->
+    <ng-container matColumnDef="state">
+      <th
+        *matHeaderCellDef
+        mat-sort-header
+        class="mat-header-row"
+        style="text-align: left"
+      >
+        ESTADO
+      </th>
+      <td mat-cell *matCellDef="let element" class="mat-cell">
+        {{ element.state }}
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+    <!-- Row shown when there is no matching data. -->
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="9" style="text-align: left">
+        No hay datos que coincidan con la busqueda
+      </td>
+    </tr>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="Opc">
+      <th *matHeaderCellDef class="mat-header-row">
+        <span *ngIf="ediBtnDisplay || delBtnDisplay">OPC</span>
+      </th>
+      <td mat-cell *matCellDef="let element; index as i">
+        <button
+          *ngIf="ediBtnDisplay"
+          class="btn btn-light btn-sm"
+          (click)="editProject(element)"
+          data-toggle="tooltip"
+          data-placement="top"
+          title="Editar elemento"
+        >
+          <i
+            class="fa-solid fa-pen"
+            data-toggle="tooltip"
+            data-placement="top"
+            title="Editar elemento"
+          ></i>
+        </button>
+        <div class="btn-group" *ngIf="delBtnDisplay">
+          <button
+            class="btn btn-light btn-sm"
+            (click)="toggleConfirmDelete(element)"
+            data-toggle="tooltip"
+            data-placement="top"
+            title="Eliminar elemento"
+          >
+            <ng-container *ngIf="!element.confirmDelete; else confirmIcon">
+              <i
+                class="far fa-trash-alt"
+                data-toggle="tooltip"
+                style="color: red"
+                data-placement="top"
+                title="Eliminar elemento"
+              ></i>
+            </ng-container>
+          </button>
+          <ng-template #confirmIcon>
+            <i
+              class="fas fa-check facheckCustom"
+              (click)="deleteConfirmed(element)"
+              data-toggle="tooltip"
+              data-placement="top"
+              title="Confirmar eliminación"
+            ></i>
+            <i
+              class="fas fa-times fatimesCustom"
+              (click)="
+                element.confirmDelete = false; toggleConfirmDelete(element)
+              "
+              data-toggle="tooltip"
+              data-placement="top"
+              title="Cancelar eliminación"
+            ></i>
+          </ng-template>
+        </div>
+      </td>
+    </ng-container>
+  </table>
+  <mat-paginator
+    #paginator
+    [pageSizeOptions]="[10, 25, 50]"
+    showFirstLastButtons
+  >
+    [intl]="customPaginatorIntl"
+  </mat-paginator>
+</div>

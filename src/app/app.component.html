@@ -1,0 +1,18 @@
+<div class="container-fluid g-0">
+  <app-header (sideNavToggled)="sideNavStatus = $event;"></app-header>
+  <main>
+    <app-sidenav *ngIf="sideNavDisplay" [sideNavStatus]="sideNavStatus" [ngClass]="{'app-sidenav-open': sideNavStatus}">
+    </app-sidenav>
+
+    <div class="display-area p-3" [ngClass]="{'display-area-shrink': sideNavStatus}">
+      <!-- <h3>{{ title }}</h3> -->
+
+      <!-- div para las alertas -->
+      <div [class]="typeAlert" *ngIf="showAlert" role="alert">
+        {{ message }}
+      </div>
+
+      <router-outlet></router-outlet>
+    </div>
+  </main>
+</div>
